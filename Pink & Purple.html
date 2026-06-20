@@ -1,0 +1,1416 @@
+<!DOCTYPE html>
+<html lang="en" class="scroll-smooth">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>ADUT STORE | Premium Pink & Purple Luxury Boutique</title>
+    <!-- Tailwind CSS -->
+    <script src="https://cdn.tailwindcss.com"></script>
+    <!-- Google Fonts: Cinzel & Playfair for Serifs, Montserrat for clean premium body copy -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link
+        href="https://fonts.googleapis.com/css2?family=Cinzel:wght@400;500;600;700;800&family=Montserrat:wght@200;300;400;500;600;700&family=Playfair+Display:ital,wght@0,400;0,600;0,700;1,400&display=swap"
+        rel="stylesheet">
+    <!-- Font Awesome Icons -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+
+    <script>
+        tailwind.config = {
+            theme: {
+                extend: {
+                    colors: {
+                        luxePink: {
+                            50: '#FFF1F2',
+                            100: '#FFE4E6',
+                            200: '#FECDD3',
+                            300: '#FDA4AF',
+                            400: '#FB7185',
+                            500: '#EC4899', // True Orchid Luxury Pink
+                            600: '#DB2777',
+                            700: '#BE185D',
+                            800: '#9D174D',
+                            900: '#4C0519',
+                        },
+                        velvet: {
+                            50: '#3B1D54',
+                            100: '#2C1240',
+                            200: '#1E082E',
+                            300: '#150421',
+                            400: '#0B0112', // Ultra Deep Royal Purple (replacing pure black)
+                            500: '#05000A',
+                        }
+                    },
+                    fontFamily: {
+                        serif: ['Playfair Display', 'serif'],
+                        cinzel: ['Cinzel', 'serif'],
+                        sans: ['Montserrat', 'sans-serif'],
+                    }
+                }
+            }
+        }
+    </script>
+    <style>
+        /* Premium custom scrollbar matching Tata CliQ Luxury vibe with Pink/Purple Theme */
+        ::-webkit-scrollbar {
+            width: 6px;
+        }
+
+        ::-webkit-scrollbar-track {
+            background: #0B0112;
+        }
+
+        ::-webkit-scrollbar-thumb {
+            background: #EC4899;
+            border-radius: 3px;
+        }
+
+        /* Custom elite transition properties */
+        .luxury-transition {
+            transition: all 0.6s cubic-bezier(0.16, 1, 0.3, 1);
+        }
+
+        .luxury-scale-hover:hover img {
+            transform: scale(1.08);
+        }
+
+        .luxury-card-shadow {
+            box-shadow: 0 4px 20px rgba(0, 0, 0, 0.8);
+        }
+
+        .luxury-card-shadow:hover {
+            box-shadow: 0 12px 30px rgba(236, 72, 153, 0.15);
+        }
+
+        /* Premium luxury glowing textures in Pink */
+        .pink-border-glow {
+            box-shadow: 0 0 15px rgba(236, 72, 153, 0.1);
+        }
+
+        .pink-border-glow:hover {
+            box-shadow: 0 0 25px rgba(236, 72, 153, 0.3);
+            border-color: rgba(236, 72, 153, 0.8);
+        }
+
+        .text-glow-pink {
+            text-shadow: 0 0 8px rgba(236, 72, 153, 0.4);
+        }
+    </style>
+</head>
+
+<body
+    class="bg-velvet-400 text-gray-200 font-sans selection:bg-luxePink-500 selection:text-velvet-400 overflow-x-hidden">
+
+    <div
+        class="bg-velvet-500 border-b border-luxePink-500/10 text-[10px] uppercase tracking-[0.25em] text-luxePink-500 py-3 text-center px-4 flex justify-between items-center sm:px-8">
+        <span class="hidden lg:inline"><i class="fa-solid fa-gem mr-2 animate-pulse"></i> Authentic Certified Luxury
+            Goods Only</span>
+        <span class="mx-auto lg:mx-0 font-medium">Complimentary Armored Carrier Shipping On All Orders</span>
+        <div class="hidden lg:flex items-center gap-6 text-gray-400">
+            <a href="#concierge" class="hover:text-luxePink-500 transition-colors duration-300">Request VIP Lounge
+                Access</a>
+            <span class="text-luxePink-500/30">|</span>
+            <span class="text-white">Store Locator</span>
+        </div>
+    </div>
+
+    <header
+        class="sticky top-0 z-50 bg-velvet-400/95 backdrop-blur-xl border-b border-luxePink-500/15 transition-all duration-300">
+        <!-- Main Navigation Bar Upper Deck -->
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 h-24 flex items-center justify-between">
+
+            <!-- Left Side Search Trigger Drawer -->
+            <div class="hidden md:flex items-center w-1/4">
+                <div class="relative w-full max-w-xs group">
+                    <input type="text" id="headerSearch" onkeyup="searchProducts()"
+                        placeholder="Search Luxury Brands..."
+                        class="w-full bg-velvet-300/60 border border-luxePink-500/20 rounded-full py-2.5 pl-10 pr-4 text-xs text-white placeholder-gray-500 focus:outline-none focus:border-luxePink-500 focus:ring-1 focus:ring-luxePink-500 transition-all duration-300">
+                    <i
+                        class="fa-solid fa-magnifying-glass absolute left-3.5 top-3 text-luxePink-500/60 group-hover:text-luxePink-500 transition-colors duration-300 text-xs"></i>
+                </div>
+            </div>
+
+            <!-- Central Brand Identity (Logo in Pink & Purple theme) -->
+            <div class="flex flex-col items-center justify-center cursor-pointer group" onclick="scrollToTop()">
+                <span
+                    class="font-cinzel text-2xl sm:text-3xl tracking-[0.2em] text-white font-semibold transition duration-500 group-hover:text-luxePink-400">
+                    ADUT STORE
+                </span>
+                <span class="text-[9px] tracking-[0.45em] text-luxePink-500 font-medium uppercase mt-1 text-glow-pink">
+                    EXCLUSIVE VELVET & PINK ATELIER
+                </span>
+            </div>
+
+            <!-- Right-Side Utilities -->
+            <div class="flex items-center justify-end gap-6 w-1/4">
+                <!-- User Profile Access -->
+                <button onclick="showCustomToast('Welcome back, Preferred VIP Patron.', 'info')"
+                    class="text-gray-400 hover:text-luxePink-500 transition duration-300 hidden sm:block">
+                    <i class="fa-regular fa-user text-lg"></i>
+                </button>
+                <!-- Wishlist Icon -->
+                <div onclick="showCustomToast('Luxury Wishlist Updated', 'info')"
+                    class="relative cursor-pointer group text-gray-400 hover:text-luxePink-500 transition duration-300">
+                    <i class="fa-regular fa-heart text-lg sm:text-xl"></i>
+                    <span
+                        class="absolute -top-1.5 -right-2 bg-luxePink-500 text-velvet-400 text-[9px] font-bold rounded-full w-4 h-4 flex items-center justify-center shadow-lg">4</span>
+                </div>
+                <!-- Premium Shopping Cart Icon -->
+                <div onclick="toggleCartDrawer()"
+                    class="relative cursor-pointer group text-luxePink-500 hover:text-white transition duration-300">
+                    <i class="fa-solid fa-bag-shopping text-xl sm:text-2xl"></i>
+                    <span
+                        class="absolute -top-1 -right-2 bg-white text-velvet-400 text-[9px] font-extrabold rounded-full w-5 h-5 flex items-center justify-center shadow-md animate-bounce"
+                        id="cart-count">0</span>
+                </div>
+                <!-- Mobile Menu Trigger -->
+                <button onclick="toggleMobileMenu()"
+                    class="text-luxePink-500 hover:text-white md:hidden text-xl focus:outline-none ml-2">
+                    <i class="fa-solid fa-bars-staggered"></i>
+                </button>
+            </div>
+        </div>
+
+        <!-- Lower Deck Category Menu Options -->
+        <div class="hidden md:block bg-velvet-500 border-t border-luxePink-500/5 py-3">
+            <nav
+                class="max-w-5xl mx-auto flex items-center justify-center gap-10 text-[11px] uppercase tracking-[0.25em] font-medium">
+                <a href="#hero" class="text-luxePink-400 hover:text-white transition duration-300">HOME</a>
+                <a href="#collections" class="text-gray-400 hover:text-luxePink-500 transition duration-300">THE
+                    EDIT</a>
+                <a href="#brand-showcase" class="text-gray-400 hover:text-luxePink-500 transition duration-300">LUXURY
+                    MAISONS</a>
+                <a href="#new-arrivals" class="text-gray-400 hover:text-luxePink-500 transition duration-300">NEW
+                    ARRIVALS</a>
+                <a href="#new-arrivals" onclick="filterCategory('Watches')"
+                    class="text-gray-400 hover:text-luxePink-500 transition duration-300">WATCHES</a>
+                <a href="#new-arrivals" onclick="filterCategory('Jewelry')"
+                    class="text-gray-400 hover:text-luxePink-500 transition duration-300">FINE JEWELRY</a>
+                <a href="#concierge" class="text-gray-300 hover:text-luxePink-500 transition duration-300"><i
+                        class="fa-solid fa-key mr-1.5 text-luxePink-500"></i> VIP CONCIERGE</a>
+            </nav>
+        </div>
+    </header>
+
+    <div id="mobile-menu"
+        class="fixed inset-y-0 left-0 z-50 w-72 bg-velvet-300/98 backdrop-blur-xl transform -translate-x-full transition-transform duration-500 ease-out border-r border-luxePink-500/10 flex flex-col justify-between p-8">
+        <div>
+            <div class="flex justify-between items-center mb-12">
+                <span class="font-cinzel text-xl tracking-widest text-white">ADUT STORE</span>
+                <button onclick="toggleMobileMenu()" class="text-luxePink-500 hover:text-white text-xl">
+                    <i class="fa-solid fa-times"></i>
+                </button>
+            </div>
+            <!-- Search Inside Mobile Menu -->
+            <div class="relative w-full mb-8">
+                <input type="text" id="mobileSearch" onkeyup="searchProductsMobile()"
+                    placeholder="Search luxury products..."
+                    class="w-full bg-velvet-200 border border-luxePink-500/20 rounded-lg py-2.5 pl-10 pr-4 text-xs text-white placeholder-gray-400 focus:outline-none focus:border-luxePink-500">
+                <i class="fa-solid fa-magnifying-glass absolute left-3.5 top-3.5 text-luxePink-500 text-xs"></i>
+            </div>
+            <nav class="flex flex-col gap-6 text-[12px] uppercase tracking-[0.2em]">
+                <a href="#hero" onclick="toggleMobileMenu()" class="text-luxePink-500 font-semibold">Home</a>
+                <a href="#collections" onclick="toggleMobileMenu()" class="text-gray-300 hover:text-luxePink-500">The
+                    Luxury Edit</a>
+                <a href="#brand-showcase" onclick="toggleMobileMenu()"
+                    class="text-gray-300 hover:text-luxePink-500">Luxury Maisons</a>
+                <a href="#new-arrivals" onclick="toggleMobileMenu()" class="text-gray-300 hover:text-luxePink-500">New
+                    Collections</a>
+                <a href="#concierge" onclick="toggleMobileMenu()" class="text-gray-300 hover:text-luxePink-500">VIP
+                    Concierge Portal</a>
+            </nav>
+        </div>
+        <div class="border-t border-luxePink-500/10 pt-8">
+            <p class="text-[9px] text-gray-500 tracking-widest mb-2">PREFERRED MEMBER CARE</p>
+            <p class="text-[12px] text-luxePink-500 font-serif">patron@maisonvelours.com</p>
+        </div>
+    </div>
+
+    <section id="hero" class="relative h-[85vh] sm:h-[90vh] bg-velvet-500 overflow-hidden flex items-center">
+        <!-- Dramatic Dark Overlays for Purple Velvet Elegance -->
+        <div class="absolute inset-0 bg-gradient-to-r from-velvet-400 via-velvet-400/75 to-transparent z-10"></div>
+        <div class="absolute bottom-0 left-0 w-full h-36 bg-gradient-to-t from-velvet-400 to-transparent z-10"></div>
+
+        <!-- Hero Slides Content Overlay Container -->
+        <div class="relative max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 w-full z-20">
+            <div id="hero-slider" class="relative">
+                <!-- Slide 1 Content -->
+                <div class="slide-item transition-all duration-1000 transform opacity-100 translate-x-0">
+                    <span
+                        class="text-luxePink-500 text-xs sm:text-sm uppercase tracking-[0.35em] font-semibold block mb-4 text-glow-pink">
+                        CURATED COUTURE & PRIVATE ACCESS
+                    </span>
+                    <h1 class="text-4xl sm:text-6xl lg:text-7xl font-cinzel font-bold text-white leading-[1.15] mb-6">
+                        The Sovereignty <br>
+                        Of <span
+                            class="text-gradient bg-gradient-to-r from-luxePink-500 via-fuchsia-400 to-purple-400 text-transparent bg-clip-text">Velvet
+                            & Rose</span>
+                    </h1>
+                    <p class="text-gray-300 text-sm sm:text-base max-w-xl mb-10 leading-relaxed font-light">
+                        Step inside the world's most luxurious catalog of limited horology, fine gems, and masterfully
+                        tailored leather pieces designed exclusively in deep shades of velvet purple and solid pink.
+                    </p>
+                    <div class="flex flex-col sm:flex-row gap-5">
+                        <a href="#new-arrivals"
+                            class="bg-gradient-to-r from-luxePink-600 to-luxePink-400 hover:from-luxePink-500 hover:to-luxePink-300 text-velvet-400 font-bold uppercase tracking-widest text-[11px] px-9 py-4.5 rounded-full transition-all duration-300 transform hover:scale-105 shadow-xl shadow-luxePink-500/10 text-center">
+                            Acquire Current Drops
+                        </a>
+                        <a href="#collections"
+                            class="border border-luxePink-500/35 hover:border-luxePink-500 hover:bg-luxePink-500/10 text-luxePink-500 font-semibold uppercase tracking-widest text-[11px] px-9 py-4.5 rounded-full transition-all duration-300 text-center">
+                            Explore The Edits
+                        </a>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Slider Dynamic Backgrounds (Stunning high-contrast editorial photography with pink filter tint) -->
+        <div class="absolute inset-0 w-full h-full">
+            <img id="hero-bg"
+                src="https://images.unsplash.com/photo-1524805444758-089113d48a6d?auto=format&fit=crop&w=1800&q=80"
+                class="w-full h-full object-cover object-center opacity-25 transition-all duration-1000 scale-105 filter contrast-125 brightness-75 hue-rotate-[290deg]"
+                alt="Luxury timepiece backdrop">
+        </div>
+
+        <!-- Carousel Indicators & Navigation -->
+        <div class="absolute bottom-12 right-6 sm:right-16 z-20 flex items-center gap-6">
+            <button onclick="prevHeroSlide()"
+                class="text-luxePink-500 hover:text-white transition-all text-sm border border-luxePink-500/20 hover:border-luxePink-500 p-3.5 rounded-full bg-velvet-400/60">
+                <i class="fa-solid fa-chevron-left"></i>
+            </button>
+            <div class="flex gap-2.5">
+                <span id="dot-0" class="w-8 h-1.5 rounded bg-luxePink-500 transition-all duration-300 cursor-pointer"
+                    onclick="goToHeroSlide(0)"></span>
+                <span id="dot-1" class="w-3 h-1.5 rounded bg-luxePink-900 transition-all duration-300 cursor-pointer"
+                    onclick="goToHeroSlide(1)"></span>
+                <span id="dot-2" class="w-3 h-1.5 rounded bg-luxePink-900 transition-all duration-300 cursor-pointer"
+                    onclick="goToHeroSlide(2)"></span>
+            </div>
+            <button onclick="nextHeroSlide()"
+                class="text-luxePink-500 hover:text-white transition-all text-sm border border-luxePink-500/20 hover:border-luxePink-500 p-3.5 rounded-full bg-velvet-400/60">
+                <i class="fa-solid fa-chevron-right"></i>
+            </button>
+        </div>
+    </section>
+
+    <section id="collections"
+        class="py-20 bg-gradient-to-b from-velvet-400 to-velvet-300 border-t border-b border-luxePink-500/10">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+            <div class="text-center mb-16">
+                <span class="text-[10px] text-luxePink-500 tracking-[0.4em] uppercase block mb-3 text-glow-pink">WORLD
+                    CLASS COLLECTION DIRECTORY</span>
+                <h2 class="text-3xl sm:text-4xl font-cinzel text-white tracking-[0.1em] uppercase font-bold">Shop by
+                    Royal Category</h2>
+                <div class="h-[1px] w-28 bg-luxePink-500/30 mx-auto mt-4"></div>
+            </div>
+
+            <!-- Categories Bubble Grid -->
+            <div class="grid grid-cols-2 md:grid-cols-4 lg:grid-cols-5 gap-8 justify-center items-center">
+                <!-- Category 1: Horology -->
+                <div onclick="filterCategory('Watches')" class="flex flex-col items-center group cursor-pointer">
+                    <div
+                        class="relative w-36 h-36 rounded-full overflow-hidden border border-luxePink-500/20 group-hover:border-luxePink-500 p-1.5 transition-all duration-500 bg-velvet-200 pink-border-glow">
+                        <img src="https://images.unsplash.com/photo-1547996160-81dfa63595aa?auto=format&fit=crop&w=350&q=80"
+                            class="w-full h-full object-cover rounded-full filter grayscale contrast-125 brightness-90 group-hover:grayscale-0 transition duration-500 hue-rotate-[280deg]"
+                            alt="Luxury Watches">
+                        <div
+                            class="absolute inset-0 bg-luxePink-500/5 group-hover:bg-transparent transition duration-500">
+                        </div>
+                    </div>
+                    <span
+                        class="text-xs uppercase tracking-[0.2em] font-semibold text-gray-300 group-hover:text-luxePink-500 mt-4 transition duration-300">FINE
+                        HOROLOGY</span>
+                    <span class="text-[9px] text-luxePink-500/70 tracking-widest mt-0.5">CHRONOGRAPHS</span>
+                </div>
+
+                <!-- Category 2: Fine Jewelry -->
+                <div onclick="filterCategory('Jewelry')" class="flex flex-col items-center group cursor-pointer">
+                    <div
+                        class="relative w-36 h-36 rounded-full overflow-hidden border border-luxePink-500/20 group-hover:border-luxePink-500 p-1.5 transition-all duration-500 bg-velvet-200 pink-border-glow">
+                        <img src="https://images.unsplash.com/photo-1599643478518-a784e5dc4c8f?auto=format&fit=crop&w=350&q=80"
+                            class="w-full h-full object-cover rounded-full filter grayscale contrast-125 brightness-90 group-hover:grayscale-0 transition duration-500 hue-rotate-[280deg]"
+                            alt="Fine Jewelry">
+                        <div
+                            class="absolute inset-0 bg-luxePink-500/5 group-hover:bg-transparent transition duration-500">
+                        </div>
+                    </div>
+                    <span
+                        class="text-xs uppercase tracking-[0.2em] font-semibold text-gray-300 group-hover:text-luxePink-500 mt-4 transition duration-300">ROYAL
+                        JEWELRY</span>
+                    <span class="text-[9px] text-luxePink-500/70 tracking-widest mt-0.5">VVS GOLD & DIAMONDS</span>
+                </div>
+
+                <!-- Category 3: Signature Bags -->
+                <div onclick="filterCategory('Leather Goods')" class="flex flex-col items-center group cursor-pointer">
+                    <div
+                        class="relative w-36 h-36 rounded-full overflow-hidden border border-luxePink-500/20 group-hover:border-luxePink-500 p-1.5 transition-all duration-500 bg-velvet-200 pink-border-glow">
+                        <img src="https://images.unsplash.com/photo-1584917865442-de89df76afd3?auto=format&fit=crop&w=350&q=80"
+                            class="w-full h-full object-cover rounded-full filter grayscale contrast-125 brightness-90 group-hover:grayscale-0 transition duration-500 hue-rotate-[280deg]"
+                            alt="Bags">
+                        <div
+                            class="absolute inset-0 bg-luxePink-500/5 group-hover:bg-transparent transition duration-500">
+                        </div>
+                    </div>
+                    <span
+                        class="text-xs uppercase tracking-[0.2em] font-semibold text-gray-300 group-hover:text-luxePink-500 mt-4 transition duration-300">LEATHER
+                        ATELIER</span>
+                    <span class="text-[9px] text-luxePink-500/70 tracking-widest mt-0.5">COUTURE CARRYALLS</span>
+                </div>
+
+                <!-- Category 4: Fragrance -->
+                <div onclick="filterCategory('Fragrances')" class="flex flex-col items-center group cursor-pointer">
+                    <div
+                        class="relative w-36 h-36 rounded-full overflow-hidden border border-luxePink-500/20 group-hover:border-luxePink-500 p-1.5 transition-all duration-500 bg-velvet-200 pink-border-glow">
+                        <img src="https://images.unsplash.com/photo-1541643600914-78b084683601?auto=format&fit=crop&w=350&q=80"
+                            class="w-full h-full object-cover rounded-full filter grayscale contrast-125 brightness-90 group-hover:grayscale-0 transition duration-500 hue-rotate-[280deg]"
+                            alt="Fragrances">
+                        <div
+                            class="absolute inset-0 bg-luxePink-500/5 group-hover:bg-transparent transition duration-500">
+                        </div>
+                    </div>
+                    <span
+                        class="text-xs uppercase tracking-[0.2em] font-semibold text-gray-300 group-hover:text-luxePink-500 mt-4 transition duration-300">PARFUM
+                        HOUSE</span>
+                    <span class="text-[9px] text-luxePink-500/70 tracking-widest mt-0.5">ELIXIRS DE PARFUM</span>
+                </div>
+
+                <!-- Category 5: Elite Apparel -->
+                <div onclick="filterCategory('Apparel')"
+                    class="flex flex-col items-center group cursor-pointer col-span-2 lg:col-span-1">
+                    <div
+                        class="relative w-36 h-36 rounded-full overflow-hidden border border-luxePink-500/20 group-hover:border-luxePink-500 p-1.5 transition-all duration-500 bg-velvet-200 pink-border-glow mx-auto">
+                        <img src="https://images.unsplash.com/photo-1483985988355-763728e1935b?auto=format&fit=crop&w=350&q=80"
+                            class="w-full h-full object-cover rounded-full filter grayscale contrast-125 brightness-90 group-hover:grayscale-0 transition duration-500 hue-rotate-[280deg]"
+                            alt="Apparel">
+                        <div
+                            class="absolute inset-0 bg-luxePink-500/5 group-hover:bg-transparent transition duration-500">
+                        </div>
+                    </div>
+                    <span
+                        class="text-xs uppercase tracking-[0.2em] font-semibold text-gray-300 group-hover:text-luxePink-500 mt-4 transition duration-300 text-center block">PRESTIGE
+                        COUTURE</span>
+                    <span class="text-[9px] text-luxePink-500/70 tracking-widest text-center block mt-0.5">LIMITED
+                        APPAREL</span>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <section class="py-20 bg-velvet-400 border-b border-luxePink-500/10">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+            <div class="text-center mb-16">
+                <span class="text-luxePink-500 text-xs tracking-[0.3em] uppercase block mb-2">CURATED TRENDS</span>
+                <h3 class="text-2xl sm:text-3xl font-cinzel text-white font-bold">THE ATELIER EDIT</h3>
+                <p class="text-xs text-gray-400 mt-2 font-light">Deep Dive into Exclusive Velvet Purple & Orchid Pink
+                    Color Combinations</p>
+            </div>
+
+            <div class="grid grid-cols-1 md:grid-cols-2 gap-10">
+                <!-- Split Editorial Left Column (Handbag Accent) -->
+                <div
+                    class="relative group overflow-hidden rounded-2xl border border-luxePink-500/10 p-3 bg-velvet-300 luxury-transition hover:border-luxePink-500/30">
+                    <div class="relative overflow-hidden h-[420px] rounded-xl">
+                        <img src="https://images.unsplash.com/photo-1548036328-c9fa89d128fa?auto=format&fit=crop&w=900&q=80"
+                            alt="The Velvet Bag"
+                            class="w-full h-full object-cover filter contrast-110 brightness-95 luxury-transition group-hover:scale-105 hue-rotate-[280deg]">
+                        <div
+                            class="absolute inset-0 bg-gradient-to-t from-velvet-500 via-transparent to-transparent opacity-95">
+                        </div>
+
+                        <!-- Info Overlay -->
+                        <div class="absolute bottom-6 left-6 right-6">
+                            <span class="text-luxePink-500 text-[10px] tracking-[0.3em] uppercase block mb-1">DESIGNERS
+                                CHOICE</span>
+                            <h4 class="font-cinzel text-white text-xl font-bold mb-2">Matte Midnight Leather</h4>
+                            <p class="text-xs text-gray-300 font-light mb-4">Gilded with custom pink-gold polished
+                                elements for a premium everyday presence.</p>
+                            <a href="#new-arrivals" onclick="filterCategory('Leather Goods')"
+                                class="inline-block text-[10px] text-luxePink-500 uppercase tracking-widest font-bold border-b border-luxePink-500 hover:text-white hover:border-white pb-1 transition duration-300">View
+                                Selected Masterpieces</a>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Split Editorial Right Column (Timeless Pink Watch Detail) -->
+                <div
+                    class="relative group overflow-hidden rounded-2xl border border-luxePink-500/10 p-3 bg-velvet-300 luxury-transition hover:border-luxePink-500/30">
+                    <div class="relative overflow-hidden h-[420px] rounded-xl">
+                        <img src="https://images.unsplash.com/photo-1522312346375-d1a52e2b99b3?auto=format&fit=crop&w=900&q=80"
+                            alt="Exclusive Watch"
+                            class="w-full h-full object-cover filter contrast-115 brightness-90 luxury-transition group-hover:scale-105 hue-rotate-[280deg]">
+                        <div
+                            class="absolute inset-0 bg-gradient-to-t from-velvet-500 via-transparent to-transparent opacity-95">
+                        </div>
+
+                        <!-- Info Overlay -->
+                        <div class="absolute bottom-6 left-6 right-6">
+                            <span class="text-luxePink-500 text-[10px] tracking-[0.3em] uppercase block mb-1">TIMELESS
+                                CHRONOS</span>
+                            <h4 class="font-cinzel text-white text-xl font-bold mb-2">Sovereign Orchid Dials</h4>
+                            <p class="text-xs text-gray-300 font-light mb-4">Meticulously engineered swiss calibers
+                                nested inside polished rose pink-gold bezels.</p>
+                            <a href="#new-arrivals" onclick="filterCategory('Watches')"
+                                class="inline-block text-[10px] text-luxePink-500 uppercase tracking-widest font-bold border-b border-luxePink-500 hover:text-white hover:border-white pb-1 transition duration-300">View
+                                Private Catalogues</a>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <section id="brand-showcase" class="py-16 bg-velvet-500/90 border-b border-luxePink-500/10">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+            <p class="text-center text-[10px] text-luxePink-500 tracking-[0.35em] uppercase mb-10">CURATED PARTNERS &
+                HOUSES</p>
+            <div
+                class="grid grid-cols-2 md:grid-cols-4 lg:grid-cols-6 gap-6 sm:gap-10 items-center justify-items-center opacity-70">
+                <span
+                    class="font-cinzel font-bold text-base sm:text-lg tracking-widest text-white hover:text-luxePink-400 cursor-pointer transition">HERMÈS
+                    NOIR</span>
+                <span
+                    class="font-cinzel font-bold text-base sm:text-lg tracking-widest text-white hover:text-luxePink-400 cursor-pointer transition">ROLEX
+                    ROSE</span>
+                <span
+                    class="font-cinzel font-bold text-base sm:text-lg tracking-widest text-white hover:text-luxePink-400 cursor-pointer transition">CHANEL
+                    D'OR</span>
+                <span
+                    class="font-cinzel font-bold text-base sm:text-lg tracking-widest text-white hover:text-luxePink-400 cursor-pointer transition">CARTIER
+                    PRIVÉ</span>
+                <span
+                    class="font-cinzel font-bold text-base sm:text-lg tracking-widest text-white hover:text-luxePink-400 cursor-pointer transition">VERSACE
+                    COUTURE</span>
+                <span
+                    class="font-cinzel font-bold text-base sm:text-lg tracking-widest text-white hover:text-luxePink-400 cursor-pointer transition">AUDEMARS
+                    LUXE</span>
+            </div>
+        </div>
+    </section>
+
+    <section id="new-arrivals" class="py-24 bg-velvet-400">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+
+            <!-- Filter Header Vibe -->
+            <div class="flex flex-col xl:flex-row xl:items-end justify-between mb-16 gap-6">
+                <div>
+                    <span
+                        class="text-luxePink-500 text-xs uppercase tracking-[0.35em] block mb-2 text-glow-pink">ACQUIRE
+                        OUR MASTERPIECES</span>
+                    <h2 class="text-3xl sm:text-4xl font-cinzel text-white font-extrabold tracking-wide">Elite New
+                        Collections</h2>
+                </div>
+
+                <!-- Dynamic Category Filters (With active states) -->
+                <div class="flex flex-wrap gap-3 text-[10px] uppercase tracking-[0.25em]">
+                    <button onclick="filterCategory('All')" id="btn-all"
+                        class="px-6 py-3 rounded-full border border-luxePink-500 text-velvet-400 bg-luxePink-400 font-extrabold transition duration-300 shadow-lg shadow-luxePink-500/10">
+                        ALL PIECES
+                    </button>
+                    <button onclick="filterCategory('Watches')" id="btn-watches"
+                        class="px-6 py-3 rounded-full border border-luxePink-500/20 text-luxePink-500 hover:border-luxePink-500 hover:bg-luxePink-500/10 transition duration-300 font-semibold">
+                        WATCHES
+                    </button>
+                    <button onclick="filterCategory('Jewelry')" id="btn-jewelry"
+                        class="px-6 py-3 rounded-full border border-luxePink-500/20 text-luxePink-500 hover:border-luxePink-500 hover:bg-luxePink-500/10 transition duration-300 font-semibold">
+                        JEWELRY
+                    </button>
+                    <button onclick="filterCategory('Leather Goods')" id="btn-leather"
+                        class="px-6 py-3 rounded-full border border-luxePink-500/20 text-luxePink-500 hover:border-luxePink-500 hover:bg-luxePink-500/10 transition duration-300 font-semibold">
+                        COUTURE BAGS
+                    </button>
+                    <button onclick="filterCategory('Fragrances')" id="btn-fragrances"
+                        class="px-6 py-3 rounded-full border border-luxePink-500/20 text-luxePink-500 hover:border-luxePink-500 hover:bg-luxePink-500/10 transition duration-300 font-semibold">
+                        FRAGRANCES
+                    </button>
+                    <button onclick="filterCategory('Apparel')" id="btn-apparel"
+                        class="px-6 py-3 rounded-full border border-luxePink-500/20 text-luxePink-500 hover:border-luxePink-500 hover:bg-luxePink-500/10 transition duration-300 font-semibold">
+                        APPAREL
+                    </button>
+                </div>
+            </div>
+
+            <!-- Dynamic Grid Output (Populated by premium script execution with prices & discounts clearly written) -->
+            <div id="product-grid" class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-8">
+                <!-- Programmatically rendered elegant cards with shimmer elements -->
+            </div>
+        </div>
+    </section>
+
+    <section
+        class="py-24 bg-gradient-to-r from-velvet-500 to-velvet-300 relative overflow-hidden border-t border-b border-luxePink-500/20">
+        <div
+            class="absolute -left-16 top-1/2 -translate-y-1/2 w-80 h-80 rounded-full bg-luxePink-500/5 filter blur-3xl pointer-events-none">
+        </div>
+
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 relative z-10">
+            <div class="grid grid-cols-1 lg:grid-cols-12 gap-16 items-center">
+                <!-- Visual Showcase (VVS Diamond Polish representation) -->
+                <div class="lg:col-span-6 relative group">
+                    <div
+                        class="relative overflow-hidden rounded-2xl border border-luxePink-500/25 p-2 bg-velvet-300/40">
+                        <img src="https://images.unsplash.com/photo-1515562141207-7a88fb7ce338?auto=format&fit=crop&w=1000&q=80"
+                            alt="Luxury Jewelry Craft"
+                            class="rounded-xl w-full h-[32rem] object-cover filter grayscale contrast-110 group-hover:grayscale-0 transition-all duration-1000 ease-in-out hue-rotate-[290deg]">
+                        <div
+                            class="absolute inset-0 bg-gradient-to-t from-velvet-400 via-transparent to-transparent opacity-85">
+                        </div>
+                    </div>
+                    <!-- Hover Info Card -->
+                    <div
+                        class="absolute bottom-6 right-6 left-6 sm:left-auto bg-velvet-400/90 backdrop-blur-md border border-luxePink-500/30 p-6 rounded-xl max-w-sm">
+                        <span class="text-luxePink-500 text-[9px] tracking-[0.3em] uppercase block mb-1">CERTIFIED
+                            HERITAGE</span>
+                        <h4 class="font-cinzel text-white text-lg font-bold mb-2">Unparalleled Rose Polish</h4>
+                        <p class="text-xs text-gray-300 font-light leading-relaxed">Each diamond, stone and metallic
+                            alloy undergoes rigorous multi-generational inspections before setting.</p>
+                    </div>
+                </div>
+
+                <!-- Descriptive Content Copy -->
+                <div class="lg:col-span-6 flex flex-col justify-center">
+                    <span
+                        class="text-luxePink-500 text-xs uppercase tracking-[0.35em] font-semibold mb-4 block text-glow-pink">THE
+                        ROYAL MANDATE</span>
+                    <h3 class="text-3xl sm:text-5xl font-cinzel text-white font-bold leading-[1.2] mb-6">
+                        Exclusivity is <br>
+                        Not Optional. <br>It Is <span
+                            class="text-gradient bg-gradient-to-r from-luxePink-500 via-fuchsia-400 to-pink-300 text-transparent bg-clip-text">Everything.</span>
+                    </h3>
+                    <p class="text-gray-300 text-sm sm:text-base leading-relaxed font-light mb-10">
+                        At Adut Store, our vision is absolute alignment with luxury heritage. This curated
+                        collection combines precious gems, Swiss-certified dials, and genuine Italian leather under one
+                        strict color mandate: Pure Midnight Purple & Imperial Pink.
+                    </p>
+
+                    <div class="grid grid-cols-1 sm:grid-cols-2 gap-6 pt-4 border-t border-luxePink-500/10">
+                        <div class="flex items-start gap-4">
+                            <div
+                                class="w-12 h-12 rounded-full border border-luxePink-500/20 flex items-center justify-center text-luxePink-500 shrink-0">
+                                <i class="fa-solid fa-shield-halved"></i>
+                            </div>
+                            <div>
+                                <h5 class="text-xs font-bold text-white uppercase tracking-wider mb-1">Lifetime Warranty
+                                </h5>
+                                <p class="text-[11px] text-gray-400 font-light">Every item carries fully authenticated
+                                    serial codes and lifetime gold restoration.</p>
+                            </div>
+                        </div>
+                        <div class="flex items-start gap-4">
+                            <div
+                                class="w-12 h-12 rounded-full border border-luxePink-500/20 flex items-center justify-center text-luxePink-500 shrink-0">
+                                <i class="fa-solid fa-user-tie"></i>
+                            </div>
+                            <div>
+                                <h5 class="text-xs font-bold text-white uppercase tracking-wider mb-1">Armored Concierge
+                                </h5>
+                                <p class="text-[11px] text-gray-400 font-light">Each shipment travels securely using
+                                    elite armored carriers with armed security escorts.</p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <section id="concierge" class="py-24 bg-velvet-300 relative border-b border-luxePink-500/10">
+        <div class="max-w-4xl mx-auto px-4 sm:px-6">
+            <div class="text-center mb-16">
+                <span class="text-luxePink-500 text-xs tracking-[0.4em] block mb-3 text-glow-pink">PRIVATE CLIENT
+                    SERVICES</span>
+                <h2 class="text-3xl sm:text-4xl font-cinzel font-bold text-white tracking-widest uppercase">Request VIP
+                    Consultation</h2>
+                <div class="h-[1px] w-24 bg-luxePink-500/30 mx-auto mt-4 mb-4"></div>
+                <p class="text-xs sm:text-sm text-gray-400 leading-relaxed max-w-lg mx-auto font-light">
+                    Commission custom chronographs, request private viewings, or communicate custom jewelry sizing
+                    directly with our atelier design leads.
+                </p>
+            </div>
+
+            <!-- Beautiful High-Contrast Dark Form Interface in Pink and Purple -->
+            <form id="conciergeForm" onsubmit="submitConciergeForm(event)"
+                class="bg-velvet-400/90 border border-luxePink-500/20 p-8 sm:p-12 rounded-3xl shadow-2xl relative overflow-hidden">
+                <div
+                    class="absolute top-0 left-0 w-full h-1 bg-gradient-to-r from-luxePink-700 via-luxePink-500 to-luxePink-300">
+                </div>
+
+                <div class="grid grid-cols-1 md:grid-cols-2 gap-8">
+                    <div>
+                        <label
+                            class="block text-[10px] uppercase tracking-widest text-luxePink-500 mb-3 font-semibold">Your
+                            Full Name *</label>
+                        <input type="text" id="c-name" required placeholder="e.g. Richard Harrington"
+                            class="w-full bg-velvet-300/80 border border-luxePink-500/20 rounded-xl py-3.5 px-5 text-white placeholder-gray-600 text-xs focus:outline-none focus:border-luxePink-500 transition duration-300">
+                    </div>
+                    <div>
+                        <label
+                            class="block text-[10px] uppercase tracking-widest text-luxePink-500 mb-3 font-semibold">VIP
+                            Email Address *</label>
+                        <input type="email" id="c-contact" required placeholder="e.g. r.harrington@private.com"
+                            class="w-full bg-velvet-300/80 border border-luxePink-500/20 rounded-xl py-3.5 px-5 text-white placeholder-gray-600 text-xs focus:outline-none focus:border-luxePink-500 transition duration-300">
+                    </div>
+                    <div class="md:col-span-2">
+                        <label
+                            class="block text-[10px] uppercase tracking-widest text-luxePink-500 mb-3 font-semibold">Selected
+                            Atelier Preference *</label>
+                        <select id="c-service"
+                            class="w-full bg-velvet-300/80 border border-luxePink-500/20 rounded-xl py-3.5 px-5 text-white text-xs focus:outline-none focus:border-luxePink-500 transition duration-300">
+                            <option value="bespoke-chronos">Bespoke Chronograph Commissions (Rolex/AP/Maison Editions)
+                            </option>
+                            <option value="royal-gems">Private Imperial Jewelry Fitting & Stone Settings</option>
+                            <option value="leather-craft">Custom Sized Leather Backpacks & Couture Goods</option>
+                            <option value="patron-membership">Maison Privé Club Exclusive VIP Membership Tier</option>
+                        </select>
+                    </div>
+                    <div class="md:col-span-2">
+                        <label
+                            class="block text-[10px] uppercase tracking-widest text-luxePink-500 mb-3 font-semibold">Exclusive
+                            Instructions or Special Sizing Details</label>
+                        <textarea id="c-msg" rows="5"
+                            placeholder="Specify gemstone details, metal variations, or private courier preferences..."
+                            class="w-full bg-velvet-300/80 border border-luxePink-500/20 rounded-xl py-3.5 px-5 text-white placeholder-gray-600 text-xs focus:outline-none focus:border-luxePink-500 transition duration-300"></textarea>
+                    </div>
+                </div>
+
+                <button type="submit"
+                    class="w-full mt-10 bg-gradient-to-r from-luxePink-600 to-luxePink-400 hover:from-luxePink-500 hover:to-luxePink-300 text-velvet-400 font-bold uppercase tracking-[0.2em] text-xs py-4.5 rounded-xl transition-all duration-500 shadow-xl shadow-luxePink-500/10 hover:shadow-luxePink-500/35 flex items-center justify-center gap-3">
+                    <i class="fa-solid fa-paper-plane"></i> Dispatch Premium Invitation Request
+                </button>
+            </form>
+
+            <!-- Success Box -->
+            <div id="form-success"
+                class="hidden mt-8 bg-luxePink-950/20 border border-luxePink-500 text-luxePink-500 p-8 rounded-2xl text-center">
+                <i class="fa-solid fa-circle-check text-3xl mb-4 block"></i>
+                <p class="font-cinzel font-bold text-lg uppercase tracking-widest">Invitation Request Submitted
+                    Privately</p>
+                <p class="text-xs text-gray-300 mt-2 font-light">A designated Luxury Portfolio Concierge will contact
+                    you securely within 2 hours.</p>
+            </div>
+        </div>
+    </section>
+
+    <footer class="bg-velvet-500 text-gray-400 pt-20 pb-8 border-t border-luxePink-500/20">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+            <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-12 mb-16">
+                <!-- Brand Index Profile -->
+                <div>
+                    <span class="font-cinzel text-xl tracking-widest text-white font-extrabold block mb-6">ADUT STORE</span>
+                    <p class="text-xs text-gray-400 leading-relaxed mb-6 font-light">
+                        Adut Store represents the global vanguard of pure midnight purple and orchid pink themed
+                        products. We partner with the world's finest ateliers to curate, authenticate, and transport
+                        certified assets directly to elite collectors.
+                    </p>
+                    <div class="flex gap-4">
+                        <a href="#"
+                            class="w-10 h-10 rounded-full border border-luxePink-500/20 flex items-center justify-center text-luxePink-500 hover:border-luxePink-500 hover:text-white transition duration-300"><i
+                                class="fa-brands fa-instagram"></i></a>
+                        <a href="#"
+                            class="w-10 h-10 rounded-full border border-luxePink-500/20 flex items-center justify-center text-luxePink-500 hover:border-luxePink-500 hover:text-white transition duration-300"><i
+                                class="fa-brands fa-facebook"></i></a>
+                        <a href="#"
+                            class="w-10 h-10 rounded-full border border-luxePink-500/20 flex items-center justify-center text-luxePink-500 hover:border-luxePink-500 hover:text-white transition duration-300"><i
+                                class="fa-brands fa-pinterest"></i></a>
+                        <a href="#"
+                            class="w-10 h-10 rounded-full border border-luxePink-500/20 flex items-center justify-center text-luxePink-500 hover:border-luxePink-500 hover:text-white transition duration-300"><i
+                                class="fa-brands fa-whatsapp"></i></a>
+                    </div>
+                </div>
+
+                <!-- Brand Directories -->
+                <div>
+                    <h4 class="text-xs uppercase tracking-[0.25em] text-white font-bold mb-6">THE LUXURY HOUSES</h4>
+                    <ul class="space-y-4 text-xs font-light">
+                        <li><a href="#new-arrivals" onclick="filterCategory('Watches')"
+                                class="hover:text-luxePink-500 transition duration-200">The Chronograph Elite
+                                Indices</a></li>
+                        <li><a href="#new-arrivals" onclick="filterCategory('Jewelry')"
+                                class="hover:text-luxePink-500 transition duration-200">Imperial VVS Rose Jewelry</a>
+                        </li>
+                        <li><a href="#new-arrivals" onclick="filterCategory('Leather Goods')"
+                                class="hover:text-luxePink-500 transition duration-200">Orchid Strap Leather
+                                Carryalls</a></li>
+                        <li><a href="#new-arrivals" onclick="filterCategory('Fragrances')"
+                                class="hover:text-luxePink-500 transition duration-200">Elixirs, Perfumes & Colognes</a>
+                        </li>
+                        <li><a href="#new-arrivals" onclick="filterCategory('Apparel')"
+                                class="hover:text-luxePink-500 transition duration-200">Exclusive Luxury Outerwear</a>
+                        </li>
+                    </ul>
+                </div>
+
+                <!-- VIP Services Directory -->
+                <div>
+                    <h4 class="text-xs uppercase tracking-[0.25em] text-white font-bold mb-6">VIP CLIENT PORTAL</h4>
+                    <ul class="space-y-4 text-xs font-light">
+                        <li><a href="#concierge" class="hover:text-luxePink-500 transition duration-200">Schedule
+                                Private Suite Experience</a></li>
+                        <li><a href="#" class="hover:text-luxePink-500 transition duration-200">Lifetime Certification &
+                                Pink Polishing</a></li>
+                        <li><a href="#" class="hover:text-luxePink-500 transition duration-200">Armored Delivery
+                                Tracking Systems</a></li>
+                        <li><a href="#" class="hover:text-luxePink-500 transition duration-200">Refunds & Secure Vault
+                                Transfers</a></li>
+                        <li><a href="#" class="hover:text-luxePink-500 transition duration-200">Maison Bespoke Gifting
+                                Registry</a></li>
+                    </ul>
+                </div>
+
+                <!-- Luxury Newsletter signup -->
+                <div>
+                    <h4 class="text-xs uppercase tracking-[0.25em] text-white font-bold mb-6">THE MAISON GAZETTE</h4>
+                    <p class="text-xs text-gray-400 mb-4 font-light">Join our priority subscription register to receive
+                        private launch invitations, seasonal catalog drops, and VIP runway access.</p>
+                    <div class="flex">
+                        <input type="email" id="news-email" placeholder="VIP email address"
+                            class="bg-velvet-300 border border-luxePink-500/20 rounded-l-lg px-4 py-3 text-xs text-white placeholder-gray-500 focus:outline-none focus:border-luxePink-500 w-full">
+                        <button onclick="subscribeNewsletter()"
+                            class="bg-luxePink-500 hover:bg-luxePink-600 text-velvet-400 px-5 py-3 rounded-r-lg transition duration-200 font-extrabold text-xs">
+                            SUBSCRIBE
+                        </button>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Detailed SEO Terms Index (Exact replication of bottom footer indices from screencapture-luxury-tatacliq-2026-06-18-19_57_52.jpg but tailored to new theme) -->
+            <div
+                class="border-t border-luxePink-500/10 pt-10 pb-6 text-[10px] text-gray-500 leading-relaxed font-light space-y-6">
+                <div>
+                    <h5 class="text-luxePink-500 uppercase font-semibold tracking-wider mb-2">ADUT STORE Luxury
+                        Online Portal Portfolio</h5>
+                    <p>Experience the ultimate showcase of the world's most luxurious brands online. Browse through
+                        premier collections of premium luxury timepieces, pure certified pink diamond accents,
+                        hand-woven luxury backpacks, leather goods, and signature elixirs. Shop online comfortably with
+                        completely insured global vault transport and armored delivery services. Each watch from Rolex,
+                        Cartier, or Audemars Piguet includes certified chronometer reports. Fine jewelry carries
+                        official VVS diamond verification certification.</p>
+                </div>
+                <div>
+                    <h5 class="text-luxePink-500 uppercase font-semibold tracking-wider mb-2">Authenticated Brands Index
+                    </h5>
+                    <p>Hermès Rose | Rolex Orchid Edition | Chanel Couture Rose | Cartier Privé | Versace Medusa Orchid
+                        | Audemars Piguet Velvet Royal Pink | Patek Philippe Sovereign Dial | Louis Vuitton Gilded
+                        Series | Gucci Pink Bamboo | Yves Saint Laurent Signature Monogram | Prada Saffiano Orchid</p>
+                </div>
+            </div>
+
+            <!-- Footer Bottom Copy -->
+            <div
+                class="border-t border-luxePink-500/5 pt-8 flex flex-col sm:flex-row justify-between items-center text-[9px] tracking-widest uppercase text-gray-500">
+                <p>&copy; 2026 ADUT STORE LUXURY INC. ALL RIGHTS RESERVED WORLDWIDE.</p>
+                <div class="flex gap-6 mt-4 sm:mt-0">
+                    <a href="#" class="hover:text-luxePink-500 transition">Privacy Policy</a>
+                    <a href="#" class="hover:text-luxePink-500 transition">Terms of Royal Service</a>
+                </div>
+            </div>
+        </div>
+    </footer>
+
+    <div id="cartDrawer"
+        class="fixed inset-y-0 right-0 z-50 w-full max-w-md bg-velvet-300/98 backdrop-blur-md shadow-2xl border-l border-luxePink-500/20 transform translate-x-full transition-transform duration-500 ease-in-out flex flex-col justify-between">
+        <!-- Cart Header -->
+        <div class="p-6 border-b border-luxePink-500/10 flex justify-between items-center">
+            <div class="flex items-center gap-3">
+                <i class="fa-solid fa-bag-shopping text-luxePink-500 text-lg"></i>
+                <h3 class="font-cinzel text-lg text-white font-bold uppercase tracking-wider">Your Luxury Vault</h3>
+            </div>
+            <button onclick="toggleCartDrawer()" class="text-luxePink-500 hover:text-white transition text-lg">
+                <i class="fa-solid fa-times"></i>
+            </button>
+        </div>
+
+        <!-- Cart Items Dynamic Output -->
+        <div id="cartItemsList" class="flex-1 overflow-y-auto p-6 space-y-6">
+            <div class="text-center py-24 text-gray-500">
+                <i class="fa-solid fa-vault text-4xl text-luxePink-500/20 mb-4 block"></i>
+                <p class="text-xs uppercase tracking-widest">Your Private Vault is Currently Vacant</p>
+            </div>
+        </div>
+
+        <!-- Cart Action Controls -->
+        <div class="p-6 border-t border-luxePink-500/10 bg-velvet-400/50 space-y-4">
+            <div class="flex justify-between items-center text-sm">
+                <span class="uppercase tracking-widest text-gray-400 text-xs">Total Insured Value:</span>
+                <span id="cart-total-price" class="font-bold text-luxePink-500 text-lg">₹ 0.00</span>
+            </div>
+            <button onclick="checkoutOrder()"
+                class="w-full bg-gradient-to-r from-luxePink-600 to-luxePink-400 hover:from-luxePink-500 hover:to-luxePink-300 text-velvet-400 font-extrabold uppercase tracking-[0.2em] text-xs py-4.5 rounded-xl transition duration-300 shadow-xl shadow-luxePink-500/10 hover:shadow-luxePink-500/25">
+                Confirm Armored Shipment Checkout
+            </button>
+            <button onclick="clearCart()"
+                class="w-full border border-red-500/20 text-red-400 hover:bg-red-500/10 transition duration-300 text-[9px] uppercase tracking-widest py-2.5 rounded-lg">
+                Empty Vault Items
+            </button>
+        </div>
+    </div>
+
+    <div id="quickViewModal"
+        class="fixed inset-0 z-50 overflow-y-auto bg-velvet-500/90 backdrop-blur-sm hidden flex items-center justify-center p-4">
+        <div class="bg-velvet-300 border border-luxePink-500/20 rounded-2xl max-w-3xl w-full overflow-hidden shadow-2xl relative transition-all duration-300 scale-95 opacity-0"
+            id="modal-box">
+            <!-- Close button -->
+            <button onclick="closeQuickView()"
+                class="absolute top-4 right-4 text-luxePink-500 hover:text-white text-xl z-10 bg-velvet-400/80 p-2 rounded-full h-10 w-10 flex items-center justify-center">
+                <i class="fa-solid fa-times"></i>
+            </button>
+
+            <div class="grid grid-cols-1 md:grid-cols-2">
+                <!-- Gallery side of the modal -->
+                <div class="relative h-64 md:h-[420px]">
+                    <img id="modal-image" src="" alt="Product Showcase" class="w-full h-full object-cover">
+                    <span id="modal-tag"
+                        class="absolute top-4 left-4 bg-luxePink-500 text-velvet-400 text-[9px] font-extrabold uppercase px-3 py-1.5 rounded tracking-widest">ATELIER
+                        PRIVÉ</span>
+                </div>
+
+                <!-- Meta Context details -->
+                <div class="p-8 flex flex-col justify-between h-[420px]">
+                    <div>
+                        <span id="modal-category"
+                            class="text-luxePink-500 text-[10px] uppercase tracking-[0.25em] font-bold block mb-1">ATELIER
+                            EXCLUSIVE</span>
+                        <h3 id="modal-title" class="font-cinzel text-white text-xl sm:text-2xl font-bold mt-1 mb-2">
+                            Elite Product Title</h3>
+                        <div class="flex items-center gap-2 mb-4">
+                            <span class="text-fuchsia-400 text-xs"><i class="fa-solid fa-star"></i> 5.0</span>
+                            <span class="text-gray-500 text-xs">| Swiss-Certified Chronograph Standard</span>
+                        </div>
+                        <p id="modal-desc" class="text-xs text-gray-400 leading-relaxed font-light mb-6">Detailed
+                            handcraft story or design overview will dynamically render here.</p>
+                    </div>
+
+                    <div>
+                        <!-- Pricing and Checkout with original, discount, and patron prices -->
+                        <div class="space-y-1.5 mb-6">
+                            <div class="flex justify-between items-center text-xs">
+                                <span class="text-gray-500 uppercase tracking-widest">Original Worth:</span>
+                                <span id="modal-original-price"
+                                    class="text-gray-500 line-through font-medium">₹0.00</span>
+                            </div>
+                            <div class="flex justify-between items-center text-xs">
+                                <span class="text-luxePink-500/80 uppercase tracking-widest">Privilege Discount:</span>
+                                <span id="modal-discount"
+                                    class="text-luxePink-400 font-bold bg-luxePink-950/40 border border-luxePink-500/20 px-2 py-0.5 rounded text-[10px]">0%
+                                    OFF</span>
+                            </div>
+                            <div class="h-[1px] w-full bg-luxePink-500/10 my-2"></div>
+                            <div class="flex justify-between items-center">
+                                <span class="text-gray-300 text-xs uppercase tracking-widest font-semibold">Patron
+                                    Price:</span>
+                                <span id="modal-price"
+                                    class="text-xl sm:text-2xl font-bold text-luxePink-500 text-glow-pink">₹0.00</span>
+                            </div>
+                        </div>
+                        <button id="modal-add-btn" onclick=""
+                            class="w-full bg-gradient-to-r from-luxePink-600 to-luxePink-400 hover:from-luxePink-500 hover:to-luxePink-300 text-velvet-400 font-bold uppercase tracking-widest text-xs py-4.5 rounded-xl transition duration-300 shadow-xl flex items-center justify-center gap-2">
+                            <i class="fa-solid fa-cart-plus"></i> Acquire & Add to Vault
+                        </button>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Notification Toasts System -->
+    <div id="toast-container" class="fixed bottom-6 right-6 z-50 space-y-3 pointer-events-none max-w-sm w-full"></div>
+
+    <script>
+        const products = [
+            {
+                id: 1,
+                title: "Velvet Chronograph AP Black",
+                category: "Watches",
+                price: 2450000,
+                originalPrice: 3500000,
+                discount: 30,
+                desc: "An elite AP Royal Oak custom edition styled in sleek purple diamond carbon and 18k bright pink-gold accents. Complete with self-winding Calibre swiss movement.",
+                image: "https://images.unsplash.com/photo-1522312346375-d1a52e2b99b3?auto=format&fit=crop&w=500&q=80",
+                tag: "LIMITED EDITION"
+            },
+            {
+                id: 2,
+                title: "Imperial Rose VVS Ring",
+                category: "Jewelry",
+                price: 4800000,
+                originalPrice: 6000000,
+                discount: 20,
+                desc: "Handcrafted 24k polished rose-gold ring with customized hand-set VVS brilliant cut pink diamonds in a stunning star cluster pattern.",
+                image: "https://images.unsplash.com/photo-1605100804763-247f67b3557e?auto=format&fit=crop&w=500&q=80",
+                tag: "EXCLUSIVE MASTERPIECE"
+            },
+            {
+                id: 3,
+                title: "Midnight Saffron Rose Elixir",
+                category: "Fragrances",
+                price: 185000,
+                originalPrice: 231250,
+                discount: 20,
+                desc: "Concentrated signature perfume curated with raw natural saffron, dark amber, pink gold flakes, and high-intensity black rose oud notes.",
+                image: "https://images.unsplash.com/photo-1594035910387-fea47794261f?auto=format&fit=crop&w=500&q=80",
+                tag: "BEST SELLER"
+            },
+            {
+                id: 4,
+                title: "Pink-Stitched Velvet Carryall",
+                category: "Leather Goods",
+                price: 1250000,
+                originalPrice: 1562500,
+                discount: 20,
+                desc: "Made with genuine Italian full-grain black calfskin leather, handstitched with rose-coated metallic threads and customized pink-gold locks.",
+                image: "https://images.unsplash.com/photo-1548036328-c9fa89d128fa?auto=format&fit=crop&w=500&q=80",
+                tag: "NEW ATELIER DROP"
+            },
+            {
+                id: 5,
+                title: "Rose Gold Polarized Aviators",
+                category: "Apparel",
+                price: 320000,
+                originalPrice: 400000,
+                discount: 20,
+                desc: "24k rose gold-plated frames showcasing customized monogram engraving, complete with deep velvet polarized sapphire glass.",
+                image: "https://images.unsplash.com/photo-1511499767150-a48a237f0083?auto=format&fit=crop&w=500&q=80",
+                tag: "TRENDING EDITS"
+            },
+            {
+                id: 6,
+                title: "Vanguard Rose timezone Timepiece",
+                category: "Watches",
+                price: 3890000,
+                originalPrice: 4862500,
+                discount: 20,
+                desc: "A structural design feat showing dual timezone dials in deep slate black and orchid-finished complications, with custom crocodile straps.",
+                image: "https://images.unsplash.com/photo-1508685096489-7aacd43bd3b1?auto=format&fit=crop&w=500&q=80",
+                tag: "PRIVATE VAULT SELECTION"
+            },
+            {
+                id: 7,
+                title: "Sovereign Rose Interlinked Chain",
+                category: "Jewelry",
+                price: 1950000,
+                originalPrice: 2600000,
+                discount: 25,
+                desc: "Meticulously intertwined heavy chain made from 100% certified pure recycled 22k rose gold links.",
+                image: "https://images.unsplash.com/photo-1599643478518-a784e5dc4c8f?auto=format&fit=crop&w=500&q=80",
+                tag: "HOT SELLER"
+            },
+            {
+                id: 8,
+                title: "Night Velvet Couture Hand Bag",
+                category: "Leather Goods",
+                price: 2990000,
+                originalPrice: 3986600,
+                discount: 25,
+                desc: "Mirror-shine dark patent leather exterior with a pink gold clasp handle mimicking royal hardware, with signature velvet black interior.",
+                image: "https://images.unsplash.com/photo-1584917865442-de89df76afd3?auto=format&fit=crop&w=500&q=80",
+                tag: "ATELIER COUTURE"
+            }
+        ];
+
+        let cart = [];
+        let currentFilter = 'All';
+        let currentSlide = 0;
+
+        // Hero sliders data configuration
+        const heroSlides = [
+            {
+                img: "https://images.unsplash.com/photo-1524805444758-089113d48a6d?auto=format&fit=crop&w=1800&q=80",
+                title: "The Sovereignty <br>Of <span class='text-gradient bg-gradient-to-r from-luxePink-500 via-fuchsia-400 to-pink-200 text-transparent bg-clip-text'>Velvet & Rose</span>",
+                desc: "Step inside the world's most luxurious catalog of limited horology, fine gems, and masterfully tailored leather pieces designed exclusively in deep shades of velvet purple and solid pink."
+            },
+            {
+                img: "https://images.unsplash.com/photo-1515562141207-7a88fb7ce338?auto=format&fit=crop&w=1800&q=80",
+                title: "The Diamond Star <br><span class='text-gradient bg-gradient-to-r from-luxePink-500 via-fuchsia-400 to-pink-200 text-transparent bg-clip-text'>Heritage Jewelry</span>",
+                desc: "Every dynamic stone is curated and verified before placement. Browse through pure gold rings, heavy links, and precious certified gems."
+            },
+            {
+                img: "https://images.unsplash.com/photo-1584917865442-de89df76afd3?auto=format&fit=crop&w=1800&q=80",
+                title: "Gilded Velvet <br><span class='text-gradient bg-gradient-to-r from-luxePink-500 via-fuchsia-400 to-pink-200 text-transparent bg-clip-text'>Couture Carryalls</span>",
+                desc: "Experience handstitched premium calfskin bags embellished with pink-gold hardware and luxury velvet linings."
+            }
+        ];
+
+        window.onload = function () {
+            renderProducts();
+            updateCartCount();
+            startHeroRotation();
+        }
+
+        function startHeroRotation() {
+            setInterval(() => {
+                nextHeroSlide();
+            }, 6000);
+        }
+
+        function renderProducts(customList = null) {
+            const grid = document.getElementById('product-grid');
+            grid.innerHTML = '';
+
+            const sourceList = customList ? customList : (currentFilter === 'All' ? products : products.filter(p => p.category === currentFilter));
+
+            if (sourceList.length === 0) {
+                grid.innerHTML = `
+                    <div class="col-span-full text-center py-16 text-gray-500">
+                        <i class="fa-solid fa-ban text-3xl text-luxePink-500/20 mb-3 block"></i>
+                        <p class="text-xs uppercase tracking-widest">No Premium Pieces Match Your Search Parameters</p>
+                    </div>
+                `;
+                return;
+            }
+
+            sourceList.forEach(p => {
+                const card = document.createElement('div');
+                card.className = "luxury-card-shadow bg-velvet-300 border border-luxePink-500/10 rounded-2xl overflow-hidden relative group transition-all duration-300";
+
+                // Formatted Indian Rupee styling (represented in Tata CliQ catalog)
+                const formattedPrice = new Intl.NumberFormat('en-IN', { style: 'currency', currency: 'INR', maximumFractionDigits: 0 }).format(p.price);
+                const formattedOriginalPrice = new Intl.NumberFormat('en-IN', { style: 'currency', currency: 'INR', maximumFractionDigits: 0 }).format(p.originalPrice);
+
+                card.innerHTML = `
+                    <!-- Image Showcase Box -->
+                    <div class="relative h-72 overflow-hidden bg-velvet-200">
+                        <img src="${p.image}" alt="${p.title}" class="w-full h-full object-cover filter contrast-125 brightness-95 group-hover:brightness-75 transition-all duration-700 ease-in-out group-hover:scale-110 hue-rotate-[290deg]">
+                        <span class="absolute top-4 left-4 bg-velvet-400/90 backdrop-blur-sm border border-luxePink-500/30 text-luxePink-500 text-[8px] font-extrabold tracking-[0.2em] px-3 py-1 rounded">
+                            ${p.tag}
+                        </span>
+                        
+                        <!-- Overlay Dark Elements -->
+                        <div class="absolute inset-0 bg-gradient-to-t from-velvet-400 via-transparent to-transparent opacity-60"></div>
+                        
+                        <!-- Hover Interaction Options -->
+                        <div class="absolute inset-0 flex items-center justify-center gap-4 opacity-0 group-hover:opacity-100 transition-all duration-300 bg-velvet-400/50 backdrop-blur-xs">
+                            <button onclick="openQuickView(${p.id})" class="w-12 h-12 rounded-full bg-luxePink-500 text-velvet-400 hover:bg-white hover:text-velvet-400 flex items-center justify-center transition-all duration-300 transform scale-90 hover:scale-105 shadow-xl">
+                                <i class="fa-solid fa-eye text-sm"></i>
+                            </button>
+                            <button onclick="addToCart(${p.id})" class="w-12 h-12 rounded-full bg-velvet-400 border border-luxePink-500 text-luxePink-500 hover:bg-luxePink-500 hover:text-velvet-400 flex items-center justify-center transition-all duration-300 transform scale-90 hover:scale-105 shadow-xl">
+                                <i class="fa-solid fa-cart-plus text-sm"></i>
+                            </button>
+                        </div>
+                    </div>
+
+                    <!-- Description Meta Context -->
+                    <div class="p-6">
+                        <div class="flex justify-between items-center mb-1">
+                            <span class="text-[9px] text-luxePink-500 uppercase tracking-[0.2em] font-bold">${p.category}</span>
+                            <span class="text-xs text-fuchsia-400"><i class="fa-solid fa-star text-[9px] mr-1"></i>5.0</span>
+                        </div>
+                        <h3 class="font-cinzel text-white text-sm font-semibold group-hover:text-luxePink-500 transition duration-300 mb-4 truncate">${p.title}</h3>
+                        
+                        <!-- Luxury Pricing Matrix with Original Value & Premium Discounts -->
+                        <div class="flex justify-between items-end pt-4 border-t border-luxePink-500/10">
+                            <div class="space-y-0.5">
+                                <div class="flex items-center gap-2">
+                                    <span class="text-[10px] text-gray-500 line-through">${formattedOriginalPrice}</span>
+                                    <span class="text-[9px] text-luxePink-400 font-bold bg-luxePink-950/50 px-1.5 py-0.2 rounded border border-luxePink-500/10">${p.discount}% OFF</span>
+                                </div>
+                                <span class="text-luxePink-500 font-extrabold text-base block text-glow-pink">${formattedPrice}</span>
+                            </div>
+                            <button onclick="addToCart(${p.id})" class="text-[9px] uppercase tracking-[0.2em] text-luxePink-500 hover:text-white transition duration-300 font-bold border-b border-luxePink-500/40 hover:border-white pb-0.5 mb-1">
+                                Add To Vault +
+                            </button>
+                        </div>
+                    </div>
+                `;
+                grid.appendChild(card);
+            });
+        }
+
+        // Search Interface Logic
+        function searchProducts() {
+            const query = document.getElementById('headerSearch').value.toLowerCase();
+            const results = products.filter(p => p.title.toLowerCase().includes(query) || p.desc.toLowerCase().includes(query) || p.category.toLowerCase().includes(query));
+            renderProducts(results);
+        }
+
+        function searchProductsMobile() {
+            const query = document.getElementById('mobileSearch').value.toLowerCase();
+            const results = products.filter(p => p.title.toLowerCase().includes(query) || p.desc.toLowerCase().includes(query) || p.category.toLowerCase().includes(query));
+            renderProducts(results);
+        }
+
+        function filterCategory(category) {
+            currentFilter = category;
+
+            // Set Dynamic active button highlights in Pink/Purple
+            const buttons = ['All', 'Watches', 'Jewelry', 'Leather Goods', 'Fragrances', 'Apparel'];
+            buttons.forEach(b => {
+                const btnId = `btn-${b.toLowerCase().replace(' ', '')}`;
+                const element = document.getElementById(btnId);
+                if (element) {
+                    if (b === category) {
+                        element.className = "px-6 py-3 rounded-full border border-luxePink-500 text-velvet-400 bg-luxePink-400 font-extrabold transition duration-300 shadow-lg shadow-luxePink-500/10";
+                    } else {
+                        element.className = "px-6 py-3 rounded-full border border-luxePink-500/20 text-luxePink-500 hover:border-luxePink-500 hover:bg-luxePink-500/10 transition duration-300 font-semibold";
+                    }
+                }
+            });
+
+            renderProducts();
+            document.getElementById('new-arrivals').scrollIntoView({ behavior: 'smooth' });
+        }
+
+        // Hero Sliding Engine logic with custom color mapping
+        function updateHeroSlide() {
+            const slide = heroSlides[currentSlide];
+            document.getElementById('hero-bg').src = slide.img;
+
+            const titleEl = document.getElementById('hero-slider').querySelector('h1');
+            const descEl = document.getElementById('hero-slider').querySelector('p');
+
+            titleEl.innerHTML = slide.title;
+            descEl.innerHTML = slide.desc;
+
+            // Sync Indicators
+            for (let i = 0; i < 3; i++) {
+                const dot = document.getElementById(`dot-${i}`);
+                if (dot) {
+                    if (i === currentSlide) {
+                        dot.className = "w-8 h-1.5 rounded bg-luxePink-500 transition-all duration-300 cursor-pointer";
+                    } else {
+                        dot.className = "w-3 h-1.5 rounded bg-luxePink-900 transition-all duration-300 cursor-pointer";
+                    }
+                }
+            }
+        }
+
+        function nextHeroSlide() {
+            currentSlide = (currentSlide + 1) % 3;
+            updateHeroSlide();
+        }
+
+        function prevHeroSlide() {
+            currentSlide = (currentSlide - 1 + 3) % 3;
+            updateHeroSlide();
+        }
+
+        function goToHeroSlide(idx) {
+            currentSlide = idx;
+            updateHeroSlide();
+        }
+
+        // Cart Drawer Controls
+        function toggleCartDrawer() {
+            const drawer = document.getElementById('cartDrawer');
+            drawer.classList.toggle('translate-x-full');
+        }
+
+        function addToCart(productId) {
+            const product = products.find(p => p.id === productId);
+            if (!product) return;
+
+            const existingItem = cart.find(item => item.id === productId);
+            if (existingItem) {
+                existingItem.quantity += 1;
+            } else {
+                cart.push({ ...product, quantity: 1 });
+            }
+
+            updateCartCount();
+            renderCartItems();
+
+            showCustomToast(`${product.title} has been secure-locked in your luxury vault!`, "success");
+        }
+
+        function updateCartCount() {
+            const totalItems = cart.reduce((acc, item) => acc + item.quantity, 0);
+            document.getElementById('cart-count').innerText = totalItems;
+        }
+
+        function renderCartItems() {
+            const list = document.getElementById('cartItemsList');
+            list.innerHTML = '';
+
+            if (cart.length === 0) {
+                list.innerHTML = `
+                    <div class="text-center py-24 text-gray-500">
+                        <i class="fa-solid fa-vault text-4xl text-luxePink-500/20 mb-4 block"></i>
+                        <p class="text-xs uppercase tracking-widest">Your Private Vault is Currently Vacant</p>
+                    </div>
+                `;
+                document.getElementById('cart-total-price').innerText = "₹ 0.00";
+                return;
+            }
+
+            let totalPrice = 0;
+
+            cart.forEach(item => {
+                const itemTotal = item.price * item.quantity;
+                totalPrice += itemTotal;
+
+                const formattedPrice = new Intl.NumberFormat('en-IN', { style: 'currency', currency: 'INR', maximumFractionDigits: 0 }).format(item.price);
+
+                const row = document.createElement('div');
+                row.className = "flex items-center gap-4 bg-velvet-400 p-4 rounded-xl border border-luxePink-500/10";
+                row.innerHTML = `
+                    <img src="${item.image}" alt="${item.title}" class="w-16 h-16 object-cover rounded-lg border border-luxePink-500/15 hue-rotate-[290deg]">
+                    <div class="flex-1">
+                        <h4 class="text-xs text-white font-semibold uppercase tracking-wider truncate">${item.title}</h4>
+                        <p class="text-[11px] text-luxePink-500 font-bold mt-1">${formattedPrice}</p>
+                        <div class="flex items-center gap-2 mt-2">
+                            <button onclick="changeQuantity(${item.id}, -1)" class="w-5 h-5 bg-velvet-200 hover:bg-luxePink-500 hover:text-velvet-400 text-luxePink-500 rounded flex items-center justify-center text-xs transition duration-200"><i class="fa-solid fa-minus"></i></button>
+                            <span class="text-xs text-white font-bold px-2">${item.quantity}</span>
+                            <button onclick="changeQuantity(${item.id}, 1)" class="w-5 h-5 bg-velvet-200 hover:bg-luxePink-500 hover:text-velvet-400 text-luxePink-500 rounded flex items-center justify-center text-xs transition duration-200"><i class="fa-solid fa-plus"></i></button>
+                        </div>
+                    </div>
+                    <button onclick="removeFromCart(${item.id})" class="text-gray-500 hover:text-red-500 transition duration-200 p-2">
+                        <i class="fa-solid fa-trash-can"></i>
+                    </button>
+                `;
+                list.appendChild(row);
+            });
+
+            const formattedTotal = new Intl.NumberFormat('en-IN', { style: 'currency', currency: 'INR', maximumFractionDigits: 0 }).format(totalPrice);
+            document.getElementById('cart-total-price').innerText = formattedTotal;
+        }
+
+        function changeQuantity(id, delta) {
+            const item = cart.find(i => i.id === id);
+            if (!item) return;
+
+            item.quantity += delta;
+            if (item.quantity <= 0) {
+                cart = cart.filter(i => i.id !== id);
+            }
+            updateCartCount();
+            renderCartItems();
+        }
+
+        function removeFromCart(id) {
+            cart = cart.filter(item => item.id !== id);
+            updateCartCount();
+            renderCartItems();
+            showCustomToast("Item discharged from private vault.", "info");
+        }
+
+        function clearCart() {
+            cart = [];
+            updateCartCount();
+            renderCartItems();
+            showCustomToast("All items safely discharged from private vault.", "info");
+        }
+
+        // Checkout execution action simulation
+        function checkoutOrder() {
+            if (cart.length === 0) {
+                showCustomToast("Your vault is currently empty. Add premium drops first!", "error");
+                return;
+            }
+
+            showCustomToast("Bespoke Order Sent! Armored delivery carrier dispatch initiated.", "success");
+            cart = [];
+            updateCartCount();
+            renderCartItems();
+            toggleCartDrawer();
+        }
+
+        // Newsletter Subscription System
+        function subscribeNewsletter() {
+            const email = document.getElementById('news-email').value;
+            if (!email) {
+                showCustomToast("Please input a valid email address.", "error");
+                return;
+            }
+            showCustomToast("Patron Subscription Complete! Welcome to the Maison Gazette.", "success");
+            document.getElementById('news-email').value = "";
+        }
+
+        function openQuickView(id) {
+            const product = products.find(p => p.id === id);
+            if (!product) return;
+
+            const formattedPrice = new Intl.NumberFormat('en-IN', { style: 'currency', currency: 'INR', maximumFractionDigits: 0 }).format(product.price);
+            const formattedOriginalPrice = new Intl.NumberFormat('en-IN', { style: 'currency', currency: 'INR', maximumFractionDigits: 0 }).format(product.originalPrice);
+
+            document.getElementById('modal-image').src = product.image;
+            document.getElementById('modal-tag').innerText = product.tag;
+            document.getElementById('modal-category').innerText = product.category;
+            document.getElementById('modal-title').innerText = product.title;
+            document.getElementById('modal-desc').innerText = product.desc;
+
+            // Set prices and discount in Quick View
+            document.getElementById('modal-original-price').innerText = formattedOriginalPrice;
+            document.getElementById('modal-discount').innerText = `${product.discount}% OFF`;
+            document.getElementById('modal-price').innerText = formattedPrice;
+
+            const addBtn = document.getElementById('modal-add-btn');
+            addBtn.setAttribute('onclick', `addToCart(${product.id}); closeQuickView();`);
+
+            const modal = document.getElementById('quickViewModal');
+            const box = document.getElementById('modal-box');
+
+            modal.classList.remove('hidden');
+            setTimeout(() => {
+                box.classList.remove('scale-95', 'opacity-0');
+                box.classList.add('scale-100', 'opacity-100');
+            }, 50);
+        }
+
+        function closeQuickView() {
+            const modal = document.getElementById('quickViewModal');
+            const box = document.getElementById('modal-box');
+
+            box.classList.remove('scale-100', 'opacity-100');
+            box.classList.add('scale-95', 'opacity-0');
+            setTimeout(() => {
+                modal.classList.add('hidden');
+            }, 300);
+        }
+
+        // Submit Private Consultation request
+        function submitConciergeForm(e) {
+            e.preventDefault();
+            document.getElementById('conciergeForm').classList.add('hidden');
+            document.getElementById('form-success').classList.remove('hidden');
+            showCustomToast("VIP Consultation dispatch request sent successfully.", "success");
+        }
+
+        // Custom High-Quality Toast Notifications (Avoiding UI alerts completely)
+        function showCustomToast(message, type = "success") {
+            const container = document.getElementById('toast-container');
+            const toast = document.createElement('div');
+
+            let bgClass = "bg-velvet-300 border-luxePink-500 text-luxePink-500";
+            let iconClass = "fa-circle-check";
+
+            if (type === "error") {
+                bgClass = "bg-velvet-300 border-red-500 text-red-400";
+                iconClass = "fa-triangle-exclamation";
+            } else if (type === "info") {
+                bgClass = "bg-velvet-300 border-fuchsia-500 text-fuchsia-400";
+                iconClass = "fa-circle-info";
+            }
+
+            toast.className = `${bgClass} border p-4 rounded-xl shadow-2xl flex items-center gap-3 transform translate-y-4 opacity-0 transition-all duration-300 pointer-events-auto`;
+            toast.innerHTML = `
+                <i class="fa-solid ${iconClass} text-base shrink-0"></i>
+                <p class="text-[11px] uppercase tracking-wider font-semibold">${message}</p>
+            `;
+
+            container.appendChild(toast);
+
+            setTimeout(() => {
+                toast.classList.remove('translate-y-4', 'opacity-0');
+                toast.classList.add('translate-y-0', 'opacity-100');
+            }, 50);
+
+            setTimeout(() => {
+                toast.classList.remove('translate-y-0', 'opacity-100');
+                toast.classList.add('translate-y-4', 'opacity-0');
+                setTimeout(() => {
+                    toast.remove();
+                }, 300);
+            }, 4500);
+        }
+
+        function toggleMobileMenu() {
+            const menu = document.getElementById('mobile-menu');
+            menu.classList.toggle('-translate-x-full');
+        }
+
+        function scrollToTop() {
+            window.scrollTo({ top: 0, behavior: 'smooth' });
+        }
+    </script>
+</body>
+
+</html>

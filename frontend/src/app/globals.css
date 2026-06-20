@@ -1,0 +1,92 @@
+@import "tailwindcss";
+
+@theme {
+  --color-luxePink-50: #FFF1F2;
+  --color-luxePink-100: #FFE4E6;
+  --color-luxePink-200: #FECDD3;
+  --color-luxePink-300: #FDA4AF;
+  --color-luxePink-400: #FB7185;
+  --color-luxePink-500: #EC4899;
+  --color-luxePink-600: #DB2777;
+  --color-luxePink-700: #BE185D;
+  --color-luxePink-800: #9D174D;
+  --color-luxePink-900: #4C0519;
+
+  --color-velvet-50: #3B1D54;
+  --color-velvet-100: #2C1240;
+  --color-velvet-200: #1E082E;
+  --color-velvet-300: #150421;
+  --color-velvet-400: #0B0112;
+  --color-velvet-500: #05000A;
+
+  --font-serif: "Playfair Display", serif;
+  --font-cinzel: "Cinzel", serif;
+  --font-sans: "Montserrat", sans-serif;
+}
+
+@layer utilities {
+  /* Premium custom scrollbar */
+  ::-webkit-scrollbar {
+      width: 6px;
+  }
+  ::-webkit-scrollbar-track {
+      background: var(--color-velvet-400);
+  }
+  ::-webkit-scrollbar-thumb {
+      background: var(--color-luxePink-500);
+      border-radius: 3px;
+  }
+  
+  /* Custom elite transition properties */
+  .luxury-transition {
+      transition: all 0.6s cubic-bezier(0.16, 1, 0.3, 1);
+  }
+  
+  .luxury-scale-hover:hover img {
+      transform: scale(1.08);
+  }
+  
+  .luxury-card-shadow {
+      box-shadow: 0 4px 20px rgba(0, 0, 0, 0.8);
+  }
+  
+  .luxury-card-shadow:hover {
+      box-shadow: 0 12px 30px rgba(236, 72, 153, 0.15);
+  }
+  
+  /* Premium luxury glowing textures in Pink */
+  .pink-border-glow {
+      box-shadow: 0 0 15px rgba(236, 72, 153, 0.1);
+  }
+  
+  .pink-border-glow:hover {
+      box-shadow: 0 0 25px rgba(236, 72, 153, 0.3);
+      border-color: rgba(236, 72, 153, 0.8);
+  }
+  
+  .text-glow-pink {
+      text-shadow: 0 0 8px rgba(236, 72, 153, 0.4);
+  }
+}
+
+html,
+body {
+  max-width: 100vw;
+  overflow-x: hidden;
+}
+
+@keyframes slideFromRight {
+  0% { transform: translateX(30%); opacity: 0.5; }
+  100% { transform: translateX(0); opacity: 1; }
+}
+.animate-slide-from-right {
+  animation: slideFromRight 0.5s cubic-bezier(0.16, 1, 0.3, 1) forwards;
+}
+
+@layer base {
+  a, button, [role="button"], input, select, textarea {
+    transition-property: color, background-color, border-color, text-decoration-color, fill, stroke, opacity, box-shadow, transform, filter, backdrop-filter;
+    transition-timing-function: cubic-bezier(0.16, 1, 0.3, 1) !important;
+    transition-duration: 500ms !important;
+  }
+}

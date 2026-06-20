@@ -1,0 +1,171 @@
+"use client";
+
+import { useState } from "react";
+import { useAppContext } from "../context/AppContext";
+
+export default function Footer() {
+  const { showToast, setSearchQuery } = useAppContext();
+  const [email, setEmail] = useState("");
+
+  const handleSubscribe = () => {
+    if (!email) {
+      showToast("Please input a valid email address.", "error");
+      return;
+    }
+    showToast("Patron Subscription Complete! Welcome to the Maison Gazette.", "success");
+    setEmail("");
+  };
+
+  const handleLinkClick = (category: string) => {
+    setSearchQuery(category.toLowerCase());
+    document.getElementById("new-arrivals")?.scrollIntoView({ behavior: "smooth" });
+  };
+
+  return (
+    <footer className="bg-velvet-500 text-gray-400 pt-20 pb-8 border-t border-luxePink-500/20">
+      <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-12 mb-16">
+          <div>
+            <span className="font-cinzel text-xl tracking-widest text-white font-extrabold block mb-6 text-glow-pink">
+              ADUT STORE
+            </span>
+            <p className="text-xs text-gray-400 leading-relaxed mb-6 font-light">
+              Adut Store represents the global vanguard of pure midnight purple and orchid pink themed products. We partner with the world's finest ateliers to curate, authenticate, and transport certified assets directly to elite collectors.
+            </p>
+            <div className="flex gap-4">
+              <a href="#" className="w-10 h-10 rounded-full border border-luxePink-500/20 flex items-center justify-center text-luxePink-500 hover:border-luxePink-500 hover:text-white luxury-transition hover:pink-border-glow">
+                <i className="fa-brands fa-instagram"></i>
+              </a>
+              <a href="#" className="w-10 h-10 rounded-full border border-luxePink-500/20 flex items-center justify-center text-luxePink-500 hover:border-luxePink-500 hover:text-white luxury-transition hover:pink-border-glow">
+                <i className="fa-brands fa-facebook"></i>
+              </a>
+              <a href="#" className="w-10 h-10 rounded-full border border-luxePink-500/20 flex items-center justify-center text-luxePink-500 hover:border-luxePink-500 hover:text-white luxury-transition hover:pink-border-glow">
+                <i className="fa-brands fa-pinterest"></i>
+              </a>
+              <a href="#" className="w-10 h-10 rounded-full border border-luxePink-500/20 flex items-center justify-center text-luxePink-500 hover:border-luxePink-500 hover:text-white luxury-transition hover:pink-border-glow">
+                <i className="fa-brands fa-whatsapp"></i>
+              </a>
+            </div>
+          </div>
+
+          <div>
+            <h4 className="text-xs uppercase tracking-[0.25em] text-white font-bold mb-6">
+              THE LUXURY HOUSES
+            </h4>
+            <ul className="space-y-4 text-xs font-light">
+              <li>
+                <button onClick={() => handleLinkClick("Watches")} className="hover:text-luxePink-500 transition duration-200">
+                  The Chronograph Elite Indices
+                </button>
+              </li>
+              <li>
+                <button onClick={() => handleLinkClick("Jewelry")} className="hover:text-luxePink-500 transition duration-200">
+                  Imperial VVS Rose Jewelry
+                </button>
+              </li>
+              <li>
+                <button onClick={() => handleLinkClick("Leather Goods")} className="hover:text-luxePink-500 transition duration-200">
+                  Orchid Strap Leather Carryalls
+                </button>
+              </li>
+              <li>
+                <button onClick={() => handleLinkClick("Fragrances")} className="hover:text-luxePink-500 transition duration-200">
+                  Elixirs, Perfumes & Colognes
+                </button>
+              </li>
+              <li>
+                <button onClick={() => handleLinkClick("Apparel")} className="hover:text-luxePink-500 transition duration-200">
+                  Exclusive Luxury Outerwear
+                </button>
+              </li>
+            </ul>
+          </div>
+
+          <div>
+            <h4 className="text-xs uppercase tracking-[0.25em] text-white font-bold mb-6">
+              VIP CLIENT PORTAL
+            </h4>
+            <ul className="space-y-4 text-xs font-light">
+              <li>
+                <a href="#concierge" className="hover:text-luxePink-500 transition duration-200">
+                  Schedule Private Suite Experience
+                </a>
+              </li>
+              <li>
+                <a href="#" className="hover:text-luxePink-500 transition duration-200">
+                  Lifetime Certification & Pink Polishing
+                </a>
+              </li>
+              <li>
+                <a href="#" className="hover:text-luxePink-500 transition duration-200">
+                  Armored Delivery Tracking Systems
+                </a>
+              </li>
+              <li>
+                <a href="#" className="hover:text-luxePink-500 transition duration-200">
+                  Refunds & Secure Vault Transfers
+                </a>
+              </li>
+              <li>
+                <a href="#" className="hover:text-luxePink-500 transition duration-200">
+                  Maison Bespoke Gifting Registry
+                </a>
+              </li>
+            </ul>
+          </div>
+
+          <div>
+            <h4 className="text-xs uppercase tracking-[0.25em] text-white font-bold mb-6">
+              THE MAISON GAZETTE
+            </h4>
+            <p className="text-xs text-gray-400 mb-4 font-light">
+              Join our priority subscription register to receive private launch invitations, seasonal catalog drops, and VIP runway access.
+            </p>
+            <div className="flex">
+              <input
+                type="email"
+                value={email}
+                onChange={(e) => setEmail(e.target.value)}
+                placeholder="VIP email address"
+                className="bg-velvet-300 border border-luxePink-500/20 rounded-l-lg px-4 py-3 text-xs text-white placeholder-gray-500 focus:outline-none focus:border-luxePink-500 w-full luxury-transition hover:pink-border-glow focus:pink-border-glow"
+              />
+              <button
+                onClick={handleSubscribe}
+                className="bg-luxePink-500 hover:bg-luxePink-600 text-velvet-400 px-5 py-3 rounded-r-lg luxury-transition hover:pink-border-glow font-extrabold text-xs"
+              >
+                SUBSCRIBE
+              </button>
+            </div>
+          </div>
+        </div>
+
+        <div className="border-t border-luxePink-500/10 pt-10 pb-6 text-[10px] text-gray-500 leading-relaxed font-light space-y-6">
+          <div>
+            <h5 className="text-luxePink-500 uppercase font-semibold tracking-wider mb-2">
+              ADUT STORE Luxury Online Portal Portfolio
+            </h5>
+            <p>
+              Experience the ultimate showcase of the world's most luxurious brands online. Browse through premier collections of premium luxury timepieces, pure certified pink diamond accents, hand-woven luxury backpacks, leather goods, and signature elixirs. Shop online comfortably with completely insured global vault transport and armored delivery services. Each watch from Rolex, Cartier, or Audemars Piguet includes certified chronometer reports. Fine jewelry carries official VVS diamond verification certification.
+            </p>
+          </div>
+          <div>
+            <h5 className="text-luxePink-500 uppercase font-semibold tracking-wider mb-2">
+              Authenticated Brands Index
+            </h5>
+            <p>
+              Hermès Rose | Rolex Orchid Edition | Chanel Couture Rose | Cartier Privé | Versace Medusa Orchid | Audemars Piguet Velvet Royal Pink | Patek Philippe Sovereign Dial | Louis Vuitton Gilded Series | Gucci Pink Bamboo | Yves Saint Laurent Signature Monogram | Prada Saffiano Orchid
+            </p>
+          </div>
+        </div>
+
+        <div className="border-t border-luxePink-500/5 pt-8 flex flex-col sm:flex-row justify-between items-center text-[9px] tracking-widest uppercase text-gray-500">
+          <p>&copy; 2026 ADUT STORE LUXURY INC. ALL RIGHTS RESERVED WORLDWIDE.</p>
+          <div className="flex gap-6 mt-4 sm:mt-0">
+            <a href="#" className="hover:text-luxePink-500 transition">Privacy Policy</a>
+            <a href="#" className="hover:text-luxePink-500 transition">Terms of Royal Service</a>
+          </div>
+        </div>
+      </div>
+    </footer>
+  );
+}
