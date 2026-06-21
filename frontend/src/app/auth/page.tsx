@@ -12,7 +12,7 @@ function AuthContent() {
   const router = useRouter();
   const searchParams = useSearchParams();
   const redirectUrl = searchParams.get('redirect') || '/';
-  const { showToast } = useAppContext();
+  const { showToast, login } = useAppContext();
   
   const [authState, setAuthState] = useState<AuthState>('LOGIN');
   
@@ -36,8 +36,7 @@ function AuthContent() {
       });
       const data = await res.json();
       if (res.ok) {
-        localStorage.setItem("token", data.token);
-        localStorage.setItem("user", JSON.stringify(data));
+        login(data.token, data);
         showToast("Welcome back to Adult store", "success");
         router.push(redirectUrl);
       } else {
@@ -87,8 +86,7 @@ function AuthContent() {
       });
       const data = await res.json();
       if (res.ok) {
-        localStorage.setItem("token", data.token);
-        localStorage.setItem("user", JSON.stringify(data));
+        login(data.token, data);
         showToast("Registration successful! Welcome.", "success");
         router.push(redirectUrl);
       } else {

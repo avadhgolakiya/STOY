@@ -59,6 +59,7 @@ interface AppContextType {
   toggleWishlist: (productId: number) => void;
   fetchWishlist: () => void;
   isLoggedIn: boolean;
+  login: (token: string, user: any) => void;
   logout: () => void;
   shippingAddress: Address | null;
   setShippingAddress: (address: Address | null) => void;
@@ -109,13 +110,7 @@ export function AppProvider({ children }: { children: ReactNode }) {
       });
       const data = await res.json();
       if (res.ok && data.wishlist) {
-        // Backend stores ObjectIds or populated objects. Our frontend products use number IDs!
-        // Wait, products in our frontend are defined with id: number. We need to store them.
-        // Wait! How did we add them to the backend? The backend expects a string productId? 
-        // We can just store the number as string in backend, or backend can accept number string.
-        // Actually, MongoDB expects ObjectId for refs. BUT our frontend data has id: number.
-        // This is a problem: backend User schema `wishlist: [{ type: mongoose.Schema.Types.ObjectId, ref: 'Product' }]`.
-        // If our frontend products don't exist in MongoDB, we can't use ObjectId ref!
+        setWishlist(data.wishlist);
       }
     } catch (e) {
       console.error(e);
@@ -146,8 +141,16 @@ export function AppProvider({ children }: { children: ReactNode }) {
     }
   };
 
+  const login = (token: string, user: any) => {
+    localStorage.setItem('token', token);
+    localStorage.setItem('user', JSON.stringify(user));
+    setIsLoggedIn(true);
+    fetchWishlist();
+  };
+
   const logout = () => {
     localStorage.removeItem('token');
+    localStorage.removeItem('user');
     setIsLoggedIn(false);
     setWishlist([]);
     showToast('You have been logged out safely.', 'info');
@@ -238,6 +241,7 @@ export function AppProvider({ children }: { children: ReactNode }) {
         toggleWishlist,
         fetchWishlist,
         isLoggedIn,
+        login,
         logout,
         shippingAddress,
         setShippingAddress,
