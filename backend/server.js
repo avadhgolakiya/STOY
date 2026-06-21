@@ -47,7 +47,7 @@ if (!MONGODB_URI) {
 }
 
 mongoose
-  .connect(MONGODB_URI)
+  .connect(MONGODB_URI, { serverSelectionTimeoutMS: 5000 })
   .then(() => {
     console.log('MongoDB Connected');
     app.listen(PORT, () => {
