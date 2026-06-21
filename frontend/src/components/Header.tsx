@@ -52,28 +52,8 @@ export default function Header() {
             <a href="/#new-arrivals" className="hover:text-luxePink-400 luxury-transition hover:text-glow-pink">New Arrivals</a>
           </nav>
 
-          {/* Right Section: Search, Icons, and CTA Button */}
+          {/* Right Section: Icons and CTA Button */}
           <div className="hidden lg:flex items-center gap-5">
-            <div className="relative group mr-2">
-              <input
-                type="text"
-                value={searchQuery}
-                onChange={(e) => {
-                  setSearchQuery(e.target.value);
-                  if (window.location.pathname !== '/') {
-                    router.push('/#product-grid');
-                  } else {
-                    const grid = document.getElementById('product-grid');
-                    if (grid && e.target.value) {
-                      grid.scrollIntoView({ behavior: 'smooth', block: 'start' });
-                    }
-                  }
-                }}
-                placeholder="Search..."
-                className="w-32 xl:w-40 bg-velvet-300/60 border border-luxePink-500/20 rounded-full py-1.5 pl-8 pr-3 text-[11px] text-white placeholder-gray-400 focus:outline-none focus:border-luxePink-500 luxury-transition hover:pink-border-glow focus:pink-border-glow"
-              />
-              <i className="fa-solid fa-magnifying-glass absolute left-3 top-2 text-luxePink-500/60 text-[10px]"></i>
-            </div>
 
             <button
               onClick={() => {
