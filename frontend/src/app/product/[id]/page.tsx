@@ -10,7 +10,7 @@ export default async function ProductDetail({ params }: { params: Promise<{ id: 
   let product = null;
   let allProducts: any[] = [];
   try {
-    const res = await fetch(`http://127.0.0.1:5001/api/products/${id}`, { cache: "no-store" });
+    const res = await fetch(`${process.env.NEXT_PUBLIC_API_URL}/api/products/${id}`, { cache: "no-store" });
     if (res.ok) {
       product = await res.json();
       console.log("DEBUG_FETCH_SUCCESS:", product);
@@ -34,7 +34,7 @@ export default async function ProductDetail({ params }: { params: Promise<{ id: 
   }
 
   try {
-    const res2 = await fetch(`http://127.0.0.1:5001/api/products`, { cache: "no-store" });
+    const res2 = await fetch(`${process.env.NEXT_PUBLIC_API_URL}/api/products`, { cache: "no-store" });
     if (res2.ok) {
       allProducts = await res2.json();
     }
