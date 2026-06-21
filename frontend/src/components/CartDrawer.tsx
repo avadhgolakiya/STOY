@@ -49,7 +49,7 @@ export default function CartDrawer() {
           </div>
         ) : (
           cart.map((item) => (
-            <div key={item.id} className="flex items-center gap-4 bg-velvet-400 p-4 rounded-xl border border-luxePink-500/10">
+            <div key={item._id || item.id} className="flex items-center gap-4 bg-velvet-400 p-4 rounded-xl border border-luxePink-500/10">
               <img
                 src={item.image}
                 alt={item.title}
@@ -62,14 +62,14 @@ export default function CartDrawer() {
                 </p>
                 <div className="flex items-center gap-2 mt-2">
                   <button
-                    onClick={() => changeQuantity(item.id, -1)}
+                    onClick={() => changeQuantity((item._id || item.id)!, -1)}
                     className="w-5 h-5 bg-velvet-200 hover:bg-luxePink-500 hover:text-velvet-400 text-luxePink-500 rounded flex items-center justify-center text-xs transition duration-200"
                   >
                     <i className="fa-solid fa-minus"></i>
                   </button>
                   <span className="text-xs text-white font-bold px-2">{item.quantity}</span>
                   <button
-                    onClick={() => changeQuantity(item.id, 1)}
+                    onClick={() => changeQuantity((item._id || item.id)!, 1)}
                     className="w-5 h-5 bg-velvet-200 hover:bg-luxePink-500 hover:text-velvet-400 text-luxePink-500 rounded flex items-center justify-center text-xs transition duration-200"
                   >
                     <i className="fa-solid fa-plus"></i>
@@ -77,7 +77,7 @@ export default function CartDrawer() {
                 </div>
               </div>
               <button
-                onClick={() => removeFromCart(item.id)}
+                onClick={() => removeFromCart((item._id || item.id)!)}
                 className="text-gray-500 hover:text-red-500 transition duration-200 p-2"
               >
                 <i className="fa-solid fa-trash-can"></i>
