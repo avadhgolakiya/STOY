@@ -84,6 +84,18 @@ export default function Header() {
 
           {/* Mobile menu button */}
           <div className="lg:hidden flex items-center gap-5">
+            <button
+              onClick={() => {
+                if (isLoggedIn) {
+                  router.push('/profile');
+                } else {
+                  router.push('/auth');
+                }
+              }}
+              className="text-white hover:text-luxePink-500 cursor-pointer transition duration-300"
+            >
+              <i className="fa-regular fa-user text-xl"></i>
+            </button>
             <div onClick={toggleCart} className="relative cursor-pointer text-luxePink-500">
               <i className="fa-solid fa-bag-shopping text-xl"></i>
               <span className="absolute -top-1 -right-2 bg-white text-velvet-400 text-[10px] font-bold rounded-full w-5 h-5 flex items-center justify-center shadow-md animate-bounce">{cartItemCount}</span>
