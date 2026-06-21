@@ -6,7 +6,9 @@ import { useAppContext } from "../../context/AppContext";
 
 type AuthState = 'LOGIN' | 'REGISTER' | 'REGISTER_VERIFY_OTP' | 'FORGOT_PASSWORD' | 'VERIFY_OTP' | 'RESET_PASSWORD';
 
-export default function AuthPage() {
+import { Suspense } from "react";
+
+function AuthContent() {
   const router = useRouter();
   const searchParams = useSearchParams();
   const redirectUrl = searchParams.get('redirect') || '/';
@@ -468,5 +470,13 @@ export default function AuthPage() {
 
       </div>
     </div>
+  );
+}
+
+export default function AuthPage() {
+  return (
+    <Suspense fallback={<div className="min-h-screen bg-velvet-400 flex items-center justify-center"><div className="w-8 h-8 border-2 border-luxePink-500 border-t-transparent rounded-full animate-spin"></div></div>}>
+      <AuthContent />
+    </Suspense>
   );
 }
