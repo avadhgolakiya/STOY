@@ -33,7 +33,7 @@ exports.getProductById = async (req, res) => {
 // @access  Private/Admin
 exports.createProduct = async (req, res) => {
   try {
-    const { title, category, price, originalPrice, discount, desc, image, tag } = req.body;
+    const { title, category, price, originalPrice, discount, desc, image, additionalImages, tag, stock, size } = req.body;
     
     const product = new Product({
       title,
@@ -43,7 +43,10 @@ exports.createProduct = async (req, res) => {
       discount,
       desc,
       image,
-      tag
+      additionalImages: additionalImages || [],
+      tag,
+      stock,
+      size
     });
 
     const createdProduct = await product.save();
@@ -58,19 +61,24 @@ exports.createProduct = async (req, res) => {
 // @access  Private/Admin
 exports.updateProduct = async (req, res) => {
   try {
-    const { title, category, price, originalPrice, discount, desc, image, tag } = req.body;
+    const { title, category, price, originalPrice, discount, desc, image, additionalImages, tag, stock, size } = req.body;
 
     const product = await Product.findById(req.params.id);
 
     if (product) {
       product.title = title || product.title;
       product.category = category || product.category;
-      product.price = price || product.price;
-      product.originalPrice = originalPrice || product.originalPrice;
-      product.discount = discount || product.discount;
+      product.price = price !== undefined ? price : product.price;
+      product.originalPrice = originalPrice !== undefined ? originalPrice : product.originalPrice;
+      product.discount = discount !== undefined ? discount : product.discount;
       product.desc = desc || product.desc;
       product.image = image || product.image;
+      if (additionalImages !== undefined) {
+        product.additionalImages = additionalImages;
+      }
       product.tag = tag || product.tag;
+      product.stock = stock !== undefined ? stock : product.stock;
+      if (size !== undefined) product.size = size;
 
       const updatedProduct = await product.save();
       res.json(updatedProduct);

@@ -1,13 +1,15 @@
 "use client";
 
 import { useState } from "react";
-import { useRouter } from "next/navigation";
+import { useRouter, useSearchParams } from "next/navigation";
 import { useAppContext } from "../../context/AppContext";
 
 type AuthState = 'LOGIN' | 'REGISTER' | 'REGISTER_VERIFY_OTP' | 'FORGOT_PASSWORD' | 'VERIFY_OTP' | 'RESET_PASSWORD';
 
 export default function AuthPage() {
   const router = useRouter();
+  const searchParams = useSearchParams();
+  const redirectUrl = searchParams.get('redirect') || '/';
   const { showToast } = useAppContext();
   
   const [authState, setAuthState] = useState<AuthState>('LOGIN');
@@ -18,6 +20,8 @@ export default function AuthPage() {
   const [confirmPassword, setConfirmPassword] = useState("");
   const [otp, setOtp] = useState("");
   const [loading, setLoading] = useState(false);
+  const [showPassword, setShowPassword] = useState(false);
+  const [showConfirmPassword, setShowConfirmPassword] = useState(false);
 
   const handleLogin = async (e: React.FormEvent) => {
     e.preventDefault();
@@ -32,8 +36,8 @@ export default function AuthPage() {
       if (res.ok) {
         localStorage.setItem("token", data.token);
         localStorage.setItem("user", JSON.stringify(data));
-        showToast("Welcome back to Adut Store", "success");
-        router.push("/");
+        showToast("Welcome back to Adult store", "success");
+        router.push(redirectUrl);
       } else {
         if (data.message === 'Please verify your email first') {
           showToast(data.message, "error");
@@ -84,7 +88,7 @@ export default function AuthPage() {
         localStorage.setItem("token", data.token);
         localStorage.setItem("user", JSON.stringify(data));
         showToast("Registration successful! Welcome.", "success");
-        router.push("/");
+        router.push(redirectUrl);
       } else {
         showToast(data.message || "Invalid OTP", "error");
       }
@@ -203,9 +207,9 @@ export default function AuthPage() {
             </div>
             <div className="relative group">
               <input
-                type="password"
+                type={showPassword ? "text" : "password"}
                 required
-                className="w-full bg-transparent border-b border-luxePink-500/30 px-2 py-3 text-white focus:outline-none focus:border-luxePink-500 transition-all peer"
+                className="w-full bg-transparent border-b border-luxePink-500/30 px-2 py-3 pr-10 text-white focus:outline-none focus:border-luxePink-500 transition-all peer"
                 placeholder=" "
                 value={password}
                 onChange={(e) => setPassword(e.target.value)}
@@ -213,6 +217,13 @@ export default function AuthPage() {
               <label className="absolute left-2 top-3 text-sm text-gray-400 tracking-widest uppercase transition-all peer-focus:-top-3 peer-focus:text-xs peer-focus:text-luxePink-500 peer-valid:-top-3 peer-valid:text-xs peer-valid:text-luxePink-500 pointer-events-none">
                 Password
               </label>
+              <button
+                type="button"
+                onClick={() => setShowPassword(!showPassword)}
+                className="absolute right-2 top-3 text-gray-400 hover:text-luxePink-500 transition-colors"
+              >
+                <i className={`fa-regular ${showPassword ? 'fa-eye-slash' : 'fa-eye'}`}></i>
+              </button>
             </div>
             <div className="flex items-center justify-end pt-1">
               <button
@@ -231,7 +242,7 @@ export default function AuthPage() {
               {loading ? 'Processing...' : 'Sign In'}
             </button>
             <p className="text-center text-xs text-gray-400 mt-6 tracking-wide">
-              New to Adut Store?{" "}
+              New to Adult store?{" "}
               <button type="button" onClick={() => setAuthState('REGISTER')} className="text-luxePink-500 hover:text-luxePink-400 font-semibold uppercase ml-1 cursor-pointer">
                 Register
               </button>
@@ -269,9 +280,9 @@ export default function AuthPage() {
             </div>
             <div className="relative group">
               <input
-                type="password"
+                type={showPassword ? "text" : "password"}
                 required
-                className="w-full bg-transparent border-b border-luxePink-500/30 px-2 py-3 text-white focus:outline-none focus:border-luxePink-500 transition-all peer"
+                className="w-full bg-transparent border-b border-luxePink-500/30 px-2 py-3 pr-10 text-white focus:outline-none focus:border-luxePink-500 transition-all peer"
                 placeholder=" "
                 value={password}
                 onChange={(e) => setPassword(e.target.value)}
@@ -279,6 +290,13 @@ export default function AuthPage() {
               <label className="absolute left-2 top-3 text-sm text-gray-400 tracking-widest uppercase transition-all peer-focus:-top-3 peer-focus:text-xs peer-focus:text-luxePink-500 peer-valid:-top-3 peer-valid:text-xs peer-valid:text-luxePink-500 pointer-events-none">
                 Password
               </label>
+              <button
+                type="button"
+                onClick={() => setShowPassword(!showPassword)}
+                className="absolute right-2 top-3 text-gray-400 hover:text-luxePink-500 transition-colors"
+              >
+                <i className={`fa-regular ${showPassword ? 'fa-eye-slash' : 'fa-eye'}`}></i>
+              </button>
             </div>
             <button
               type="submit"
@@ -400,9 +418,9 @@ export default function AuthPage() {
           <form onSubmit={handleResetPassword} className="space-y-7">
              <div className="relative group">
               <input
-                type="password"
+                type={showPassword ? "text" : "password"}
                 required
-                className="w-full bg-transparent border-b border-luxePink-500/30 px-2 py-3 text-white focus:outline-none focus:border-luxePink-500 transition-all peer"
+                className="w-full bg-transparent border-b border-luxePink-500/30 px-2 py-3 pr-10 text-white focus:outline-none focus:border-luxePink-500 transition-all peer"
                 placeholder=" "
                 value={password}
                 onChange={(e) => setPassword(e.target.value)}
@@ -410,12 +428,19 @@ export default function AuthPage() {
               <label className="absolute left-2 top-3 text-sm text-gray-400 tracking-widest uppercase transition-all peer-focus:-top-3 peer-focus:text-xs peer-focus:text-luxePink-500 peer-valid:-top-3 peer-valid:text-xs peer-valid:text-luxePink-500 pointer-events-none">
                 New Password
               </label>
+              <button
+                type="button"
+                onClick={() => setShowPassword(!showPassword)}
+                className="absolute right-2 top-3 text-gray-400 hover:text-luxePink-500 transition-colors"
+              >
+                <i className={`fa-regular ${showPassword ? 'fa-eye-slash' : 'fa-eye'}`}></i>
+              </button>
             </div>
             <div className="relative group">
               <input
-                type="password"
+                type={showConfirmPassword ? "text" : "password"}
                 required
-                className="w-full bg-transparent border-b border-luxePink-500/30 px-2 py-3 text-white focus:outline-none focus:border-luxePink-500 transition-all peer"
+                className="w-full bg-transparent border-b border-luxePink-500/30 px-2 py-3 pr-10 text-white focus:outline-none focus:border-luxePink-500 transition-all peer"
                 placeholder=" "
                 value={confirmPassword}
                 onChange={(e) => setConfirmPassword(e.target.value)}
@@ -423,6 +448,13 @@ export default function AuthPage() {
               <label className="absolute left-2 top-3 text-sm text-gray-400 tracking-widest uppercase transition-all peer-focus:-top-3 peer-focus:text-xs peer-focus:text-luxePink-500 peer-valid:-top-3 peer-valid:text-xs peer-valid:text-luxePink-500 pointer-events-none">
                 Confirm Password
               </label>
+              <button
+                type="button"
+                onClick={() => setShowConfirmPassword(!showConfirmPassword)}
+                className="absolute right-2 top-3 text-gray-400 hover:text-luxePink-500 transition-colors"
+              >
+                <i className={`fa-regular ${showConfirmPassword ? 'fa-eye-slash' : 'fa-eye'}`}></i>
+              </button>
             </div>
             <button
               type="submit"

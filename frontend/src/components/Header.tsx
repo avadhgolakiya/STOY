@@ -33,13 +33,13 @@ export default function Header() {
       {/* Main Navbar */}
       <header className={`sticky top-0 z-50 transition-all duration-300 ${isScrolled ? "bg-velvet-400 shadow-lg" : "bg-velvet-400/95 backdrop-blur-md border-b border-luxePink-500/15"}`}>
         <div className="max-w-[1400px] mx-auto px-6 sm:px-8 h-[90px] flex items-center justify-between">
-          
+
           {/* Logo Section */}
           <div className="flex flex-col justify-center cursor-pointer group" onClick={handleLogoClick}>
             <span className="font-[cursive] text-4xl text-luxePink-500 italic pr-1 transition duration-500 group-hover:text-white drop-shadow-md">
-              Adut Store
+              Adult store
             </span>
-            <span className="text-luxePink-500 text-[9px] tracking-[0.15em] mt-1 font-sans uppercase text-glow-pink">
+            <span style={{ fontSize: '5px !important' }} className="text-luxePink-500 text-xs sm:text-sm tracking-[0.15em] mt-1 font-sans uppercase text-glow-pink">
               Exclusive Velvet & Pink Atelier
             </span>
           </div>
@@ -47,7 +47,7 @@ export default function Header() {
           {/* Navigation Links */}
           <nav className="hidden lg:flex items-center gap-8 text-white font-medium text-[13px] uppercase tracking-widest">
             <a href="/#hero" className="hover:text-luxePink-400 luxury-transition hover:text-glow-pink">Home</a>
-            <a href="/#collections" className="hover:text-luxePink-400 luxury-transition hover:text-glow-pink">The Edit</a>
+            {/* <a href="/#collections" className="hover:text-luxePink-400 luxury-transition hover:text-glow-pink">The Edit</a> */}
             <a href="/#brand-showcase" className="hover:text-luxePink-400 luxury-transition hover:text-glow-pink">Luxury Maisons</a>
             <a href="/#new-arrivals" className="hover:text-luxePink-400 luxury-transition hover:text-glow-pink">New Arrivals</a>
           </nav>
@@ -57,26 +57,37 @@ export default function Header() {
             <div className="relative group mr-2">
               <input
                 type="text"
-                onChange={(e) => setSearchQuery(e.target.value.toLowerCase())}
+                value={searchQuery}
+                onChange={(e) => {
+                  setSearchQuery(e.target.value);
+                  if (window.location.pathname !== '/') {
+                    router.push('/#product-grid');
+                  } else {
+                    const grid = document.getElementById('product-grid');
+                    if (grid && e.target.value) {
+                      grid.scrollIntoView({ behavior: 'smooth', block: 'start' });
+                    }
+                  }
+                }}
                 placeholder="Search..."
                 className="w-32 xl:w-40 bg-velvet-300/60 border border-luxePink-500/20 rounded-full py-1.5 pl-8 pr-3 text-[11px] text-white placeholder-gray-400 focus:outline-none focus:border-luxePink-500 luxury-transition hover:pink-border-glow focus:pink-border-glow"
               />
               <i className="fa-solid fa-magnifying-glass absolute left-3 top-2 text-luxePink-500/60 text-[10px]"></i>
             </div>
 
-            <button 
+            <button
               onClick={() => {
                 if (isLoggedIn) {
                   router.push('/profile');
                 } else {
                   router.push('/auth');
                 }
-              }} 
-              className="text-white hover:text-luxePink-500 luxury-transition hover:text-glow-pink"
+              }}
+              className="text-white hover:text-luxePink-500 cursor-pointer luxury-transition hover:text-glow-pink"
             >
               <i className="fa-regular fa-user text-lg"></i>
             </button>
-            
+
             {isLoggedIn && (
               <div onClick={() => router.push('/profile')} className="relative cursor-pointer text-white hover:text-luxePink-500 luxury-transition hover:text-glow-pink">
                 <i className="fa-regular fa-heart text-lg"></i>

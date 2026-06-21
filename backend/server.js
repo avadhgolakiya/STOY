@@ -17,6 +17,7 @@ const path = require('path');
 const orderRoutes = require('./routes/orderRoutes');
 const authRoutes = require('./routes/authRoutes');
 const userRoutes = require('./routes/userRoutes');
+const reviewRoutes = require('./routes/reviewRoutes');
 
 // Mount routes
 app.use('/api/products', productRoutes);
@@ -30,9 +31,10 @@ app.use('/uploads', express.static(path.join(__dirname, '/uploads')));
 app.use('/api/orders', orderRoutes);
 app.use('/api/auth', authRoutes);
 app.use('/api/users', userRoutes);
+app.use('/api/reviews', reviewRoutes);
 
 app.get('/', (req, res) => {
-  res.send('Adut Store API is running');
+  res.send('Adult store API is running');
 });
 
 // Database connection

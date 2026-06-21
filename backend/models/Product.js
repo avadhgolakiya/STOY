@@ -9,7 +9,10 @@ const productSchema = new mongoose.Schema(
     discount: { type: Number, required: true },
     desc: { type: String, required: true },
     image: { type: String, required: true },
+    additionalImages: { type: [String], default: [] },
     tag: { type: String, required: true },
+    stock: { type: Number, required: true, default: 0 },
+    size: { type: String, enum: ['Small', 'Medium', 'Large', ''] },
   },
   { timestamps: true }
 );

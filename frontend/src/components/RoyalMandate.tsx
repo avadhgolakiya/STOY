@@ -10,7 +10,7 @@ export default function RoyalMandate() {
               <img
                 src="https://images.unsplash.com/photo-1515562141207-7a88fb7ce338?auto=format&fit=crop&w=1000&q=80"
                 alt="Luxury Jewelry Craft"
-                className="rounded-xl w-full h-[32rem] object-cover filter grayscale contrast-110 group-hover:grayscale-0 transition-all duration-1000 ease-in-out hue-rotate-[290deg]"
+                className="rounded-xl w-full h-[32rem] object-cover transition-all duration-1000 ease-in-out"
               />
               <div className="absolute inset-0 bg-gradient-to-t from-velvet-400 via-transparent to-transparent opacity-85"></div>
             </div>
@@ -25,7 +25,7 @@ export default function RoyalMandate() {
             </div>
           </div>
 
-          <div className="lg:col-span-6 flex flex-col justify-center">
+          <div className="lg:col-span-6 flex flex-col justify-center max-sm:text-center max-sm:items-center">
             <span className="text-luxePink-500 text-xs uppercase tracking-[0.35em] font-semibold mb-4 block text-glow-pink">
               THE ROYAL MANDATE
             </span>
@@ -35,11 +35,11 @@ export default function RoyalMandate() {
               It Is <span className="text-gradient bg-gradient-to-r from-luxePink-500 via-fuchsia-400 to-pink-300 text-transparent bg-clip-text">Everything.</span>
             </h3>
             <p className="text-gray-300 text-sm sm:text-base leading-relaxed font-light mb-10">
-              At Adut Store, our vision is absolute alignment with luxury heritage. This curated collection combines precious gems, Swiss-certified dials, and genuine Italian leather under one strict color mandate: Pure Midnight Purple & Imperial Pink.
+              At Adult store, our vision is absolute alignment with luxury heritage. This curated collection combines precious gems, Swiss-certified dials, and genuine Italian leather under one strict color mandate: Pure Midnight Purple & Imperial Pink.
             </p>
 
-            <div className="grid grid-cols-1 sm:grid-cols-2 gap-6 pt-4 border-t border-luxePink-500/10">
-              <div className="flex items-start gap-4">
+            <div className="grid grid-cols-1 sm:grid-cols-2 gap-6 pt-4 border-t border-luxePink-500/10 w-full">
+              <div className="flex max-sm:flex-col items-start max-sm:items-center gap-4">
                 <div className="w-12 h-12 rounded-full border border-luxePink-500/20 flex items-center justify-center text-luxePink-500 shrink-0">
                   <i className="fa-solid fa-shield-halved"></i>
                 </div>
@@ -50,7 +50,7 @@ export default function RoyalMandate() {
                   </p>
                 </div>
               </div>
-              <div className="flex items-start gap-4">
+              <div className="flex max-sm:flex-col items-start max-sm:items-center gap-4">
                 <div className="w-12 h-12 rounded-full border border-luxePink-500/20 flex items-center justify-center text-luxePink-500 shrink-0">
                   <i className="fa-solid fa-user-tie"></i>
                 </div>

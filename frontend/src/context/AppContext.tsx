@@ -2,9 +2,35 @@
 
 import React, { createContext, useContext, useState, ReactNode } from "react";
 import { useRouter } from "next/navigation";
-import { Product } from "../data/products";
-
+export type Product = {
+  _id?: string;
+  id?: number;
+  title: string;
+  category: string;
+  price: number;
+  originalPrice: number;
+  discount: number;
+  desc: string;
+  image: string;
+  additionalImages?: string[];
+  tag: string;
+  stock: number;
+  size?: string;
+};
 export type CartItem = Product & { quantity: number };
+
+export type Address = {
+  firstName: string;
+  lastName: string;
+  mobileNumber: string;
+  email: string;
+  flatNo: string;
+  street: string;
+  landmark: string;
+  pinCode: string;
+  city: string;
+  state: string;
+};
 
 type ToastType = "success" | "error" | "info";
 
@@ -16,9 +42,9 @@ type ToastMessage = {
 
 interface AppContextType {
   cart: CartItem[];
-  addToCart: (product: Product) => void;
-  removeFromCart: (productId: number) => void;
-  changeQuantity: (productId: number, delta: number) => void;
+  addToCart: (product: Product, quantity?: number) => void;
+  removeFromCart: (productId: string | number) => void;
+  changeQuantity: (productId: string | number, delta: number) => void;
   clearCart: () => void;
   isCartOpen: boolean;
   toggleCart: () => void;
@@ -34,6 +60,8 @@ interface AppContextType {
   fetchWishlist: () => void;
   isLoggedIn: boolean;
   logout: () => void;
+  shippingAddress: Address | null;
+  setShippingAddress: (address: Address | null) => void;
 }
 
 const AppContext = createContext<AppContextType | undefined>(undefined);
@@ -47,6 +75,7 @@ export function AppProvider({ children }: { children: ReactNode }) {
   const [isMobileMenuOpen, setIsMobileMenuOpen] = useState(false);
   const [wishlist, setWishlist] = useState<number[]>([]);
   const [isLoggedIn, setIsLoggedIn] = useState(false);
+  const [shippingAddress, setShippingAddress] = useState<Address | null>(null);
 
   React.useEffect(() => {
     // Load auth and wishlist
@@ -136,30 +165,44 @@ export function AppProvider({ children }: { children: ReactNode }) {
     setToasts((prev) => prev.filter((t) => t.id !== id));
   };
 
-  const addToCart = (product: Product) => {
+  const addToCart = (product: Product, quantity: number = 1) => {
     setCart((prev) => {
-      const existing = prev.find((item) => item.id === product.id);
+      const pId = product._id || product.id;
+      const existing = prev.find((item) => (item._id || item.id) === pId);
       if (existing) {
+        if (existing.quantity + quantity > product.stock) {
+          showToast(`Only ${product.stock} units available in stock.`, "error");
+          return prev;
+        }
         return prev.map((item) =>
-          item.id === product.id ? { ...item, quantity: item.quantity + 1 } : item
+          (item._id || item.id) === pId ? { ...item, quantity: item.quantity + quantity } : item
         );
       }
-      return [...prev, { ...product, quantity: 1 }];
+      if (product.stock < quantity) {
+        showToast(`Only ${product.stock} units available.`, "error");
+        return prev;
+      }
+      return [...prev, { ...product, quantity }];
     });
     router.push('/cart');
   };
 
-  const removeFromCart = (productId: number) => {
-    setCart((prev) => prev.filter((item) => item.id !== productId));
+  const removeFromCart = (productId: string | number) => {
+    setCart((prev) => prev.filter((item) => (item._id || item.id) !== productId));
     showToast("Item discharged from private vault.", "info");
   };
 
-  const changeQuantity = (productId: number, delta: number) => {
+  const changeQuantity = (productId: string | number, delta: number) => {
     setCart((prev) => {
       return prev
         .map((item) => {
-          if (item.id === productId) {
-            return { ...item, quantity: item.quantity + delta };
+          if ((item._id || item.id) === productId) {
+            const newQuantity = item.quantity + delta;
+            if (delta > 0 && newQuantity > item.stock) {
+              showToast(`Only ${item.stock} units available.`, "error");
+              return item;
+            }
+            return { ...item, quantity: newQuantity };
           }
           return item;
         })
@@ -196,6 +239,8 @@ export function AppProvider({ children }: { children: ReactNode }) {
         fetchWishlist,
         isLoggedIn,
         logout,
+        shippingAddress,
+        setShippingAddress,
       }}
     >
       {children}

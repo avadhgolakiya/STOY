@@ -1,14 +1,28 @@
-import { products } from "../../../data/products";
 import Link from "next/link";
 import ProductGallery from "../../../components/ProductGallery";
 import ProductActions from "../../../components/ProductActions";
 import RelatedProductCard from "../../../components/RelatedProductCard";
+import ProductReviews from "../../../components/ProductReviews";
 
-export default function ProductDetail({ params }: { params: { id: string } }) {
-  const id = Number(params.id);
-  const product = products.find((p) => p.id === id);
+export default async function ProductDetail({ params }: { params: Promise<{ id: string }> }) {
+  const { id } = await params;
   
-  if (!product) {
+  let product = null;
+  let allProducts: any[] = [];
+  try {
+    const res = await fetch(`http://127.0.0.1:5001/api/products/${id}`, { cache: "no-store" });
+    if (res.ok) {
+      product = await res.json();
+      console.log("DEBUG_FETCH_SUCCESS:", product);
+    } else {
+      console.log("DEBUG_FETCH_NOT_OK:", res.status, res.statusText);
+    }
+  } catch (err) {
+    console.error("DEBUG_FETCH_ERROR:", err);
+  }
+
+  if (!product || product.message) {
+    console.log("DEBUG_NOT_FOUND_TRIGGERED", product);
     return (
       <div className="py-32 text-center text-white">
         <h2 className="text-3xl font-cinzel font-bold mb-4">Masterpiece Not Found</h2>
@@ -19,10 +33,19 @@ export default function ProductDetail({ params }: { params: { id: string } }) {
     );
   }
 
+  try {
+    const res2 = await fetch(`http://127.0.0.1:5001/api/products`, { cache: "no-store" });
+    if (res2.ok) {
+      allProducts = await res2.json();
+    }
+  } catch (err) {
+    console.error(err);
+  }
+
   // Related products logic
-  let relatedProducts = products.filter(p => p.id !== id && p.category === product.category);
+  let relatedProducts = allProducts.filter(p => (p._id || p.id) !== id && p.category === product.category);
   if (relatedProducts.length === 0) {
-    relatedProducts = products.filter(p => p.id !== id);
+    relatedProducts = allProducts.filter(p => (p._id || p.id) !== id);
   }
   relatedProducts = relatedProducts.slice(0, 4);
 
@@ -94,14 +117,13 @@ export default function ProductDetail({ params }: { params: { id: string } }) {
             {/* Quantity & Actions (Client Component) */}
             <ProductActions product={product} />
             
-            <div className="mb-8">
-               <button className="text-sm text-gray-400 hover:text-luxePink-500 transition flex items-center gap-2">
-                 <i className="fa-solid fa-share-nodes"></i> Share
-               </button>
-            </div>
+
             
           </div>
         </div>
+
+        {/* Reviews Section */}
+        <ProductReviews productId={id} />
 
         {/* Related Products Section */}
         {relatedProducts.length > 0 && (
@@ -110,7 +132,7 @@ export default function ProductDetail({ params }: { params: { id: string } }) {
             
             <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-8">
               {relatedProducts.map(related => (
-                <RelatedProductCard key={related.id} related={related} />
+                <RelatedProductCard key={related._id || related.id} related={related} />
               ))}
             </div>
           </div>

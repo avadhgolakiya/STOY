@@ -22,7 +22,7 @@ const montserrat = Montserrat({
 });
 
 export const metadata: Metadata = {
-  title: "ADUT STORE | Premium Pink & Purple Luxury Boutique",
+  title: "ADULT STORE | Premium Pink & Purple Luxury Boutique",
   description: "Premium pink & purple luxury boutique.",
 };
 

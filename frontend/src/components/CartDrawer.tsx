@@ -1,8 +1,10 @@
 "use client";
 
+import { useRouter } from "next/navigation";
 import { useAppContext } from "../context/AppContext";
 
 export default function CartDrawer() {
+  const router = useRouter();
   const { isCartOpen, toggleCart, cart, changeQuantity, removeFromCart, clearCart, showToast } = useAppContext();
 
   const totalPrice = cart.reduce((acc, item) => acc + item.price * item.quantity, 0);
@@ -17,9 +19,8 @@ export default function CartDrawer() {
       showToast("Your vault is currently empty. Add premium drops first!", "error");
       return;
     }
-    showToast("Bespoke Order Sent! Armored delivery carrier dispatch initiated.", "success");
-    clearCart();
     toggleCart();
+    router.push("/cart");
   };
 
   return (

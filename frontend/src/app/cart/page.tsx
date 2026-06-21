@@ -8,12 +8,10 @@ import Link from "next/link";
 export default function CartPage() {
   const router = useRouter();
   const { cart, removeFromCart, changeQuantity, isLoggedIn, showToast, clearCart } = useAppContext();
-  const [paymentMethod, setPaymentMethod] = useState<"cod" | "razorpay">("razorpay");
-  const [isProcessing, setIsProcessing] = useState(false);
 
   const subtotal = cart.reduce((acc, item) => acc + item.price * item.quantity, 0);
-  const deliveryFee = paymentMethod === "cod" ? 40 : 0;
-  const total = subtotal + deliveryFee;
+  // Delivery fee will be calculated at checkout
+  const total = subtotal;
 
   const formattedPrice = (price: number) =>
     new Intl.NumberFormat("en-IN", {
@@ -22,109 +20,14 @@ export default function CartPage() {
       maximumFractionDigits: 0,
     }).format(price);
 
-  useEffect(() => {
-    // Load Razorpay script dynamically
-    const script = document.createElement('script');
-    script.src = 'https://checkout.razorpay.com/v1/checkout.js';
-    script.async = true;
-    document.body.appendChild(script);
-
-    return () => {
-      document.body.removeChild(script);
-    }
-  }, []);
-
-  const handleCheckout = async () => {
+  const handleCheckout = () => {
     if (cart.length === 0) return;
     if (!isLoggedIn) {
       showToast("Please log in to proceed with checkout.", "error");
-      router.push("/auth");
+      router.push("/auth?redirect=/checkout/address");
       return;
     }
-
-    setIsProcessing(true);
-    try {
-      const token = localStorage.getItem("token");
-      
-      const res = await fetch("http://localhost:5001/api/orders/create", {
-        method: "POST",
-        headers: {
-          "Content-Type": "application/json",
-          Authorization: `Bearer ${token}`
-        },
-        body: JSON.stringify({
-          items: cart,
-          totalAmount: subtotal,
-          paymentMethod
-        }),
-      });
-
-      const data = await res.json();
-
-      if (!res.ok) {
-        throw new Error(data.message || 'Failed to create order');
-      }
-
-      if (paymentMethod === "cod") {
-        showToast("Order placed successfully via Cash on Delivery!", "success");
-        clearCart();
-        router.push("/thank-you");
-      } else if (paymentMethod === "razorpay") {
-        // If the backend sent a dummy order because API keys are missing, simulate success
-        if (data.razorpayOrder.isDummy) {
-          showToast("Simulated Payment Successful! (Razorpay Keys Missing)", "info");
-          clearCart();
-          router.push("/thank-you");
-          return;
-        }
-
-        const options = {
-          key: process.env.NEXT_PUBLIC_RAZORPAY_KEY_ID || "rzp_test_dummykey123", // fallback dummy key
-          amount: data.razorpayOrder.amount,
-          currency: data.razorpayOrder.currency,
-          name: "Adut Store",
-          description: "Luxury Purchase",
-          order_id: data.razorpayOrder.id,
-          handler: async function (response: any) {
-            // Verify payment
-            const verifyRes = await fetch("http://localhost:5001/api/orders/verify", {
-              method: "POST",
-              headers: {
-                "Content-Type": "application/json",
-                Authorization: `Bearer ${token}`
-              },
-              body: JSON.stringify({
-                razorpay_order_id: response.razorpay_order_id,
-                razorpay_payment_id: response.razorpay_payment_id,
-                razorpay_signature: response.razorpay_signature
-              })
-            });
-            const verifyData = await verifyRes.json();
-            if (verifyData.success) {
-              showToast("Payment Successful! Your luxury pieces are being prepared.", "success");
-              clearCart();
-              router.push("/thank-you");
-            } else {
-              showToast("Payment Verification Failed", "error");
-            }
-          },
-          theme: {
-            color: "#db2777" // luxePink-500
-          }
-        };
-
-        const rzp = new (window as any).Razorpay(options);
-        rzp.on('payment.failed', function (response: any) {
-          showToast("Payment Failed or Cancelled", "error");
-        });
-        rzp.open();
-      }
-    } catch (e: any) {
-      showToast(e.message || "An error occurred during checkout", "error");
-      console.error(e);
-    } finally {
-      setIsProcessing(false);
-    }
+    router.push("/checkout/address");
   };
 
   return (
@@ -191,65 +94,17 @@ export default function CartPage() {
                     <span>Subtotal</span>
                     <span className="text-white">{formattedPrice(subtotal)}</span>
                   </div>
-                  <div className="flex justify-between text-gray-400">
-                    <span>Delivery Fee</span>
-                    <span className="text-white">{deliveryFee === 0 ? "Free" : formattedPrice(deliveryFee)}</span>
-                  </div>
                   <div className="flex justify-between font-bold text-lg border-t border-luxePink-500/10 pt-4">
                     <span className="text-white">Total</span>
                     <span className="text-luxePink-500 text-glow-pink">{formattedPrice(total)}</span>
                   </div>
                 </div>
 
-                <div className="mb-8">
-                  <h3 className="text-xs uppercase tracking-widest text-luxePink-500 mb-4 font-bold">Payment Method</h3>
-                  <div className="space-y-3">
-                    <label className={`block border rounded-lg p-4 cursor-pointer transition-all ${paymentMethod === 'razorpay' ? 'border-luxePink-500 bg-luxePink-500/5' : 'border-luxePink-500/20 bg-velvet-400 hover:border-luxePink-500/50'}`}>
-                      <div className="flex items-center gap-3">
-                        <input 
-                          type="radio" 
-                          name="payment" 
-                          value="razorpay" 
-                          checked={paymentMethod === 'razorpay'} 
-                          onChange={() => setPaymentMethod('razorpay')}
-                          className="accent-luxePink-500 w-4 h-4"
-                        />
-                        <div className="flex flex-col">
-                          <span className="text-white font-semibold text-sm">Online Payment (Razorpay)</span>
-                          <span className="text-[10px] text-gray-400 mt-1">Zero Delivery Fee</span>
-                        </div>
-                      </div>
-                    </label>
-
-                    <label className={`block border rounded-lg p-4 cursor-pointer transition-all ${paymentMethod === 'cod' ? 'border-luxePink-500 bg-luxePink-500/5' : 'border-luxePink-500/20 bg-velvet-400 hover:border-luxePink-500/50'}`}>
-                      <div className="flex items-center gap-3">
-                        <input 
-                          type="radio" 
-                          name="payment" 
-                          value="cod" 
-                          checked={paymentMethod === 'cod'} 
-                          onChange={() => setPaymentMethod('cod')}
-                          className="accent-luxePink-500 w-4 h-4"
-                        />
-                        <div className="flex flex-col">
-                          <span className="text-white font-semibold text-sm">Cash on Delivery</span>
-                          <span className="text-[10px] text-luxePink-500 mt-1">+ ₹40 Delivery Fee</span>
-                        </div>
-                      </div>
-                    </label>
-                  </div>
-                </div>
-
                 <button 
                   onClick={handleCheckout}
-                  disabled={isProcessing}
-                  className="w-full bg-gradient-to-r from-luxePink-600 to-luxePink-400 hover:from-luxePink-500 hover:to-luxePink-300 text-white font-extrabold uppercase tracking-widest h-14 rounded-lg transition duration-300 shadow-[0_0_20px_rgba(219,39,119,0.3)] flex justify-center items-center disabled:opacity-50"
+                  className="w-full bg-gradient-to-r from-luxePink-600 to-luxePink-400 hover:from-luxePink-500 hover:to-luxePink-300 text-white font-extrabold uppercase tracking-widest h-14 rounded-lg transition duration-300 shadow-[0_0_20px_rgba(219,39,119,0.3)] flex justify-center items-center"
                 >
-                  {isProcessing ? (
-                    <div className="w-5 h-5 border-2 border-white border-t-transparent rounded-full animate-spin"></div>
-                  ) : (
-                    "Continue Payment"
-                  )}
+                  Proceed to Checkout
                 </button>
               </div>
             </div>

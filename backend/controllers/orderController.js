@@ -24,7 +24,7 @@ function getEnv(key) {
 
 exports.createOrder = async (req, res) => {
   try {
-    const { items, totalAmount, paymentMethod } = req.body;
+    const { items, totalAmount, paymentMethod, shippingAddress } = req.body;
     const deliveryFee = paymentMethod === 'cod' ? 40 : 0;
     const finalAmount = totalAmount + deliveryFee;
 
@@ -37,6 +37,7 @@ exports.createOrder = async (req, res) => {
       paymentMethod,
       items: JSON.stringify(items),
       paymentStatus: 'pending',
+      shippingAddress,
     });
 
     if (paymentMethod === 'cod') {
@@ -79,10 +80,18 @@ exports.createOrder = async (req, res) => {
         key_secret,
       });
 
+      let amountInPaise = Math.round(finalAmount * 100);
+      // Razorpay test mode maximum limit is 500,000 INR (50,000,000 paise)
+      // Cap it so testing high-value luxury items doesn't crash the API.
+      if (amountInPaise > 50000000) {
+        console.warn('Capping amount to 500,000 INR due to Razorpay test mode limit');
+        amountInPaise = 50000000;
+      }
+
       const options = {
-        amount: Math.round(finalAmount * 100), // amount in smallest currency unit (paise)
+        amount: amountInPaise,
         currency: 'INR',
-        receipt: `receipt_order_${Date.now()}`,
+        receipt: `receipt_order_${Date.now()}`.substring(0, 40),
       };
 
       const razorpayOrder = await razorpay.orders.create(options);
@@ -99,8 +108,9 @@ exports.createOrder = async (req, res) => {
 
     res.status(400).json({ message: 'Invalid payment method' });
   } catch (error) {
-    console.error('Error creating order:', error);
-    res.status(500).json({ message: 'Server Error', error: error.message });
+    const errorMsg = error.error ? error.error.description : error.message;
+    console.error('Error creating order:', errorMsg || error);
+    res.status(500).json({ message: errorMsg || 'Server Error', stack: error.stack });
   }
 };
 
@@ -142,6 +152,71 @@ exports.getMyOrders = async (req, res) => {
     res.json(orders);
   } catch (error) {
     console.error('Error fetching orders:', error);
+    res.status(500).json({ message: 'Server Error', error: error.message });
+  }
+};
+
+const nodemailer = require('nodemailer');
+
+exports.getAllOrders = async (req, res) => {
+  try {
+    const orders = await Order.find({}).sort({ createdAt: -1 });
+    res.json(orders);
+  } catch (error) {
+    console.error('Error fetching all orders:', error);
+    res.status(500).json({ message: 'Server Error', error: error.message });
+  }
+};
+
+exports.updateOrderStatus = async (req, res) => {
+  try {
+    const { id } = req.params;
+    const { deliveryStatus } = req.body;
+
+    const order = await Order.findById(id);
+    if (!order) {
+      return res.status(404).json({ message: 'Order not found' });
+    }
+
+    order.deliveryStatus = deliveryStatus;
+    await order.save();
+
+    // Send Email Notification
+    try {
+      const transporter = nodemailer.createTransport({
+        host: getEnv('SMTP_HOST') || 'smtp.ethereal.email',
+        port: getEnv('SMTP_PORT') || 587,
+        auth: {
+          user: getEnv('SMTP_USER') || 'dummy_user@ethereal.email',
+          pass: getEnv('SMTP_PASS') || 'dummy_pass'
+        }
+      });
+
+      const mailOptions = {
+        from: '"Adult store" <no-reply@adultstore.com>',
+        to: order.customerEmail,
+        subject: `Update on your Order #${order._id.toString().substring(0, 8)}`,
+        text: `Hello ${order.customerName},\n\nYour order status has been updated to: ${deliveryStatus}.\n\nThank you for shopping with us!\nAdult store`,
+        html: `<h3>Hello ${order.customerName},</h3><p>Your order status has been updated to: <strong>${deliveryStatus}</strong>.</p><p>Thank you for shopping with us!<br/>Adult store</p>`
+      };
+
+      if (!getEnv('SMTP_HOST')) {
+        console.log('--- SIMULATED EMAIL NOTIFICATION ---');
+        console.log(`To: ${order.customerEmail}`);
+        console.log(`Subject: ${mailOptions.subject}`);
+        console.log(`Body: ${mailOptions.text}`);
+        console.log('------------------------------------');
+      } else {
+        await transporter.sendMail(mailOptions);
+      }
+    } catch (emailError) {
+      console.error('Failed to send status update email:', emailError);
+      // We don't fail the API request if email fails, just log it.
+    }
+
+    res.json({ success: true, order, message: 'Order status updated successfully' });
+  } catch (error) {
+    console.error('Error updating order status:', error);
     res.status(500).json({ message: 'Server Error', error: error.message });
   }
 };

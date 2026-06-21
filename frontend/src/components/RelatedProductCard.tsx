@@ -2,7 +2,7 @@
 
 import { useRouter } from "next/navigation";
 import Link from "next/link";
-import { Product } from "../data/products";
+import { Product } from "../context/AppContext";
 import { useAppContext } from "../context/AppContext";
 
 export default function RelatedProductCard({ related }: { related: Product }) {
@@ -15,28 +15,48 @@ export default function RelatedProductCard({ related }: { related: Product }) {
     maximumFractionDigits: 0,
   }).format(price);
 
+  const handleShare = async (e: React.MouseEvent, p: Product) => {
+    e.stopPropagation();
+    e.preventDefault();
+    const url = `${window.location.origin}/product/${p._id || p.id}`;
+    if (navigator.share) {
+      try {
+        await navigator.share({
+          title: p.title,
+          text: `Check out ${p.title} at Adult store`,
+          url,
+        });
+      } catch (error) {
+        console.error('Error sharing:', error);
+      }
+    } else {
+      navigator.clipboard.writeText(url);
+      alert("Link copied to clipboard!");
+    }
+  };
+
   return (
     <div
-      onClick={() => router.push(`/product/${related.id}`)}
+      onClick={() => router.push(`/product/${related._id || related.id}`)}
       className="cursor-pointer luxury-card-shadow bg-velvet-300 border border-luxePink-500/10 rounded-2xl overflow-hidden relative group transition-all duration-300"
     >
       <div className="relative h-72 overflow-hidden bg-velvet-200 luxury-scale-hover">
         <img
           src={related.image}
           alt={related.title}
-          className="w-full h-full object-cover filter contrast-125 brightness-95 group-hover:brightness-75 luxury-transition hue-rotate-[290deg]"
+          className="w-full h-full object-cover group-hover:brightness-75 luxury-transition"
         />
         <span className="absolute top-4 left-4 bg-velvet-400/90 backdrop-blur-sm border border-luxePink-500/30 text-luxePink-500 text-[8px] font-extrabold tracking-[0.2em] px-3 py-1 rounded">
           {related.tag}
         </span>
         <div className="absolute inset-0 bg-gradient-to-t from-velvet-400 via-transparent to-transparent opacity-60"></div>
         <div className="absolute inset-0 flex items-center justify-center gap-4 opacity-0 group-hover:opacity-100 transition-all duration-300 bg-velvet-400/50 backdrop-blur-sm">
-          <Link
-            href={`/product/${related.id}`}
+          <button
+            onClick={(e) => handleShare(e, related)}
             className="w-12 h-12 rounded-full bg-luxePink-500 text-velvet-400 hover:bg-white hover:text-velvet-400 flex items-center justify-center luxury-transition pink-border-glow transform scale-90 hover:scale-105"
           >
-            <i className="fa-solid fa-eye text-sm"></i>
-          </Link>
+            <i className="fa-solid fa-share-nodes text-sm"></i>
+          </button>
             <button
               onClick={(e) => {
                 e.stopPropagation();
@@ -50,15 +70,17 @@ export default function RelatedProductCard({ related }: { related: Product }) {
               <button
                 onClick={(e) => {
                   e.stopPropagation();
-                  toggleWishlist(related.id);
+                  // wishlist uses _id or id
+                  const idToUse = (related._id || related.id) as any;
+                  toggleWishlist(idToUse);
                 }}
                 className={`w-12 h-12 rounded-full border border-luxePink-500 flex items-center justify-center luxury-transition pink-border-glow transform scale-90 hover:scale-105 ${
-                  wishlist.includes(related.id)
+                  (wishlist as any[]).includes(related._id || related.id)
                     ? "bg-luxePink-500 text-white"
                     : "bg-velvet-400 text-luxePink-500 hover:bg-luxePink-500 hover:text-velvet-400"
                 }`}
               >
-                <i className={`${wishlist.includes(related.id) ? "fa-solid" : "fa-regular"} fa-heart text-sm`}></i>
+                <i className={`${(wishlist as any[]).includes(related._id || related.id) ? "fa-solid" : "fa-regular"} fa-heart text-sm`}></i>
               </button>
             )}
           </div>

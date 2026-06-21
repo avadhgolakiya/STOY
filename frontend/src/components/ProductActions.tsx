@@ -1,16 +1,31 @@
 "use client";
 
 import { useState } from "react";
-import { Product } from "../data/products";
-import { useAppContext } from "../context/AppContext";
+import { useAppContext, Product } from "../context/AppContext";
 
 export default function ProductActions({ product }: { product: Product }) {
   const { addToCart, showToast } = useAppContext();
   const [quantity, setQuantity] = useState(1);
 
   const handleAddMainToCart = () => {
-    for(let i=0; i<quantity; i++) {
-      addToCart(product);
+    addToCart(product, quantity);
+  };
+
+  const handleShare = async () => {
+    const url = `${window.location.origin}/product/${product._id || product.id}`;
+    if (navigator.share) {
+      try {
+        await navigator.share({
+          title: product.title,
+          text: `Check out ${product.title} at Adult store`,
+          url,
+        });
+      } catch (error) {
+        console.error('Error sharing:', error);
+      }
+    } else {
+      navigator.clipboard.writeText(url);
+      alert("Link copied to clipboard!");
     }
   };
 
@@ -51,6 +66,12 @@ export default function ProductActions({ product }: { product: Product }) {
       <button className="w-full mt-4 bg-velvet-300 border border-luxePink-500 text-luxePink-500 hover:bg-luxePink-500 hover:text-white font-extrabold uppercase tracking-widest h-12 rounded-lg transition duration-300 flex justify-center items-center gap-2">
         BUY IT NOW <i className="fa-solid fa-arrow-right"></i>
       </button>
+
+      <div className="mt-6">
+        <button onClick={handleShare} className="text-sm text-gray-400 hover:text-luxePink-500 transition flex items-center gap-2">
+          <i className="fa-solid fa-share-nodes"></i> Share
+        </button>
+      </div>
     </div>
   );
 }

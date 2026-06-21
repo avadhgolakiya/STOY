@@ -3,7 +3,6 @@
 import { useEffect, useState } from "react";
 import { useRouter } from "next/navigation";
 import { useAppContext } from "../../context/AppContext";
-import { products } from "../../data/products";
 import Link from "next/link";
 
 export default function ProfilePage() {
@@ -11,6 +10,7 @@ export default function ProfilePage() {
   const { isLoggedIn, wishlist, toggleWishlist, addToCart, logout } = useAppContext();
   const [user, setUser] = useState<{ name: string; email: string } | null>(null);
   const [orders, setOrders] = useState<any[]>([]);
+  const [products, setProducts] = useState<any[]>([]);
   const [loading, setLoading] = useState(true);
 
   useEffect(() => {
@@ -47,6 +47,16 @@ export default function ProfilePage() {
           console.error("Failed to fetch orders", err);
         }
 
+        // Fetch Products
+        try {
+          const prodRes = await fetch("http://localhost:5001/api/products");
+          if (prodRes.ok) {
+            setProducts(await prodRes.json());
+          }
+        } catch (err) {
+          console.error("Failed to fetch products", err);
+        }
+
       } catch (e) {
         console.error(e);
       } finally {
@@ -65,7 +75,7 @@ export default function ProfilePage() {
     );
   }
 
-  const favoriteProducts = products.filter(p => wishlist.includes(p.id));
+  const favoriteProducts = products.filter(p => (wishlist as any[]).includes(p._id || p.id));
 
   const handleDownloadInvoice = (order: any) => {
     let parsedItems = [];
@@ -85,6 +95,7 @@ export default function ProfilePage() {
     const invoiceHtml = `
       <html>
         <head>
+          <meta charset="utf-8">
           <title>Invoice - ${order._id}</title>
           <style>
             body { font-family: 'Helvetica Neue', Helvetica, Arial, sans-serif; color: #333; padding: 40px; margin: 0; }
@@ -100,7 +111,7 @@ export default function ProfilePage() {
           <div class="invoice-box">
             <div class="top-bar">
               <div>
-                <div class="brand">Adut Store</div>
+                <div class="brand">Adult store</div>
                 <div>Exclusive Velvet & Pink Atelier</div>
               </div>
               <div class="details">
@@ -135,8 +146,8 @@ export default function ProfilePage() {
             </table>
 
             <div style="text-align: center; color: #888; margin-top: 50px; font-size: 14px;">
-              Thank you for your exclusive purchase at Adut Store.<br>
-              For any support, please contact concierge@adutstore.com
+              Thank you for your exclusive purchase at Adult store.<br>
+              For any support, please contact concierge@adultstore.com
             </div>
           </div>
           <script>
@@ -146,7 +157,7 @@ export default function ProfilePage() {
       </html>
     `;
 
-    const blob = new Blob([invoiceHtml], { type: 'text/html' });
+    const blob = new Blob([invoiceHtml], { type: 'text/html;charset=utf-8' });
     const url = URL.createObjectURL(blob);
     window.open(url, '_blank');
   };
@@ -154,6 +165,35 @@ export default function ProfilePage() {
   return (
     <div className="min-h-screen bg-velvet-400 pt-32 pb-24 px-6 relative">
       <div className="max-w-7xl mx-auto">
+
+        {/* Account Details */}
+        <div className="mb-16">
+          <div className="flex justify-between items-end border-b border-luxePink-500/20 pb-4 mb-8">
+            <h2 className="text-2xl font-cinzel text-white">
+              My Profile
+            </h2>
+            <button 
+              onClick={() => {
+                logout();
+                router.push('/');
+              }}
+              className="text-xs uppercase tracking-widest text-luxePink-500 hover:text-white transition-colors"
+            >
+              <i className="fa-solid fa-arrow-right-from-bracket mr-2"></i>Log Out
+            </button>
+          </div>
+          <div className="bg-velvet-300 border border-luxePink-500/10 rounded-2xl p-6 flex flex-col sm:flex-row items-center sm:items-start gap-6">
+            <div className="w-20 h-20 bg-velvet-400 rounded-full flex items-center justify-center text-luxePink-500 text-3xl font-cinzel border border-luxePink-500/20 shadow-lg">
+              {user?.name?.charAt(0).toUpperCase()}
+            </div>
+            <div className="text-center sm:text-left">
+              <h3 className="text-xl text-white font-cinzel font-semibold">{user?.name}</h3>
+              <p className="text-gray-400 text-sm mt-1">{user?.email}</p>
+              <p className="text-xs text-luxePink-500/80 uppercase tracking-widest mt-4">Exclusive Member</p>
+            </div>
+          </div>
+        </div>
+
         <div>
           <h2 className="text-2xl font-cinzel text-white border-b border-luxePink-500/20 pb-4 mb-8">
             Your Luxury Wishlist
@@ -186,15 +226,15 @@ export default function ProfilePage() {
 
                 return (
                   <div
-                    key={p.id}
-                    onClick={() => router.push(`/product/${p.id}`)}
+                    key={p._id || p.id}
+                    onClick={() => router.push(`/product/${p._id || p.id}`)}
                     className="cursor-pointer luxury-card-shadow bg-velvet-300 border border-luxePink-500/10 rounded-2xl overflow-hidden relative group transition-all duration-300"
                   >
                     <div className="relative h-72 overflow-hidden bg-velvet-200 luxury-scale-hover">
                       <img
                         src={p.image}
                         alt={p.title}
-                        className="w-full h-full object-cover filter contrast-125 brightness-95 group-hover:brightness-75 luxury-transition hue-rotate-[290deg]"
+                        className="w-full h-full object-cover group-hover:brightness-75 luxury-transition"
                       />
                       <span className="absolute top-4 left-4 bg-velvet-400/90 backdrop-blur-sm border border-luxePink-500/30 text-luxePink-500 text-[8px] font-extrabold tracking-[0.2em] px-3 py-1 rounded">
                         {p.tag}
@@ -202,7 +242,7 @@ export default function ProfilePage() {
                       <div className="absolute inset-0 bg-gradient-to-t from-velvet-400 via-transparent to-transparent opacity-60"></div>
                       <div className="absolute inset-0 flex items-center justify-center gap-4 opacity-0 group-hover:opacity-100 transition-all duration-300 bg-velvet-400/50 backdrop-blur-sm">
                         <Link
-                          href={`/product/${p.id}`}
+                          href={`/product/${p._id || p.id}`}
                           className="w-12 h-12 rounded-full bg-luxePink-500 text-velvet-400 hover:bg-white hover:text-velvet-400 flex items-center justify-center luxury-transition pink-border-glow transform scale-90 hover:scale-105"
                         >
                           <i className="fa-solid fa-eye text-sm"></i>
@@ -219,15 +259,15 @@ export default function ProfilePage() {
                         <button
                           onClick={(e) => {
                             e.stopPropagation();
-                            toggleWishlist(p.id);
+                            toggleWishlist((p._id || p.id) as any);
                           }}
                           className={`w-12 h-12 rounded-full border border-luxePink-500 flex items-center justify-center luxury-transition pink-border-glow transform scale-90 hover:scale-105 ${
-                            wishlist.includes(p.id)
+                            (wishlist as any[]).includes(p._id || p.id)
                               ? "bg-luxePink-500 text-white"
                               : "bg-velvet-400 text-luxePink-500 hover:bg-luxePink-500 hover:text-velvet-400"
                           }`}
                         >
-                          <i className={`${wishlist.includes(p.id) ? "fa-solid" : "fa-regular"} fa-heart text-sm`}></i>
+                          <i className={`${(wishlist as any[]).includes(p._id || p.id) ? "fa-solid" : "fa-regular"} fa-heart text-sm`}></i>
                         </button>
                       </div>
                     </div>
@@ -299,7 +339,10 @@ export default function ProfilePage() {
                     <div className="flex flex-col md:flex-row justify-between md:items-center border-b border-luxePink-500/10 pb-4 mb-4 gap-4">
                       <div>
                         <h3 className="text-white font-cinzel font-semibold text-lg">Order #{order._id.substring(0, 8).toUpperCase()}</h3>
-                        <p className="text-gray-400 text-xs tracking-wider">{new Date(order.createdAt).toLocaleDateString()}</p>
+                        <p className="text-gray-400 text-xs tracking-wider mb-2">{new Date(order.createdAt).toLocaleDateString()}</p>
+                        <span className="text-[10px] uppercase tracking-widest font-bold px-3 py-1 rounded-full bg-blue-500/10 text-blue-400 border border-blue-500/20">
+                          {order.deliveryStatus || 'Not Confirmed yet'}
+                        </span>
                       </div>
                       <div className="flex items-center gap-4 flex-wrap">
                         <span className="text-luxePink-400 font-bold text-lg">₹{order.totalAmount.toLocaleString('en-IN')}</span>

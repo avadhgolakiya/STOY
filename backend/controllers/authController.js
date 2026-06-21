@@ -112,14 +112,14 @@ const generateEmailTemplate = (otp, title, message) => {
   </head>
   <body>
     <div class="container">
-      <div class="logo">Adut Store</div>
+      <div class="logo">Adult store</div>
       <div class="subtitle">Exclusive Velvet & Pink Atelier</div>
       <div class="title">${title}</div>
       <div class="message">${message}</div>
       <div class="otp-box">${otp}</div>
       <div class="message">This code will expire in 10 minutes. Please do not share it with anyone.</div>
       <div class="footer">
-        &copy; ${new Date().getFullYear()} Adut Store. All rights reserved.
+        &copy; ${new Date().getFullYear()} Adult store. All rights reserved.
       </div>
     </div>
   </body>
@@ -171,8 +171,8 @@ exports.registerUser = async (req, res) => {
     const mailOptions = {
       from: 'avadhgolakiya7204@gmail.com',
       to: user.email,
-      subject: 'Adut Store - Registration OTP',
-      html: generateEmailTemplate(otp, 'Verify Your Email', 'Welcome to Adut Store! To complete your registration, please enter the verification code below.')
+      subject: 'Adult store - Registration OTP',
+      html: generateEmailTemplate(otp, 'Verify Your Email', 'Welcome to Adult store! To complete your registration, please enter the verification code below.')
     };
 
     await transporter.sendMail(mailOptions);
@@ -263,8 +263,8 @@ exports.forgotPassword = async (req, res) => {
     const mailOptions = {
       from: 'avadhgolakiya7204@gmail.com',
       to: user.email,
-      subject: 'Adut Store - Password Reset OTP',
-      html: generateEmailTemplate(otp, 'Reset Your Password', 'We received a request to reset your Adut Store password. Please use the verification code below to set a new password.')
+      subject: 'Adult store - Password Reset OTP',
+      html: generateEmailTemplate(otp, 'Reset Your Password', 'We received a request to reset your Adult store password. Please use the verification code below to set a new password.')
     };
 
     await transporter.sendMail(mailOptions);

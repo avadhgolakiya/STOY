@@ -1,22 +1,59 @@
 "use client";
 
 import { useRouter } from "next/navigation";
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import Link from "next/link";
-import { products, Product } from "../data/products";
-import { useAppContext } from "../context/AppContext";
+import { useAppContext, Product } from "../context/AppContext";
 
 export default function ProductGrid() {
   const router = useRouter();
   const { addToCart, searchQuery, isLoggedIn, wishlist, toggleWishlist } = useAppContext();
+  const [products, setProducts] = useState<Product[]>([]);
+  const [apiCategories, setApiCategories] = useState<string[]>([]);
   const [currentFilter, setCurrentFilter] = useState("All");
-  const categories = ["All", "Watches", "Jewelry", "Leather Goods", "Fragrances", "Apparel"];
+  const [currentSizeFilter, setCurrentSizeFilter] = useState("All Sizes");
+
+  const categories = ["All", ...apiCategories];
+
+  useEffect(() => {
+    fetch("http://localhost:5001/api/products")
+      .then(r => r.json())
+      .then(data => setProducts(data))
+      .catch(console.error);
+
+    fetch("http://localhost:5001/api/categories")
+      .then(r => r.json())
+      .then(data => setApiCategories(data.map((c: any) => c.name)))
+      .catch(console.error);
+  }, []);
 
   const filteredProducts = products.filter((p) => {
     const matchesFilter = currentFilter === "All" || p.category === currentFilter;
-    const matchesSearch = p.title.toLowerCase().includes(searchQuery) || p.desc.toLowerCase().includes(searchQuery) || p.category.toLowerCase().includes(searchQuery);
-    return matchesFilter && matchesSearch;
+    const matchesSize = currentSizeFilter === "All Sizes" || p.size === currentSizeFilter;
+    const lowerSearch = searchQuery.toLowerCase();
+    const matchesSearch = p.title.toLowerCase().includes(lowerSearch) || p.desc.toLowerCase().includes(lowerSearch) || p.category.toLowerCase().includes(lowerSearch);
+    return matchesFilter && matchesSize && matchesSearch;
   });
+
+  const handleShare = async (e: React.MouseEvent, p: Product) => {
+    e.stopPropagation();
+    e.preventDefault();
+    const url = `${window.location.origin}/product/${p._id || p.id}`;
+    if (navigator.share) {
+      try {
+        await navigator.share({
+          title: p.title,
+          text: `Check out ${p.title} at Adult store`,
+          url,
+        });
+      } catch (error) {
+        console.error('Error sharing:', error);
+      }
+    } else {
+      navigator.clipboard.writeText(url);
+      alert("Link copied to clipboard!");
+    }
+  };
 
   return (
     <>
@@ -32,19 +69,42 @@ export default function ProductGrid() {
               </h2>
             </div>
 
-            <div className="flex flex-wrap gap-2 sm:gap-3 text-[9px] sm:text-[10px] uppercase tracking-[0.2em] sm:tracking-[0.25em]">
-              {categories.map((cat) => (
-                <button
-                  key={cat}
-                  onClick={() => setCurrentFilter(cat)}
-                  className={`px-4 py-2 sm:px-6 sm:py-3 rounded-full transition duration-300 font-semibold ${currentFilter === cat
+            <div className="flex flex-col items-start xl:items-end">
+              <div className="flex flex-wrap gap-2 sm:gap-3 text-[10px] uppercase tracking-[0.2em] sm:tracking-[0.25em]">
+                {categories.map((cat) => (
+                  <button
+                    key={cat}
+                    onClick={() => {
+                      setCurrentFilter(cat);
+                      setCurrentSizeFilter("All Sizes");
+                    }}
+                    style={{ fontSize: '10px !important' }}
+                    className={`px-4 py-2 sm:px-3 sm:py-3 rounded-full transition duration-300 font-semibold text-[10px] sm:text-xs ${currentFilter === cat
                       ? "border border-luxePink-500 text-velvet-400 bg-luxePink-400 shadow-lg shadow-luxePink-500/10"
                       : "border border-luxePink-500/20 text-luxePink-500 hover:border-luxePink-500 hover:bg-luxePink-500/10"
-                    }`}
-                >
-                  {cat === "All" ? "ALL PIECES" : cat === "Leather Goods" ? "COUTURE BAGS" : cat}
-                </button>
-              ))}
+                      }`}
+                  >
+                    {cat === "All" ? "ALL PIECES" : cat === "Leather Goods" ? "COUTURE BAGS" : cat}
+                  </button>
+                ))}
+              </div>
+
+              {currentFilter.toLowerCase() === 'dildo' && (
+                <div className="flex flex-wrap gap-2 sm:gap-3 mt-4 text-[10px] uppercase tracking-[0.2em] sm:tracking-[0.25em]">
+                  {["All Sizes", "Small", "Medium", "Large"].map((size) => (
+                    <button
+                      key={size}
+                      onClick={() => setCurrentSizeFilter(size)}
+                      className={`px-3 py-1.5 sm:px-4 sm:py-2 rounded-full transition duration-300 font-semibold text-[10px] sm:text-xs ${currentSizeFilter === size
+                        ? "border border-luxePink-500 text-velvet-400 bg-luxePink-400 shadow-lg shadow-luxePink-500/10"
+                        : "border border-luxePink-500/20 text-luxePink-500 hover:border-luxePink-500 hover:bg-luxePink-500/10"
+                        }`}
+                    >
+                      {size}
+                    </button>
+                  ))}
+                </div>
+              )}
             </div>
           </div>
 
@@ -69,27 +129,27 @@ export default function ProductGrid() {
 
                 return (
                   <div
-                    key={p.id}
-                    onClick={() => router.push(`/product/${p.id}`)}
+                    key={p._id || p.id}
+                    onClick={() => router.push(`/product/${p._id || p.id}`)}
                     className="cursor-pointer luxury-card-shadow bg-velvet-300 border border-luxePink-500/10 rounded-2xl overflow-hidden relative group transition-all duration-300"
                   >
                     <div className="relative h-72 overflow-hidden bg-velvet-200 luxury-scale-hover">
                       <img
                         src={p.image}
                         alt={p.title}
-                        className="w-full h-full object-cover filter contrast-125 brightness-95 group-hover:brightness-75 luxury-transition hue-rotate-[290deg]"
+                        className="w-full h-full object-cover group-hover:brightness-75 luxury-transition"
                       />
                       <span className="absolute top-4 left-4 bg-velvet-400/90 backdrop-blur-sm border border-luxePink-500/30 text-luxePink-500 text-[8px] font-extrabold tracking-[0.2em] px-3 py-1 rounded">
                         {p.tag}
                       </span>
                       <div className="absolute inset-0 bg-gradient-to-t from-velvet-400 via-transparent to-transparent opacity-60"></div>
                       <div className="absolute inset-0 flex items-center justify-center gap-4 opacity-0 group-hover:opacity-100 transition-all duration-300 bg-velvet-400/50 backdrop-blur-sm">
-                        <Link
-                          href={`/product/${p.id}`}
+                        <button
+                          onClick={(e) => handleShare(e, p)}
                           className="w-12 h-12 rounded-full bg-luxePink-500 text-velvet-400 hover:bg-white hover:text-velvet-400 flex items-center justify-center luxury-transition pink-border-glow transform scale-90 hover:scale-105"
                         >
-                          <i className="fa-solid fa-eye text-sm"></i>
-                        </Link>
+                          <i className="fa-solid fa-share-nodes text-sm"></i>
+                        </button>
                         <button
                           onClick={(e) => {
                             e.stopPropagation();
@@ -103,14 +163,16 @@ export default function ProductGrid() {
                           <button
                             onClick={(e) => {
                               e.stopPropagation();
-                              toggleWishlist(p.id);
+                              // wishlist uses _id or id
+                              const idToUse = (p._id || p.id) as any;
+                              toggleWishlist(idToUse);
                             }}
-                            className={`w-12 h-12 rounded-full border border-luxePink-500 flex items-center justify-center luxury-transition pink-border-glow transform scale-90 hover:scale-105 ${wishlist.includes(p.id)
-                                ? "bg-luxePink-500 text-white"
-                                : "bg-velvet-400 text-luxePink-500 hover:bg-luxePink-500 hover:text-velvet-400"
+                            className={`w-12 h-12 rounded-full border border-luxePink-500 flex items-center justify-center luxury-transition pink-border-glow transform scale-90 hover:scale-105 ${(wishlist as any[]).includes(p._id || p.id)
+                              ? "bg-luxePink-500 text-white"
+                              : "bg-velvet-400 text-luxePink-500 hover:bg-luxePink-500 hover:text-velvet-400"
                               }`}
                           >
-                            <i className={`${wishlist.includes(p.id) ? "fa-solid" : "fa-regular"} fa-heart text-sm`}></i>
+                            <i className={`${(wishlist as any[]).includes(p._id || p.id) ? "fa-solid" : "fa-regular"} fa-heart text-sm`}></i>
                           </button>
                         )}
                       </div>

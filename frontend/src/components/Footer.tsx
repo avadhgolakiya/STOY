@@ -27,10 +27,10 @@ export default function Footer() {
         <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-12 mb-16">
           <div>
             <span className="font-cinzel text-xl tracking-widest text-white font-extrabold block mb-6 text-glow-pink">
-              ADUT STORE
+              ADULT STORE
             </span>
             <p className="text-xs text-gray-400 leading-relaxed mb-6 font-light">
-              Adut Store represents the global vanguard of pure midnight purple and orchid pink themed products. We partner with the world's finest ateliers to curate, authenticate, and transport certified assets directly to elite collectors.
+              Adult store represents the global vanguard of pure midnight purple and orchid pink themed products. We partner with the world's finest ateliers to curate, authenticate, and transport certified assets directly to elite collectors.
             </p>
             <div className="flex gap-4">
               <a href="#" className="w-10 h-10 rounded-full border border-luxePink-500/20 flex items-center justify-center text-luxePink-500 hover:border-luxePink-500 hover:text-white luxury-transition hover:pink-border-glow">
@@ -139,27 +139,10 @@ export default function Footer() {
           </div>
         </div>
 
-        <div className="border-t border-luxePink-500/10 pt-10 pb-6 text-[10px] text-gray-500 leading-relaxed font-light space-y-6">
-          <div>
-            <h5 className="text-luxePink-500 uppercase font-semibold tracking-wider mb-2">
-              ADUT STORE Luxury Online Portal Portfolio
-            </h5>
-            <p>
-              Experience the ultimate showcase of the world's most luxurious brands online. Browse through premier collections of premium luxury timepieces, pure certified pink diamond accents, hand-woven luxury backpacks, leather goods, and signature elixirs. Shop online comfortably with completely insured global vault transport and armored delivery services. Each watch from Rolex, Cartier, or Audemars Piguet includes certified chronometer reports. Fine jewelry carries official VVS diamond verification certification.
-            </p>
-          </div>
-          <div>
-            <h5 className="text-luxePink-500 uppercase font-semibold tracking-wider mb-2">
-              Authenticated Brands Index
-            </h5>
-            <p>
-              Hermès Rose | Rolex Orchid Edition | Chanel Couture Rose | Cartier Privé | Versace Medusa Orchid | Audemars Piguet Velvet Royal Pink | Patek Philippe Sovereign Dial | Louis Vuitton Gilded Series | Gucci Pink Bamboo | Yves Saint Laurent Signature Monogram | Prada Saffiano Orchid
-            </p>
-          </div>
-        </div>
+
 
         <div className="border-t border-luxePink-500/5 pt-8 flex flex-col sm:flex-row justify-between items-center text-[9px] tracking-widest uppercase text-gray-500">
-          <p>&copy; 2026 ADUT STORE LUXURY INC. ALL RIGHTS RESERVED WORLDWIDE.</p>
+          <p>&copy; 2026 ADULT STORE LUXURY INC. ALL RIGHTS RESERVED WORLDWIDE.</p>
           <div className="flex gap-6 mt-4 sm:mt-0">
             <a href="#" className="hover:text-luxePink-500 transition">Privacy Policy</a>
             <a href="#" className="hover:text-luxePink-500 transition">Terms of Royal Service</a>

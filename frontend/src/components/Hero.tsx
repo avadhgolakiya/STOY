@@ -22,7 +22,7 @@ export default function Hero() {
 
       <div className="relative max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 w-full z-20">
         <div id="hero-slider" className="relative">
-          <div className="slide-item transition-all duration-1000 transform opacity-100 translate-x-0 pt-5 sm:pt-0">
+          <div className="slide-item transition-all duration-1000 transform opacity-100 translate-x-0 pt-5 sm:pt-0 max-sm:text-center max-sm:flex max-sm:flex-col max-sm:items-center">
             <span className="text-luxePink-500 text-xs sm:text-sm uppercase tracking-[0.35em] font-semibold block mb-4 text-glow-pink">
               CURATED COUTURE & PRIVATE ACCESS
             </span>
@@ -34,16 +34,16 @@ export default function Hero() {
               className="text-gray-300 text-sm sm:text-base max-w-xl mb-10 leading-relaxed font-light"
               dangerouslySetInnerHTML={{ __html: slide.desc }}
             ></p>
-            <div className="flex flex-col sm:flex-row gap-5">
+            <div className="flex flex-col sm:flex-row gap-5 max-sm:w-full">
               <a
                 href="#new-arrivals"
-                className="bg-gradient-to-r from-luxePink-600 to-luxePink-400 hover:from-luxePink-500 hover:to-luxePink-300 text-velvet-400 font-bold uppercase tracking-widest text-[11px] px-6 py-4 sm:px-9 sm:py-4 rounded-full transition-all duration-300 transform hover:scale-105 shadow-xl shadow-luxePink-500/10 text-center"
+                className="flex items-center justify-center bg-gradient-to-r from-luxePink-600 to-luxePink-400 hover:from-luxePink-500 hover:to-luxePink-300 text-velvet-400 font-bold uppercase tracking-widest text-[11px] px-8 py-4 sm:px-12 sm:py-4 rounded-full transition-all duration-300 transform hover:scale-105 shadow-xl shadow-luxePink-500/10 text-center"
               >
                 Acquire Current Drops
               </a>
               <a
                 href="#collections"
-                className="border border-luxePink-500/35 hover:border-luxePink-500 hover:bg-luxePink-500/10 text-luxePink-500 font-semibold uppercase tracking-widest text-[11px] px-6 py-4 sm:px-9 sm:py-4 rounded-full transition-all duration-300 text-center"
+                className="flex items-center justify-center border border-luxePink-500/35 hover:border-luxePink-500 hover:bg-luxePink-500/10 text-luxePink-500 font-semibold uppercase tracking-widest text-[11px] px-8 py-4 sm:px-12 sm:py-4 rounded-full transition-all duration-300 text-center"
               >
                 Explore The Edits
               </a>
@@ -82,7 +82,7 @@ export default function Hero() {
         <img
           key={slide.img} // Re-triggers animation on change
           src={slide.img}
-          className="w-full h-full object-cover object-center opacity-25 transition-all duration-1000 scale-105 filter contrast-125 brightness-75 hue-rotate-[290deg]"
+          className="w-full h-full object-cover object-center opacity-40 transition-all duration-1000 scale-105"
           alt="Luxury backdrop"
         />
       </div>

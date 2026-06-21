@@ -24,20 +24,20 @@ export default function AtelierEdit() {
             <div className="h-[1px] w-28 bg-luxePink-500/30 mx-auto mt-4"></div>
           </div>
 
-          <div className="grid grid-cols-2 md:grid-cols-4 lg:grid-cols-5 gap-8 justify-center items-center">
+          <div className="grid grid-cols-2 md:grid-cols-4 lg:grid-cols-5 gap-8 justify-center items-start">
             <div onClick={() => handleSearch("Watches")} className="flex flex-col items-center group cursor-pointer">
               <div className="relative w-24 h-24 sm:w-36 sm:h-36 rounded-full overflow-hidden border border-luxePink-500/20 group-hover:border-luxePink-500 p-1 sm:p-1.5 transition-all duration-500 bg-velvet-200 pink-border-glow">
                 <img
                   src="/flashlight.jpg"
-                  className="w-full h-full object-cover rounded-full filter grayscale contrast-125 brightness-90 group-hover:grayscale-0 transition duration-500 hue-rotate-[280deg]"
+                  className="w-full h-full object-cover rounded-full filter grayscale contrast-125 brightness-90 group-hover:grayscale-0 transition duration-500 hue-rotate-[280deg] group-hover:scale-105"
                   alt="Luxury Watches"
                 />
                 <div className="absolute inset-0 bg-luxePink-500/5 group-hover:bg-transparent transition duration-500"></div>
               </div>
-              <span className="text-xs uppercase tracking-[0.2em] font-semibold text-gray-300 group-hover:text-luxePink-500 mt-4 transition duration-300">
+              <span className="text-xs uppercase tracking-[0.2em] font-semibold text-gray-300 group-hover:text-luxePink-500 mt-4 transition duration-300 text-center block">
                 FINE HOROLOGY
               </span>
-              <span className="text-[9px] text-luxePink-500/70 tracking-widest mt-0.5">CHRONOGRAPHS</span>
+              <span className="text-[9px] text-luxePink-500/70 tracking-widest text-center block mt-0.5">CHRONOGRAPHS</span>
             </div>
 
             <div onClick={() => handleSearch("Jewelry")} className="flex flex-col items-center group cursor-pointer">
@@ -49,10 +49,10 @@ export default function AtelierEdit() {
                 />
                 <div className="absolute inset-0 bg-luxePink-500/5 group-hover:bg-transparent transition duration-500"></div>
               </div>
-              <span className="text-xs uppercase tracking-[0.2em] font-semibold text-gray-300 group-hover:text-luxePink-500 mt-4 transition duration-300">
+              <span className="text-xs uppercase tracking-[0.2em] font-semibold text-gray-300 group-hover:text-luxePink-500 mt-4 transition duration-300 text-center block">
                 ROYAL JEWELRY
               </span>
-              <span className="text-[9px] text-luxePink-500/70 tracking-widest mt-0.5">VVS GOLD & DIAMONDS</span>
+              <span className="text-[9px] text-luxePink-500/70 tracking-widest text-center block mt-0.5">VVS GOLD & DIAMONDS</span>
             </div>
 
             <div onClick={() => handleSearch("Leather Goods")} className="flex flex-col items-center group cursor-pointer">
@@ -64,10 +64,10 @@ export default function AtelierEdit() {
                 />
                 <div className="absolute inset-0 bg-luxePink-500/5 group-hover:bg-transparent transition duration-500"></div>
               </div>
-              <span className="text-xs uppercase tracking-[0.2em] font-semibold text-gray-300 group-hover:text-luxePink-500 mt-4 transition duration-300">
+              <span className="text-xs uppercase tracking-[0.2em] font-semibold text-gray-300 group-hover:text-luxePink-500 mt-4 transition duration-300 text-center block">
                 LEATHER ATELIER
               </span>
-              <span className="text-[9px] text-luxePink-500/70 tracking-widest mt-0.5">COUTURE CARRYALLS</span>
+              <span className="text-[9px] text-luxePink-500/70 tracking-widest text-center block mt-0.5">COUTURE CARRYALLS</span>
             </div>
 
             <div onClick={() => handleSearch("Fragrances")} className="flex flex-col items-center group cursor-pointer">
@@ -79,10 +79,10 @@ export default function AtelierEdit() {
                 />
                 <div className="absolute inset-0 bg-luxePink-500/5 group-hover:bg-transparent transition duration-500"></div>
               </div>
-              <span className="text-xs uppercase tracking-[0.2em] font-semibold text-gray-300 group-hover:text-luxePink-500 mt-4 transition duration-300">
+              <span className="text-xs uppercase tracking-[0.2em] font-semibold text-gray-300 group-hover:text-luxePink-500 mt-4 transition duration-300 text-center block">
                 PARFUM HOUSE
               </span>
-              <span className="text-[9px] text-luxePink-500/70 tracking-widest mt-0.5">ELIXIRS DE PARFUM</span>
+              <span className="text-[9px] text-luxePink-500/70 tracking-widest text-center block mt-0.5">ELIXIRS DE PARFUM</span>
             </div>
 
             <div onClick={() => handleSearch("Apparel")} className="flex flex-col items-center group cursor-pointer col-span-2 lg:col-span-1">
@@ -121,7 +121,7 @@ export default function AtelierEdit() {
                 <img
                   src="/flashlight.jpg"
                   alt="Flash Light"
-                  className="w-full h-full object-cover filter contrast-110 brightness-95 luxury-transition group-hover:scale-105 hue-rotate-[280deg]"
+                  className="w-full h-full object-cover luxury-transition group-hover:scale-105"
                 />
                 <div className="absolute inset-0 bg-gradient-to-t from-velvet-500 via-transparent to-transparent opacity-95"></div>
                 <div className="absolute bottom-6 left-6 right-6">
@@ -147,7 +147,7 @@ export default function AtelierEdit() {
                 <img
                   src="https://images.unsplash.com/photo-1522312346375-d1a52e2b99b3?auto=format&fit=crop&w=900&q=80"
                   alt="Exclusive Watch"
-                  className="w-full h-full object-cover filter contrast-115 brightness-90 luxury-transition group-hover:scale-105 hue-rotate-[280deg]"
+                  className="w-full h-full object-cover luxury-transition group-hover:scale-105"
                 />
                 <div className="absolute inset-0 bg-gradient-to-t from-velvet-500 via-transparent to-transparent opacity-95"></div>
                 <div className="absolute bottom-6 left-6 right-6">

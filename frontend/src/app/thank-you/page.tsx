@@ -26,7 +26,7 @@ export default function ThankYouPage() {
         </h1>
         
         <p className="text-gray-300 text-sm sm:text-base leading-relaxed mb-8 font-light">
-          Thank you for your exclusive purchase at Adut Store. Your masterpiece is now being prepared for armored delivery. You will receive an email shortly with your certified vault transport tracking details.
+          Thank you for your exclusive purchase at Adult store. Your masterpiece is now being prepared for armored delivery. You will receive an email shortly with your certified vault transport tracking details.
         </p>
 
         <div className="flex flex-col sm:flex-row gap-4 justify-center">

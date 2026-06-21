@@ -15,7 +15,7 @@ export default function MobileMenu() {
       <div>
         <div className="flex justify-between items-center mb-12">
           <span className="font-cinzel text-xl tracking-widest text-white text-glow-pink">
-            ADUT STORE
+            ADULT STORE
           </span>
           <button
             onClick={toggleMobileMenu}
