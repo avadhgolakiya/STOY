@@ -6,7 +6,7 @@ import { useAppContext } from "../context/AppContext";
 
 export default function Header() {
   const router = useRouter();
-  const { toggleCart, toggleMobileMenu, showToast, cart, setSearchQuery, isLoggedIn, wishlist } = useAppContext();
+  const { toggleCart, toggleMobileMenu, showToast, cart, searchQuery, setSearchQuery, isLoggedIn, wishlist } = useAppContext();
   const [isScrolled, setIsScrolled] = useState(false);
 
   const cartItemCount = cart.reduce((acc, item) => acc + item.quantity, 0);
