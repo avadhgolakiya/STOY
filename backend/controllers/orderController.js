@@ -189,7 +189,10 @@ exports.updateOrderStatus = async (req, res) => {
         auth: {
           user: getEnv('SMTP_USER') || 'dummy_user@ethereal.email',
           pass: getEnv('SMTP_PASS') || 'dummy_pass'
-        }
+        },
+        connectionTimeout: 5000,
+        greetingTimeout: 5000,
+        socketTimeout: 5000
       });
 
       const mailOptions = {

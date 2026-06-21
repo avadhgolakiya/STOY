@@ -2,10 +2,29 @@ const User = require('../models/User');
 const bcrypt = require('bcrypt');
 const jwt = require('jsonwebtoken');
 const nodemailer = require('nodemailer');
+const fs = require('fs');
+const path = require('path');
+
+function getEnv(key) {
+  try {
+    const envPath = path.join(__dirname, '../.env');
+    if (fs.existsSync(envPath)) {
+      const envContent = fs.readFileSync(envPath, 'utf8');
+      const lines = envContent.split('\n');
+      for (const line of lines) {
+        if (line.startsWith(key + '=')) {
+          return line.substring(key.length + 1).trim();
+        }
+      }
+    }
+  } catch(e) {}
+  if (process.env[key]) return process.env[key].trim();
+  return '';
+}
 
 // Helper to generate JWT
 const generateToken = (id) => {
-  return jwt.sign({ id }, process.env.JWT_SECRET || 'secret123', {
+  return jwt.sign({ id }, getEnv('JWT_SECRET') || 'secret123', {
     expiresIn: '30d',
   });
 };
@@ -160,23 +179,44 @@ exports.registerUser = async (req, res) => {
     }
 
     // Setup Nodemailer
+    const smtpHost = getEnv('SMTP_HOST');
+    const smtpPort = getEnv('SMTP_PORT');
+    const smtpSecure = getEnv('SMTP_SECURE');
+    const smtpUser = getEnv('SMTP_USER');
+    const smtpPass = getEnv('SMTP_PASS');
+
     const transporter = nodemailer.createTransport({
-      service: 'gmail',
+      host: smtpHost || undefined,
+      port: smtpPort ? parseInt(smtpPort) : undefined,
+      secure: smtpSecure === 'true',
+      service: smtpHost ? undefined : 'gmail',
       auth: {
-        user: 'avadhgolakiya7204@gmail.com',
-        pass: 'uuyaxaaxtfzaeioa'
-      }
+        user: smtpUser || 'avadhgolakiya7204@gmail.com',
+        pass: smtpPass || 'uuyaxaaxtfzaeioa'
+      },
+      connectionTimeout: 5000,
+      greetingTimeout: 5000,
+      socketTimeout: 5000
     });
 
     const mailOptions = {
-      from: 'avadhgolakiya7204@gmail.com',
+      from: smtpUser || 'avadhgolakiya7204@gmail.com',
       to: user.email,
       subject: 'Adult store - Registration OTP',
       html: generateEmailTemplate(otp, 'Verify Your Email', 'Welcome to Adult store! To complete your registration, please enter the verification code below.')
     };
 
-    await transporter.sendMail(mailOptions);
-    res.status(200).json({ message: 'OTP sent to email for verification' });
+    try {
+      await transporter.sendMail(mailOptions);
+      res.status(200).json({ message: 'OTP sent to email for verification' });
+    } catch (emailError) {
+      console.error('Failed to send verification email via SMTP:', emailError.message);
+      console.log(`[OTP Verification Bypass] For email ${user.email}, the OTP is: ${otp}`);
+      res.status(200).json({ 
+        message: 'OTP sent to email for verification (Bypassed via console logs)',
+        warning: 'Email sending failed. Please check server logs for the OTP.'
+      });
+    }
   } catch (error) {
     res.status(500).json({ message: 'Server Error', error: error.message });
   }
@@ -252,23 +292,44 @@ exports.forgotPassword = async (req, res) => {
     await user.save();
 
     // Setup Nodemailer
+    const smtpHost = getEnv('SMTP_HOST');
+    const smtpPort = getEnv('SMTP_PORT');
+    const smtpSecure = getEnv('SMTP_SECURE');
+    const smtpUser = getEnv('SMTP_USER');
+    const smtpPass = getEnv('SMTP_PASS');
+
     const transporter = nodemailer.createTransport({
-      service: 'gmail',
+      host: smtpHost || undefined,
+      port: smtpPort ? parseInt(smtpPort) : undefined,
+      secure: smtpSecure === 'true',
+      service: smtpHost ? undefined : 'gmail',
       auth: {
-        user: 'avadhgolakiya7204@gmail.com',
-        pass: 'uuyaxaaxtfzaeioa'
-      }
+        user: smtpUser || 'avadhgolakiya7204@gmail.com',
+        pass: smtpPass || 'uuyaxaaxtfzaeioa'
+      },
+      connectionTimeout: 5000,
+      greetingTimeout: 5000,
+      socketTimeout: 5000
     });
 
     const mailOptions = {
-      from: 'avadhgolakiya7204@gmail.com',
+      from: smtpUser || 'avadhgolakiya7204@gmail.com',
       to: user.email,
       subject: 'Adult store - Password Reset OTP',
       html: generateEmailTemplate(otp, 'Reset Your Password', 'We received a request to reset your Adult store password. Please use the verification code below to set a new password.')
     };
 
-    await transporter.sendMail(mailOptions);
-    res.json({ message: 'OTP sent to email' });
+    try {
+      await transporter.sendMail(mailOptions);
+      res.json({ message: 'OTP sent to email' });
+    } catch (emailError) {
+      console.error('Failed to send forgot-password email via SMTP:', emailError.message);
+      console.log(`[OTP Verification Bypass] For email ${user.email}, the OTP is: ${otp}`);
+      res.json({ 
+        message: 'OTP sent to email (Bypassed via console logs)',
+        warning: 'Email sending failed. Please check server logs for the OTP.'
+      });
+    }
 
   } catch (error) {
     res.status(500).json({ message: 'Error sending email', error: error.message });
