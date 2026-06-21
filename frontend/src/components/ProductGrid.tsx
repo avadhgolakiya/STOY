@@ -16,12 +16,12 @@ export default function ProductGrid() {
   const categories = ["All", ...apiCategories];
 
   useEffect(() => {
-    fetch("http://localhost:5001/api/products")
+    fetch(`${process.env.NEXT_PUBLIC_API_URL}/api/products`)
       .then(r => r.json())
       .then(data => setProducts(data))
       .catch(console.error);
 
-    fetch("http://localhost:5001/api/categories")
+    fetch(`${process.env.NEXT_PUBLIC_API_URL}/api/categories`)
       .then(r => r.json())
       .then(data => setApiCategories(data.map((c: any) => c.name)))
       .catch(console.error);

@@ -22,7 +22,7 @@ export default function ProfilePage() {
 
     const fetchProfile = async () => {
       try {
-        const res = await fetch('http://localhost:5001/api/users/profile', {
+        const res = await fetch(`${process.env.NEXT_PUBLIC_API_URL}/api/users/profile`, {
           headers: { Authorization: `Bearer ${token}` }
         });
         const data = await res.json();
@@ -36,7 +36,7 @@ export default function ProfilePage() {
 
         // Fetch Orders
         try {
-          const ordersRes = await fetch('http://localhost:5001/api/orders/myorders', {
+          const ordersRes = await fetch(`${process.env.NEXT_PUBLIC_API_URL}/api/orders/myorders`, {
             headers: { Authorization: `Bearer ${token}` }
           });
           const ordersData = await ordersRes.json();
@@ -49,7 +49,7 @@ export default function ProfilePage() {
 
         // Fetch Products
         try {
-          const prodRes = await fetch("http://localhost:5001/api/products");
+          const prodRes = await fetch(`${process.env.NEXT_PUBLIC_API_URL}/api/products`);
           if (prodRes.ok) {
             setProducts(await prodRes.json());
           }

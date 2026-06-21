@@ -46,7 +46,7 @@ export default function PaymentPage() {
     try {
       const token = localStorage.getItem("token");
       
-      const res = await fetch("http://localhost:5001/api/orders/create", {
+      const res = await fetch(`${process.env.NEXT_PUBLIC_API_URL}/api/orders/create`, {
         method: "POST",
         headers: {
           "Content-Type": "application/json",
@@ -82,7 +82,7 @@ export default function PaymentPage() {
           description: "Luxury Purchase",
           order_id: data.razorpayOrder.id,
           handler: async function (response: any) {
-            const verifyRes = await fetch("http://localhost:5001/api/orders/verify", {
+            const verifyRes = await fetch(`${process.env.NEXT_PUBLIC_API_URL}/api/orders/verify`, {
               method: "POST",
               headers: {
                 "Content-Type": "application/json",

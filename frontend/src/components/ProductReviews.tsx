@@ -21,7 +21,7 @@ export default function ProductReviews({ productId }: { productId: string }) {
   const fetchReviews = async () => {
     try {
       setLoading(true);
-      const res = await fetch(`http://localhost:5001/api/reviews/${productId}`);
+      const res = await fetch(`${process.env.NEXT_PUBLIC_API_URL}/api/reviews/${productId}`);
       if (res.ok) {
         const data = await res.json();
         setReviews(data);
@@ -52,13 +52,13 @@ export default function ProductReviews({ productId }: { productId: string }) {
       if (imageFile) {
         const formData = new FormData();
         formData.append("image", imageFile);
-        const uploadRes = await fetch("http://localhost:5001/api/upload", {
+        const uploadRes = await fetch(`${process.env.NEXT_PUBLIC_API_URL}/api/upload`, {
           method: "POST",
           body: formData,
         });
         if (uploadRes.ok) {
           const path = await uploadRes.text();
-          imageUrl = `http://localhost:5001${path}`;
+          imageUrl = `${process.env.NEXT_PUBLIC_API_URL}${path}`;
         }
       }
 
@@ -73,7 +73,7 @@ export default function ProductReviews({ productId }: { productId: string }) {
         image: imageUrl,
       };
 
-      const res = await fetch("http://localhost:5001/api/reviews", {
+      const res = await fetch(`${process.env.NEXT_PUBLIC_API_URL}/api/reviews`, {
         method: "POST",
         headers: { "Content-Type": "application/json" },
         body: JSON.stringify(reviewData),

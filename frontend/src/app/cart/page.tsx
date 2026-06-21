@@ -52,7 +52,7 @@ export default function CartPage() {
           <div className="grid grid-cols-1 lg:grid-cols-3 gap-12">
             <div className="lg:col-span-2 space-y-6">
               {cart.map((item) => (
-                <div key={item.id} className="flex gap-6 bg-velvet-300 border border-luxePink-500/10 p-4 rounded-xl items-center relative group">
+                <div key={item._id || item.id} className="flex gap-6 bg-velvet-300 border border-luxePink-500/10 p-4 rounded-xl items-center relative group">
                   <div className="w-24 h-24 rounded-lg overflow-hidden flex-shrink-0 bg-velvet-200">
                     <img src={item.image} alt={item.title} className="w-full h-full object-cover" />
                   </div>
@@ -60,7 +60,7 @@ export default function CartPage() {
                     <div className="flex justify-between items-start mb-2">
                       <h3 className="text-white font-cinzel font-semibold text-lg">{item.title}</h3>
                       <button 
-                        onClick={() => removeFromCart(item.id)}
+                        onClick={() => removeFromCart((item._id || item.id)!)}
                         className="text-gray-500 hover:text-luxePink-500 transition"
                       >
                         <i className="fa-solid fa-xmark text-lg"></i>
@@ -70,11 +70,11 @@ export default function CartPage() {
                     
                     <div className="flex justify-between items-center">
                       <div className="flex items-center gap-4 bg-velvet-400 rounded-lg px-2 py-1 border border-luxePink-500/20">
-                        <button onClick={() => changeQuantity(item.id, -1)} className="w-6 h-6 text-gray-400 hover:text-white transition">
+                        <button onClick={() => changeQuantity((item._id || item.id)!, -1)} className="w-6 h-6 text-gray-400 hover:text-white transition">
                           <i className="fa-solid fa-minus text-xs"></i>
                         </button>
                         <span className="text-white font-bold w-4 text-center">{item.quantity}</span>
-                        <button onClick={() => changeQuantity(item.id, 1)} className="w-6 h-6 text-gray-400 hover:text-white transition">
+                        <button onClick={() => changeQuantity((item._id || item.id)!, 1)} className="w-6 h-6 text-gray-400 hover:text-white transition">
                           <i className="fa-solid fa-plus text-xs"></i>
                         </button>
                       </div>

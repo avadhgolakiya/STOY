@@ -22,7 +22,7 @@ export default function AdminDashboard() {
 
   const fetchProducts = async () => {
     try {
-      const res = await fetch("http://localhost:5001/api/products");
+      const res = await fetch(`${process.env.NEXT_PUBLIC_API_URL}/api/products`);
       if (res.ok) {
         const data = await res.json();
         setProducts(data);
@@ -35,7 +35,7 @@ export default function AdminDashboard() {
   const fetchOrders = async () => {
     try {
       console.log("Fetching orders from API...");
-      const res = await fetch("http://localhost:5001/api/orders", { cache: 'no-store' });
+      const res = await fetch(`${process.env.NEXT_PUBLIC_API_URL}/api/orders`, { cache: 'no-store' });
       console.log("Fetch orders response status:", res.status);
       if (res.ok) {
         const data = await res.json();
@@ -49,7 +49,7 @@ export default function AdminDashboard() {
 
   const updateDeliveryStatus = async (orderId: string, status: string) => {
     try {
-      const res = await fetch(`http://localhost:5001/api/orders/${orderId}/status`, {
+      const res = await fetch(`${process.env.NEXT_PUBLIC_API_URL}/api/orders/${orderId}/status`, {
         method: 'PUT',
         headers: { 'Content-Type': 'application/json' },
         body: JSON.stringify({ deliveryStatus: status })
@@ -68,7 +68,7 @@ export default function AdminDashboard() {
 
   const fetchCategories = async () => {
     try {
-      const res = await fetch("http://localhost:5001/api/categories");
+      const res = await fetch(`${process.env.NEXT_PUBLIC_API_URL}/api/categories`);
       if (res.ok) {
         const data = await res.json();
         setCategories(data);
@@ -80,7 +80,7 @@ export default function AdminDashboard() {
 
   const fetchTestimonials = async () => {
     try {
-      const res = await fetch("http://localhost:5001/api/testimonials");
+      const res = await fetch(`${process.env.NEXT_PUBLIC_API_URL}/api/testimonials`);
       if (res.ok) {
         const data = await res.json();
         setTestimonials(data);
@@ -99,13 +99,13 @@ export default function AdminDashboard() {
     setUploadingImage(true);
 
     try {
-      const res = await fetch("http://localhost:5001/api/upload", {
+      const res = await fetch(`${process.env.NEXT_PUBLIC_API_URL}/api/upload`, {
         method: "POST",
         body: formDataFile
       });
       if (res.ok) {
         const imagePath = await res.text();
-        setFormData({ ...formData, image: `http://localhost:5001${imagePath}` });
+        setFormData({ ...formData, image: `${process.env.NEXT_PUBLIC_API_URL}${imagePath}` });
       } else {
         alert("Image upload failed.");
       }
@@ -129,14 +129,14 @@ export default function AdminDashboard() {
         const formDataFile = new FormData();
         formDataFile.append('image', files[i]);
         
-        const res = await fetch("http://localhost:5001/api/upload", {
+        const res = await fetch(`${process.env.NEXT_PUBLIC_API_URL}/api/upload`, {
           method: "POST",
           body: formDataFile
         });
         
         if (res.ok) {
           const imagePath = await res.text();
-          newImages.push(`http://localhost:5001${imagePath}`);
+          newImages.push(`${process.env.NEXT_PUBLIC_API_URL}${imagePath}`);
         } else {
           console.error(`Failed to upload file ${files[i].name}`);
         }
@@ -373,7 +373,7 @@ export default function AdminDashboard() {
                               onClick={async (e) => {
                                 e.stopPropagation();
                                 if (confirm("Delete this product?")) {
-                                  await fetch(`http://localhost:5001/api/products/${product._id}`, { method: "DELETE" });
+                                  await fetch(`${process.env.NEXT_PUBLIC_API_URL}/api/products/${product._id}`, { method: "DELETE" });
                                   fetchProducts();
                                 }
                               }}
@@ -408,7 +408,7 @@ export default function AdminDashboard() {
                     e.preventDefault();
                     if (!newCategoryName) return;
                     try {
-                      const res = await fetch("http://localhost:5001/api/categories", {
+                      const res = await fetch(`${process.env.NEXT_PUBLIC_API_URL}/api/categories`, {
                         method: "POST",
                         headers: { "Content-Type": "application/json" },
                         body: JSON.stringify({ name: newCategoryName })
@@ -448,7 +448,7 @@ export default function AdminDashboard() {
                       <button 
                         onClick={async () => {
                           if (confirm("Delete this category?")) {
-                            await fetch(`http://localhost:5001/api/categories/${cat._id}`, { method: "DELETE" });
+                            await fetch(`${process.env.NEXT_PUBLIC_API_URL}/api/categories/${cat._id}`, { method: "DELETE" });
                             fetchCategories();
                           }
                         }}
@@ -488,7 +488,7 @@ export default function AdminDashboard() {
                           <button 
                             onClick={async () => {
                               if (confirm("Delete this testimonial?")) {
-                                await fetch(`http://localhost:5001/api/testimonials/${t._id}`, { method: "DELETE" });
+                                await fetch(`${process.env.NEXT_PUBLIC_API_URL}/api/testimonials/${t._id}`, { method: "DELETE" });
                                 fetchTestimonials();
                               }
                             }}
@@ -522,7 +522,7 @@ export default function AdminDashboard() {
                 onSubmit={async (e) => {
                   e.preventDefault();
                   try {
-                    const res = await fetch("http://localhost:5001/api/testimonials", {
+                    const res = await fetch(`${process.env.NEXT_PUBLIC_API_URL}/api/testimonials`, {
                       method: "POST",
                       headers: { "Content-Type": "application/json" },
                       body: JSON.stringify(testiForm)
@@ -602,13 +602,13 @@ export default function AdminDashboard() {
                               formDataFile.append('image', file);
                               setUploadingImage(true);
                               try {
-                                const res = await fetch("http://localhost:5001/api/upload", {
+                                const res = await fetch(`${process.env.NEXT_PUBLIC_API_URL}/api/upload`, {
                                   method: "POST",
                                   body: formDataFile
                                 });
                                 if (res.ok) {
                                   const imagePath = await res.text();
-                                  setTestiForm({ ...testiForm, image: `http://localhost:5001${imagePath}` });
+                                  setTestiForm({ ...testiForm, image: `${process.env.NEXT_PUBLIC_API_URL}${imagePath}` });
                                 } else {
                                   alert("Image upload failed.");
                                 }
@@ -629,7 +629,7 @@ export default function AdminDashboard() {
                           </label>
                           {uploadingImage && <span className="text-luxePink-500 text-sm animate-pulse">Uploading...</span>}
                         </div>
-                        {testiForm.image && testiForm.image.startsWith("http://localhost:5001") && (
+                        {testiForm.image && testiForm.image.startsWith(`${process.env.NEXT_PUBLIC_API_URL}`) && (
                           <div className="mt-2 text-green-400 text-xs">
                             <i className="fa-solid fa-check mr-1"></i> Uploaded successfully!
                           </div>
@@ -684,8 +684,8 @@ export default function AdminDashboard() {
                       additionalImages: formData.additionalImages
                     };
                     const url = editingProductId 
-                      ? `http://localhost:5001/api/products/${editingProductId}` 
-                      : "http://localhost:5001/api/products";
+                      ? `${process.env.NEXT_PUBLIC_API_URL}/api/products/${editingProductId}` 
+                      : `${process.env.NEXT_PUBLIC_API_URL}/api/products`;
                     const method = editingProductId ? "PUT" : "POST";
 
                     const res = await fetch(url, {
@@ -779,7 +779,7 @@ export default function AdminDashboard() {
                           </label>
                           {uploadingImage && <span className="text-luxePink-500 text-sm animate-pulse">Uploading...</span>}
                         </div>
-                        {formData.image && formData.image.startsWith("http://localhost:5001") && (
+                        {formData.image && formData.image.startsWith(`${process.env.NEXT_PUBLIC_API_URL}`) && (
                           <div className="mt-2 text-green-400 text-xs">
                             <i className="fa-solid fa-check mr-1"></i> Uploaded successfully!
                           </div>

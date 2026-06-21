@@ -11,7 +11,7 @@ export default function Testimonials() {
   useEffect(() => {
     const fetchTestimonials = async () => {
       try {
-        const res = await fetch("http://localhost:5001/api/testimonials");
+        const res = await fetch(`${process.env.NEXT_PUBLIC_API_URL}/api/testimonials`);
         if (res.ok) {
           const data = await res.json();
           setTestimonials(data);

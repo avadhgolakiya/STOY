@@ -104,7 +104,7 @@ export function AppProvider({ children }: { children: ReactNode }) {
     try {
       const token = localStorage.getItem('token');
       if (!token) return;
-      const res = await fetch('http://localhost:5001/api/users/profile', {
+      const res = await fetch(`${process.env.NEXT_PUBLIC_API_URL}/api/users/profile`, {
         headers: { Authorization: `Bearer ${token}` }
       });
       const data = await res.json();
@@ -127,7 +127,7 @@ export function AppProvider({ children }: { children: ReactNode }) {
       const token = localStorage.getItem('token');
       if (!token) return;
 
-      const res = await fetch(`http://localhost:5001/api/users/wishlist/${productId}`, {
+      const res = await fetch(`${process.env.NEXT_PUBLIC_API_URL}/api/users/wishlist/${productId}`, {
         method: 'POST',
         headers: { Authorization: `Bearer ${token}` }
       });

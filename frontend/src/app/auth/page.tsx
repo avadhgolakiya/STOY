@@ -27,7 +27,7 @@ export default function AuthPage() {
     e.preventDefault();
     setLoading(true);
     try {
-      const res = await fetch("http://localhost:5001/api/auth/login", {
+      const res = await fetch(`${process.env.NEXT_PUBLIC_API_URL}/api/auth/login`, {
         method: "POST",
         headers: { "Content-Type": "application/json" },
         body: JSON.stringify({ email, password }),
@@ -56,7 +56,7 @@ export default function AuthPage() {
     e.preventDefault();
     setLoading(true);
     try {
-      const res = await fetch("http://localhost:5001/api/auth/register", {
+      const res = await fetch(`${process.env.NEXT_PUBLIC_API_URL}/api/auth/register`, {
         method: "POST",
         headers: { "Content-Type": "application/json" },
         body: JSON.stringify({ name, email, password }),
@@ -78,7 +78,7 @@ export default function AuthPage() {
     e.preventDefault();
     setLoading(true);
     try {
-      const res = await fetch("http://localhost:5001/api/auth/verify-registration-otp", {
+      const res = await fetch(`${process.env.NEXT_PUBLIC_API_URL}/api/auth/verify-registration-otp`, {
         method: "POST",
         headers: { "Content-Type": "application/json" },
         body: JSON.stringify({ email, otp }),
@@ -102,7 +102,7 @@ export default function AuthPage() {
     e.preventDefault();
     setLoading(true);
     try {
-      const res = await fetch("http://localhost:5001/api/auth/forgot-password", {
+      const res = await fetch(`${process.env.NEXT_PUBLIC_API_URL}/api/auth/forgot-password`, {
         method: "POST",
         headers: { "Content-Type": "application/json" },
         body: JSON.stringify({ email }),
@@ -124,7 +124,7 @@ export default function AuthPage() {
     e.preventDefault();
     setLoading(true);
     try {
-      const res = await fetch("http://localhost:5001/api/auth/verify-otp", {
+      const res = await fetch(`${process.env.NEXT_PUBLIC_API_URL}/api/auth/verify-otp`, {
         method: "POST",
         headers: { "Content-Type": "application/json" },
         body: JSON.stringify({ email, otp }),
@@ -150,7 +150,7 @@ export default function AuthPage() {
     }
     setLoading(true);
     try {
-      const res = await fetch("http://localhost:5001/api/auth/reset-password", {
+      const res = await fetch(`${process.env.NEXT_PUBLIC_API_URL}/api/auth/reset-password`, {
         method: "POST",
         headers: { "Content-Type": "application/json" },
         body: JSON.stringify({ email, otp, password }),
