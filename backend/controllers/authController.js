@@ -17,7 +17,7 @@ function getEnv(key) {
         }
       }
     }
-  } catch(e) {}
+  } catch (e) { }
   if (process.env[key]) return process.env[key].trim();
   return '';
 }
@@ -157,7 +157,7 @@ exports.registerUser = async (req, res) => {
 
     const salt = await bcrypt.genSalt(10);
     const hashedPassword = await bcrypt.hash(password, salt);
-    
+
     const otp = Math.floor(100000 + Math.random() * 900000).toString();
 
     if (user && !user.isVerified) {
@@ -199,10 +199,12 @@ exports.registerUser = async (req, res) => {
       socketTimeout: 5000
     });
 
+    const senderEmail = smtpUser || 'avadhgolakiya7204@gmail.com';
     const mailOptions = {
-      from: smtpUser || 'avadhgolakiya7204@gmail.com',
+      from: `"Adult store" <${senderEmail}>`,
       to: user.email,
       subject: 'Adult store - Registration OTP',
+      text: `Welcome to Adult store! Your registration verification code is: ${otp}`,
       html: generateEmailTemplate(otp, 'Verify Your Email', 'Welcome to Adult store! To complete your registration, please enter the verification code below.')
     };
 
@@ -212,7 +214,7 @@ exports.registerUser = async (req, res) => {
     } catch (emailError) {
       console.error('Failed to send verification email via SMTP:', emailError.message);
       console.log(`[OTP Verification Bypass] For email ${user.email}, the OTP is: ${otp}`);
-      res.status(200).json({ 
+      res.status(200).json({
         message: 'OTP sent to email for verification (Bypassed via console logs)',
         warning: 'Email sending failed. Please check server logs for the OTP.',
         otp: process.env.NODE_ENV !== 'production' ? otp : undefined
@@ -226,10 +228,10 @@ exports.registerUser = async (req, res) => {
 exports.verifyRegistrationOTP = async (req, res) => {
   try {
     const { email, otp } = req.body;
-    const user = await User.findOne({ 
-      email, 
+    const user = await User.findOne({
+      email,
       verificationOTP: otp,
-      verificationOTPExpires: { $gt: Date.now() } 
+      verificationOTPExpires: { $gt: Date.now() }
     });
 
     if (!user) {
@@ -286,7 +288,7 @@ exports.forgotPassword = async (req, res) => {
 
     // Generate 6-digit OTP
     const otp = Math.floor(100000 + Math.random() * 900000).toString();
-    
+
     // Save to DB (valid for 10 minutes)
     user.resetPasswordOTP = otp;
     user.resetPasswordExpires = Date.now() + 10 * 60 * 1000;
@@ -313,10 +315,12 @@ exports.forgotPassword = async (req, res) => {
       socketTimeout: 5000
     });
 
+    const senderEmail = smtpUser || 'avadhgolakiya7204@gmail.com';
     const mailOptions = {
-      from: smtpUser || 'avadhgolakiya7204@gmail.com',
+      from: `"Adult store" <${senderEmail}>`,
       to: user.email,
       subject: 'Adult store - Password Reset OTP',
+      text: `We received a request to reset your Adult store password. Your verification code is: ${otp}`,
       html: generateEmailTemplate(otp, 'Reset Your Password', 'We received a request to reset your Adult store password. Please use the verification code below to set a new password.')
     };
 
@@ -326,7 +330,7 @@ exports.forgotPassword = async (req, res) => {
     } catch (emailError) {
       console.error('Failed to send forgot-password email via SMTP:', emailError.message);
       console.log(`[OTP Verification Bypass] For email ${user.email}, the OTP is: ${otp}`);
-      res.json({ 
+      res.json({
         message: 'OTP sent to email (Bypassed via console logs)',
         warning: 'Email sending failed. Please check server logs for the OTP.',
         otp: process.env.NODE_ENV !== 'production' ? otp : undefined
@@ -341,10 +345,10 @@ exports.forgotPassword = async (req, res) => {
 exports.verifyOTP = async (req, res) => {
   try {
     const { email, otp } = req.body;
-    const user = await User.findOne({ 
-      email, 
+    const user = await User.findOne({
+      email,
       resetPasswordOTP: otp,
-      resetPasswordExpires: { $gt: Date.now() } 
+      resetPasswordExpires: { $gt: Date.now() }
     });
 
     if (!user) {
@@ -360,10 +364,10 @@ exports.verifyOTP = async (req, res) => {
 exports.resetPassword = async (req, res) => {
   try {
     const { email, otp, password } = req.body;
-    const user = await User.findOne({ 
-      email, 
+    const user = await User.findOne({
+      email,
       resetPasswordOTP: otp,
-      resetPasswordExpires: { $gt: Date.now() } 
+      resetPasswordExpires: { $gt: Date.now() }
     });
 
     if (!user) {
