@@ -186,6 +186,7 @@ exports.updateOrderStatus = async (req, res) => {
       const transporter = nodemailer.createTransport({
         host: getEnv('SMTP_HOST') || 'smtp.ethereal.email',
         port: getEnv('SMTP_PORT') || 587,
+        family: 4, // Force IPv4 to prevent ENETUNREACH errors on cloud hosts like Render
         auth: {
           user: getEnv('SMTP_USER') || 'dummy_user@ethereal.email',
           pass: getEnv('SMTP_PASS') || 'dummy_pass'

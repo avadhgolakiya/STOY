@@ -186,17 +186,17 @@ exports.registerUser = async (req, res) => {
     const smtpPass = getEnv('SMTP_PASS');
 
     const transporter = nodemailer.createTransport({
-      host: smtpHost || undefined,
-      port: smtpPort ? parseInt(smtpPort) : undefined,
+      host: smtpHost || 'smtp.gmail.com',
+      port: smtpPort ? parseInt(smtpPort) : 587,
       secure: smtpSecure === 'true',
-      service: smtpHost ? undefined : 'gmail',
+      family: 4, // Force IPv4 to prevent ENETUNREACH errors on cloud hosts like Render
       auth: {
         user: smtpUser || 'avadhgolakiya7204@gmail.com',
         pass: smtpPass || 'uuyaxaaxtfzaeioa'
       },
-      connectionTimeout: 5000,
-      greetingTimeout: 5000,
-      socketTimeout: 5000
+      connectionTimeout: 10000,
+      greetingTimeout: 10000,
+      socketTimeout: 10000
     });
 
     const senderEmail = smtpUser || 'avadhgolakiya7204@gmail.com';
@@ -302,17 +302,17 @@ exports.forgotPassword = async (req, res) => {
     const smtpPass = getEnv('SMTP_PASS');
 
     const transporter = nodemailer.createTransport({
-      host: smtpHost || undefined,
-      port: smtpPort ? parseInt(smtpPort) : undefined,
+      host: smtpHost || 'smtp.gmail.com',
+      port: smtpPort ? parseInt(smtpPort) : 587,
       secure: smtpSecure === 'true',
-      service: smtpHost ? undefined : 'gmail',
+      family: 4, // Force IPv4 to prevent ENETUNREACH errors on cloud hosts like Render
       auth: {
         user: smtpUser || 'avadhgolakiya7204@gmail.com',
         pass: smtpPass || 'uuyaxaaxtfzaeioa'
       },
-      connectionTimeout: 5000,
-      greetingTimeout: 5000,
-      socketTimeout: 5000
+      connectionTimeout: 10000,
+      greetingTimeout: 10000,
+      socketTimeout: 10000
     });
 
     const senderEmail = smtpUser || 'avadhgolakiya7204@gmail.com';
