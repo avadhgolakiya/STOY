@@ -23,67 +23,35 @@ export default function ReturnsPage() {
 
         <div className="text-gray-300 text-sm sm:text-base leading-relaxed space-y-8 font-light">
           <p>
-            At <span className="text-white font-medium">Naughtynights.in</span>, we maintain the highest standards of hygiene and health safety. Because of the intimate nature of our products, our return and exchange guidelines are strictly enforced to protect all customers.
+            We ensure that every order undergoes thorough quality checks before being shipped, so you can be confident that you’re receiving the highest standard of products. Exchange requests will only be accepted for items with manufacturing defects. To request an exchange, we ask that you record a video while unboxing the package and share it with us within 24 hours of delivery. Please note that exchanges are not applicable for incorrect items ordered.
           </p>
 
-          <div>
-            <h2 className="text-lg sm:text-xl font-cinzel text-white font-bold tracking-wide mb-3">
-              Intimate Hygiene & Safety Restriction
-            </h2>
-            <p>
-              Due to health, personal hygiene, and safety considerations, adult and intimate wellness products <span className="text-white font-medium">cannot be returned or exchanged once opened, used, or if the safety seal has been tampered with</span>. 
-            </p>
-            <p className="mt-2">
-              We inspect all dispatched orders to verify their pristine condition. We ask that you verify all specifications, sizes, and compatibility prior to finalizing your order.
-            </p>
-          </div>
-
-          <div>
-            <h2 className="text-lg sm:text-xl font-cinzel text-white font-bold tracking-wide mb-3">
-              Eligible Return Criteria
-            </h2>
-            <p>
-              We accept return requests under these specific circumstances:
-            </p>
-            <ul className="list-disc list-inside mt-2 space-y-2 pl-4">
-              <li>
-                <span className="text-white font-medium">Transit Damage:</span> The product arrived physically damaged or broken during shipping.
-              </li>
-              <li>
-                <span className="text-white font-medium">Manufacturing Defect:</span> The electronic device has an inherent manufacturing issue or fails to power on out of the box.
-              </li>
-              <li>
-                <span className="text-white font-medium">Incomplete or Wrong Delivery:</span> You received a product completely different from the one ordered.
-              </li>
+          <div className="bg-velvet-400/50 p-6 rounded-2xl border border-luxePink-500/10">
+            <h2 className="text-white font-medium mb-3 uppercase tracking-wider text-xs font-cinzel text-glow-pink">Exchange Conditions</h2>
+            <ul className="list-disc list-inside space-y-2 pl-1">
+              <li>The product must be unused.</li>
+              <li>Exchanges are only available for the same model.</li>
+              <li>The buyer must notify us <span className="text-white font-medium">within 24 hours of delivery</span> if the product is defective.</li>
+              <li>A video showing the unboxing of the product is required for the exchange request.</li>
+              <li>The free replacement offer is available for one-time use only.</li>
             </ul>
+            <p className="mt-4 text-xs text-luxePink-400">
+              Note: Exchange requests are subject to approval by our customer service team.
+            </p>
           </div>
 
-          <div>
-            <h2 className="text-lg sm:text-xl font-cinzel text-white font-bold tracking-wide mb-3">
-              Reporting Window & Process
-            </h2>
+          <div className="bg-velvet-400/50 p-6 rounded-2xl border border-luxePink-500/10">
+            <h2 className="text-white font-medium mb-3 uppercase tracking-wider text-xs font-cinzel">How to Initiate an Exchange</h2>
             <p>
-              All eligible issues must be reported to our support team <span className="text-white font-medium">within 48 hours of delivery</span>. 
+              Once approved, the buyer is responsible for the return shipping costs. To initiate the exchange process, simply:
             </p>
-            <p className="mt-2">
-              To submit a return/exchange claim, please contact support and provide:
-            </p>
-            <ul className="list-disc list-inside mt-1 space-y-1 pl-4">
-              <li>Your order number and proof of purchase.</li>
-              <li>A short video or photo demonstrating the defect, damage, or wrong item.</li>
-              <li>Images showing the original packaging box with the shipping label intact.</li>
-            </ul>
-          </div>
-
-          <div>
-            <h2 className="text-lg sm:text-xl font-cinzel text-white font-bold tracking-wide mb-3">
-              Return Shipping Fees
-            </h2>
-            <p>
-              Once your return request is officially approved by our support team, <span className="text-white font-medium">the buyer will have to bear all the costs for return shipping</span> to dispatch the item back to our centralized fulfillment vault. 
-            </p>
-            <p className="mt-2">
-              Upon receiving and verifying the returned package, we will process the replacement dispatch or initiate your refund according to our Refund Policy.
+            <ol className="list-decimal list-inside mt-3 space-y-2 pl-1">
+              <li>Take clear photos of the product, packaging, tags, and booklets.</li>
+              <li>Contact our support via call or WhatsApp to request the return.</li>
+              <li>Upon receiving the returned item, we will inspect it and proceed with the exchange.</li>
+            </ol>
+            <p className="mt-4">
+              Our team will keep you informed via call or WhatsApp throughout the process, ensuring smooth communication until the replacement is completed.
             </p>
           </div>
         </div>
