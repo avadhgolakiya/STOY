@@ -183,28 +183,38 @@ exports.updateOrderStatus = async (req, res) => {
 
     // Send Email Notification
     try {
+      const smtpHost = getEnv('SMTP_HOST');
+      const smtpPort = getEnv('SMTP_PORT');
+      const smtpSecure = getEnv('SMTP_SECURE');
+      const smtpUser = getEnv('SMTP_USER');
+      const smtpPass = getEnv('SMTP_PASS');
+
       const transporter = nodemailer.createTransport({
-        host: getEnv('SMTP_HOST') || 'smtp.ethereal.email',
-        port: getEnv('SMTP_PORT') || 587,
+        host: smtpHost || 'smtp.gmail.com',
+        port: smtpPort ? parseInt(smtpPort) : 587,
+        secure: smtpSecure === 'true',
         family: 4, // Force IPv4 to prevent ENETUNREACH errors on cloud hosts like Render
         auth: {
-          user: getEnv('SMTP_USER') || 'dummy_user@ethereal.email',
-          pass: getEnv('SMTP_PASS') || 'dummy_pass'
+          user: smtpUser || undefined,
+          pass: smtpPass || undefined
         },
-        connectionTimeout: 5000,
-        greetingTimeout: 5000,
-        socketTimeout: 5000
+        connectionTimeout: 20000,
+        greetingTimeout: 20000,
+        socketTimeout: 20000,
+        tls: {
+          rejectUnauthorized: false
+        }
       });
 
       const mailOptions = {
-        from: '"Adult store" <no-reply@adultstore.com>',
+        from: smtpUser ? `"Adult store" <${smtpUser}>` : '"Adult store" <no-reply@adultstore.com>',
         to: order.customerEmail,
         subject: `Update on your Order #${order._id.toString().substring(0, 8)}`,
         text: `Hello ${order.customerName},\n\nYour order status has been updated to: ${deliveryStatus}.\n\nThank you for shopping with us!\nAdult store`,
         html: `<h3>Hello ${order.customerName},</h3><p>Your order status has been updated to: <strong>${deliveryStatus}</strong>.</p><p>Thank you for shopping with us!<br/>Adult store</p>`
       };
 
-      if (!getEnv('SMTP_HOST')) {
+      if (!smtpHost && !smtpUser) {
         console.log('--- SIMULATED EMAIL NOTIFICATION ---');
         console.log(`To: ${order.customerEmail}`);
         console.log(`Subject: ${mailOptions.subject}`);
