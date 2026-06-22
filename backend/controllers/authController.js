@@ -29,7 +29,9 @@ const generateToken = (id) => {
   });
 };
 
-const generateEmailTemplate = (otp, title, message) => {
+const generateEmailTemplate = (otp, title, message, user = {}) => {
+  const greeting = user.name ? `Hi ${user.name}! ` : '';
+
   return `
   <!DOCTYPE html>
   <html>
@@ -134,7 +136,7 @@ const generateEmailTemplate = (otp, title, message) => {
       <div class="logo">Adult store</div>
       <div class="subtitle">Exclusive Velvet & Pink Atelier</div>
       <div class="title">${title}</div>
-      <div class="message">${message}</div>
+      <div class="message">${greeting}${message}</div>
       <div class="otp-box">${otp}</div>
       <div class="message">This code will expire in 10 minutes. Please do not share it with anyone.</div>
       <div class="footer">
@@ -144,6 +146,162 @@ const generateEmailTemplate = (otp, title, message) => {
   </body>
   </html>
   `;
+};
+
+const generatePasswordUpdatedTemplate = (user) => {
+  const userName = user.name || '';
+  const greeting = userName ? `Hi ${userName}! ` : '';
+
+  return `
+  <!DOCTYPE html>
+  <html>
+  <head>
+    <meta charset="utf-8">
+    <style>
+      body {
+        font-family: 'Helvetica Neue', Helvetica, Arial, sans-serif;
+        background-color: #1a0b1c; /* Deep velvet dark mode default */
+        color: #ffffff;
+        margin: 0;
+        padding: 0;
+      }
+      .container {
+        max-width: 600px;
+        margin: 40px auto;
+        background-color: #2d1633;
+        border: 1px solid rgba(219, 39, 119, 0.2);
+        border-radius: 12px;
+        padding: 40px;
+        text-align: center;
+        box-shadow: 0 10px 25px rgba(0,0,0,0.5);
+      }
+      .logo {
+        font-size: 32px;
+        font-style: italic;
+        color: #db2777; /* luxePink-500 */
+        margin-bottom: 10px;
+        font-weight: bold;
+      }
+      .subtitle {
+        font-size: 10px;
+        letter-spacing: 2px;
+        text-transform: uppercase;
+        color: #db2777;
+        margin-bottom: 30px;
+      }
+      .title {
+        font-size: 24px;
+        font-weight: 300;
+        letter-spacing: 2px;
+        text-transform: uppercase;
+        margin-bottom: 20px;
+        color: #ffffff;
+      }
+      .message {
+        font-size: 14px;
+        color: #d1d5db;
+        line-height: 1.6;
+        margin-bottom: 30px;
+      }
+      .login-btn {
+        background-color: #db2777;
+        color: #ffffff !important;
+        text-decoration: none;
+        padding: 12px 30px;
+        border-radius: 8px;
+        font-weight: bold;
+        display: inline-block;
+        margin-bottom: 30px;
+        letter-spacing: 1px;
+        text-transform: uppercase;
+        font-size: 12px;
+      }
+      .footer {
+        font-size: 12px;
+        color: #9ca3af;
+        margin-top: 30px;
+        border-top: 1px solid rgba(255,255,255,0.1);
+        padding-top: 20px;
+      }
+
+      /* Light Mode Override */
+      @media (prefers-color-scheme: light) {
+        body {
+          background-color: #fce7f3; /* pink-100 */
+          color: #1f2937;
+        }
+        .container {
+          background-color: #ffffff;
+          border: 1px solid #fbcfe8;
+          box-shadow: 0 10px 25px rgba(219, 39, 119, 0.1);
+        }
+        .title {
+          color: #1f2937;
+        }
+        .message {
+          color: #4b5563;
+        }
+        .login-btn {
+          background-color: #be185d;
+        }
+        .footer {
+          border-top: 1px solid #fbcfe8;
+          color: #6b7280;
+        }
+      }
+    </style>
+  </head>
+  <body>
+    <div class="container">
+      <div class="logo">Adult store</div>
+      <div class="subtitle">Exclusive Velvet & Pink Atelier</div>
+      <div class="title">Password Updated</div>
+      <div class="message">${greeting}Your password has been updated successfully. You can now sign in to your Adult store account with your new credentials.</div>
+      <a href="http://localhost:3000/auth" class="login-btn">Sign In to Your Account</a>
+      <div class="footer">
+        &copy; ${new Date().getFullYear()} Adult store. All rights reserved.
+      </div>
+    </div>
+  </body>
+  </html>
+  `;
+};
+
+const createTransporter = () => {
+  const smtpUser = getEnv('SMTP_USER') || 'avadhgolakiya88@gmail.com';
+  const smtpPass = getEnv('SMTP_PASS') || 'zvtpdprzfebryjfe';
+  const smtpHost = getEnv('SMTP_HOST');
+  const smtpPort = getEnv('SMTP_PORT');
+  const smtpSecure = getEnv('SMTP_SECURE');
+
+  // If host is explicitly defined in env, use custom SMTP configuration
+  if (smtpHost) {
+    return nodemailer.createTransport({
+      host: smtpHost,
+      port: smtpPort ? parseInt(smtpPort) : 587,
+      secure: smtpSecure === 'true',
+      family: 4, // Force IPv4
+      auth: {
+        user: smtpUser || undefined,
+        pass: smtpPass || undefined
+      },
+      connectionTimeout: 20000,
+      greetingTimeout: 20000,
+      socketTimeout: 20000,
+      tls: {
+        rejectUnauthorized: false
+      }
+    });
+  }
+
+  // Otherwise, default to Gmail service using specified credentials
+  return nodemailer.createTransport({
+    service: 'gmail',
+    auth: {
+      user: smtpUser,
+      pass: smtpPass
+    }
+  });
 };
 
 exports.registerUser = async (req, res) => {
@@ -179,28 +337,8 @@ exports.registerUser = async (req, res) => {
     }
 
     // Setup Nodemailer
-    const smtpHost = getEnv('SMTP_HOST');
-    const smtpPort = getEnv('SMTP_PORT');
-    const smtpSecure = getEnv('SMTP_SECURE');
-    const smtpUser = getEnv('SMTP_USER');
-    const smtpPass = getEnv('SMTP_PASS');
-
-    const transporter = nodemailer.createTransport({
-      host: smtpHost || 'smtp.gmail.com',
-      port: smtpPort ? parseInt(smtpPort) : 587,
-      secure: smtpSecure === 'true',
-      family: 4, // Force IPv4 to prevent ENETUNREACH errors on cloud hosts like Render
-      auth: {
-        user: smtpUser || undefined,
-        pass: smtpPass || undefined
-      },
-      connectionTimeout: 20000,
-      greetingTimeout: 20000,
-      socketTimeout: 20000,
-      tls: {
-        rejectUnauthorized: false
-      }
-    });
+    const transporter = createTransporter();
+    const smtpUser = getEnv('SMTP_USER') || 'avadhgolakiya88@gmail.com';
 
     try {
       await transporter.verify();
@@ -209,13 +347,12 @@ exports.registerUser = async (req, res) => {
       console.error("SMTP Verify Error:", err);
     }
 
-    const senderEmail = smtpUser || '';
     const mailOptions = {
-      from: `"Adult store" <${senderEmail}>`,
+      from: `"Adult store" <${smtpUser}>`,
       to: user.email,
-      subject: 'Adult store - Registration OTP',
+      subject: '🔑 Adult store - Registration OTP',
       text: `Welcome to Adult store! Your registration verification code is: ${otp}`,
-      html: generateEmailTemplate(otp, 'Verify Your Email', 'Welcome to Adult store! To complete your registration, please enter the verification code below.')
+      html: generateEmailTemplate(otp, 'Verify Your Email', 'Welcome to Adult store! To complete your registration, please enter the verification code below.', user)
     };
 
     try {
@@ -305,28 +442,8 @@ exports.forgotPassword = async (req, res) => {
     await user.save();
 
     // Setup Nodemailer
-    const smtpHost = getEnv('SMTP_HOST');
-    const smtpPort = getEnv('SMTP_PORT');
-    const smtpSecure = getEnv('SMTP_SECURE');
-    const smtpUser = getEnv('SMTP_USER');
-    const smtpPass = getEnv('SMTP_PASS');
-
-    const transporter = nodemailer.createTransport({
-      host: smtpHost || 'smtp.gmail.com',
-      port: smtpPort ? parseInt(smtpPort) : 587,
-      secure: smtpSecure === 'true',
-      family: 4, // Force IPv4 to prevent ENETUNREACH errors on cloud hosts like Render
-      auth: {
-        user: smtpUser || undefined,
-        pass: smtpPass || undefined
-      },
-      connectionTimeout: 20000,
-      greetingTimeout: 20000,
-      socketTimeout: 20000,
-      tls: {
-        rejectUnauthorized: false
-      }
-    });
+    const transporter = createTransporter();
+    const smtpUser = getEnv('SMTP_USER') || 'avadhgolakiya88@gmail.com';
 
     try {
       await transporter.verify();
@@ -335,13 +452,12 @@ exports.forgotPassword = async (req, res) => {
       console.error("SMTP Verify Error:", err);
     }
 
-    const senderEmail = smtpUser || '';
     const mailOptions = {
-      from: `"Adult store" <${senderEmail}>`,
+      from: `"Adult store" <${smtpUser}>`,
       to: user.email,
-      subject: 'Adult store - Password Reset OTP',
+      subject: '🔑 Adult store - Password Reset OTP',
       text: `We received a request to reset your Adult store password. Your verification code is: ${otp}`,
-      html: generateEmailTemplate(otp, 'Reset Your Password', 'We received a request to reset your Adult store password. Please use the verification code below to set a new password.')
+      html: generateEmailTemplate(otp, 'Reset Your Password', 'We received a request to reset your Adult store password. Please use the verification code below to set a new password.', user)
     };
 
     try {
@@ -399,6 +515,22 @@ exports.resetPassword = async (req, res) => {
     user.resetPasswordOTP = undefined;
     user.resetPasswordExpires = undefined;
     await user.save();
+
+    // Send confirmation email
+    const transporter = createTransporter();
+    const smtpUser = getEnv('SMTP_USER') || 'avadhgolakiya88@gmail.com';
+    const mailOptions = {
+      from: `"Adult store" <${smtpUser}>`,
+      to: user.email,
+      subject: '✅ Your Adult store Password Has Been Updated',
+      html: generatePasswordUpdatedTemplate(user)
+    };
+
+    try {
+      await transporter.sendMail(mailOptions);
+    } catch (emailError) {
+      console.error('Failed to send password updated confirmation email:', emailError.message);
+    }
 
     res.json({ message: 'Password updated successfully' });
   } catch (error) {
