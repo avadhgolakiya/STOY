@@ -191,15 +191,25 @@ exports.registerUser = async (req, res) => {
       secure: smtpSecure === 'true',
       family: 4, // Force IPv4 to prevent ENETUNREACH errors on cloud hosts like Render
       auth: {
-        user: smtpUser || 'avadhgolakiya7204@gmail.com',
-        pass: smtpPass || 'uuyaxaaxtfzaeioa'
+        user: smtpUser || undefined,
+        pass: smtpPass || undefined
       },
-      connectionTimeout: 10000,
-      greetingTimeout: 10000,
-      socketTimeout: 10000
+      connectionTimeout: 20000,
+      greetingTimeout: 20000,
+      socketTimeout: 20000,
+      tls: {
+        rejectUnauthorized: false
+      }
     });
 
-    const senderEmail = smtpUser || 'avadhgolakiya7204@gmail.com';
+    try {
+      await transporter.verify();
+      console.log("SMTP Ready");
+    } catch (err) {
+      console.error("SMTP Verify Error:", err);
+    }
+
+    const senderEmail = smtpUser || '';
     const mailOptions = {
       from: `"Adult store" <${senderEmail}>`,
       to: user.email,
@@ -307,15 +317,25 @@ exports.forgotPassword = async (req, res) => {
       secure: smtpSecure === 'true',
       family: 4, // Force IPv4 to prevent ENETUNREACH errors on cloud hosts like Render
       auth: {
-        user: smtpUser || 'avadhgolakiya7204@gmail.com',
-        pass: smtpPass || 'uuyaxaaxtfzaeioa'
+        user: smtpUser || undefined,
+        pass: smtpPass || undefined
       },
-      connectionTimeout: 10000,
-      greetingTimeout: 10000,
-      socketTimeout: 10000
+      connectionTimeout: 20000,
+      greetingTimeout: 20000,
+      socketTimeout: 20000,
+      tls: {
+        rejectUnauthorized: false
+      }
     });
 
-    const senderEmail = smtpUser || 'avadhgolakiya7204@gmail.com';
+    try {
+      await transporter.verify();
+      console.log("SMTP Ready");
+    } catch (err) {
+      console.error("SMTP Verify Error:", err);
+    }
+
+    const senderEmail = smtpUser || '';
     const mailOptions = {
       from: `"Adult store" <${senderEmail}>`,
       to: user.email,
