@@ -16,127 +16,71 @@ export default function PrivacyPage() {
         </Link>
 
         <h1 className="text-3xl sm:text-4xl font-cinzel text-white font-extrabold tracking-wide mb-8 text-glow-pink">
-          Privacy Policy
+          Privacy & Security
         </h1>
 
         <div className="h-[1px] w-full bg-gradient-to-r from-luxePink-500/30 via-luxePink-500/10 to-transparent mb-8"></div>
 
         <div className="text-gray-300 text-sm sm:text-base leading-relaxed space-y-8 font-light">
           <p>
-            At <span className="text-white font-medium">AdultDesire.in</span> (referred to as "Adult store", "we", "us", or "our"), your privacy is of paramount importance. This Privacy Policy details how we collect, store, protect, and use your personal information when you access, purchase from, or interact with our website.
+            Along with your sexual needs we take care of your Privacy preferences as well. Under no circumstance <span className="text-white font-medium">Naughtynights.in</span> will sell, share or rent any of your personal information beyond what is necessary to complete your order.
           </p>
 
           <div>
-            <h2 className="text-lg sm:text-xl font-cinzel text-white font-bold tracking-wide mb-3">
-              1. Information We Collect
+            <h2 className="text-lg sm:text-xl font-cinzel text-white font-bold tracking-wide mb-4">
+              We believe and follow a very strict privacy policy as follows:
             </h2>
-            <p>
-              We collect information necessary to provide you with secure transactions and discreet delivery of your products:
-            </p>
-            <ul className="list-disc list-inside mt-2 space-y-2 pl-4">
-              <li>
-                <span className="text-white font-medium">Personal Identifiable Information:</span> Name, email address, phone number, shipping address, and billing address.
-              </li>
-              <li>
-                <span className="text-white font-medium">Account Details:</span> Credentials used to create an account, password hashes, and purchase histories.
-              </li>
-              <li>
-                <span className="text-white font-medium">Payment Data:</span> Transaction IDs and payment details. We do not store raw card numbers or CVV values; all payments are processed through certified, secure third-party payment gateways.
-              </li>
-              <li>
-                <span className="text-white font-medium">Technical Data:</span> IP address, browser type, device information, and interaction tracking to optimize site performance.
-              </li>
+            <ul className="list-disc list-inside space-y-3 pl-2">
+              <li>We will never ask for email address or other sensitive information unless it is required for serving you well while processing your order.</li>
+              <li>We never sell any of our customers information to any third party.</li>
+              <li>After approval, the buyer will have to bear all the costs for return shipping.</li>
+              <li>For complete privacy you will not see <span className="text-white font-medium">Naughtynights.in</span> in any of your card or bank statement that you use in order shop with us.</li>
+              <li>We keep our security terms uptight, even our employees can never have an access to any of our customers private information unless it is required to serve you.</li>
+              <li>By placing an order with us, you authorise us to use your sensitive information in order to serve you better.</li>
             </ul>
           </div>
 
           <div>
-            <h2 className="text-lg sm:text-xl font-cinzel text-white font-bold tracking-wide mb-3">
-              2. How We Use Your Information
+            <h2 className="text-lg sm:text-xl font-cinzel text-white font-bold tracking-wide mb-4 text-glow-pink">
+              How we use your information:
             </h2>
-            <p>
-              Your data is processed strictly to support your client experience, including:
-            </p>
-            <ul className="list-disc list-inside mt-2 space-y-1 pl-4">
-              <li>Processing, verifying, and delivering your orders.</li>
-              <li>Sending account verification codes (OTP) and order status updates.</li>
-              <li>Providing secure support and addressing inquiries.</li>
-              <li>Preventing fraudulent activities, chargebacks, and security breaches.</li>
-              <li>Sending optional promotional offers or news regarding the Maison (which you can opt-out of at any time).</li>
-            </ul>
-          </div>
+            
+            <div className="space-y-6">
+              <div className="bg-velvet-400/50 p-6 rounded-2xl border border-luxePink-500/10">
+                <h3 className="text-white font-medium mb-2 uppercase tracking-wider text-xs">Shipping address</h3>
+                <p>It is used in order to ship your order to the right place. We will never send any other paper works or anything else on this address except the requested order itself.</p>
+              </div>
 
-          <div>
-            <h2 className="text-lg sm:text-xl font-cinzel text-white font-bold tracking-wide mb-3">
-              3. Discreet Shipping & Absolute Privacy
-            </h2>
-            <p>
-              To maintain absolute confidentiality, all items are shipped in plain, unbranded packaging. The outer box or label contains no mention of the product description, branding, or the nature of the items inside.
-            </p>
-            <p className="mt-2">
-              We do not sell, rent, trade, or share your personal data with external marketing platforms or unauthorized third parties.
-            </p>
-          </div>
+              <div className="bg-velvet-400/50 p-6 rounded-2xl border border-luxePink-500/10">
+                <h3 className="text-white font-medium mb-2 uppercase tracking-wider text-xs">Phone number</h3>
+                <p>It is used for the communication by the delivery boy at the time of delivering your order. Your orders are shipped with the concealed packaging which makes sure that the delivery boy does not get to know what is inside the box.</p>
+                <p className="mt-2">Your phone number can also be used in order to send you the shipment tracking numbers or to have your valuable feedback which helps us improve our services.</p>
+              </div>
 
-          <div>
-            <h2 className="text-lg sm:text-xl font-cinzel text-white font-bold tracking-wide mb-3">
-              4. Data Retention & Security
-            </h2>
-            <p>
-              We employ rigorous administrative, technical, and physical security measures to protect your personal information. All web traffic is encrypted using Secure Socket Layer (SSL/TLS) technology.
-            </p>
-            <p className="mt-2">
-              Your personal data is retained only as long as necessary to fulfill the transactions, satisfy legal or taxation obligations, or resolve disputes.
-            </p>
-          </div>
+              <div className="bg-velvet-400/50 p-6 rounded-2xl border border-luxePink-500/10">
+                <h3 className="text-white font-medium mb-2 uppercase tracking-wider text-xs">Financial Information</h3>
+                <p>Your Card/bank account information is only used to process the one time transaction authorised by you.</p>
+              </div>
 
-          <div>
-            <h2 className="text-lg sm:text-xl font-cinzel text-white font-bold tracking-wide mb-3">
-              5. Cookies and Tracker Technologies
-            </h2>
-            <p>
-              We use cookies and similar trackers to keep you logged in, save items to your vault/cart, and analyze site performance. You can choose to disable cookies in your browser settings, though doing so might affect certain features of the shopping experience.
-            </p>
-          </div>
+              <div className="bg-velvet-400/50 p-6 rounded-2xl border border-luxePink-500/10">
+                <h3 className="text-white font-medium mb-2 uppercase tracking-wider text-xs">Email Address</h3>
+                <p className="mb-3">We use your email address to serve you in the following ways:</p>
+                <ul className="list-disc list-inside space-y-1.5 pl-2">
+                  <li>To send you the copy of the order</li>
+                  <li>To send you the shipping confirmation</li>
+                  <li>To send you a short customer satisfaction survey</li>
+                  <li>To send you ‘Reminders’ for products you opt to be reminded for</li>
+                  <li>To send you information relating to new products or promotions on the website</li>
+                  <li>To send you information about issues that we believe may be of interest to you.</li>
+                </ul>
+                <p className="mt-3 text-xs text-luxePink-400 font-light">You can anytime unsubscribe from our email services in order to stop communication through email.</p>
+              </div>
 
-          <div>
-            <h2 className="text-lg sm:text-xl font-cinzel text-white font-bold tracking-wide mb-3">
-              6. Sharing with Third-Party Providers
-            </h2>
-            <p>
-              We share essential information only with trusted partners to complete your transactions:
-            </p>
-            <ul className="list-disc list-inside mt-2 space-y-1 pl-4">
-              <li><span className="text-white font-medium">Payment Processors:</span> Razorpay or Stripe to verify and complete payments.</li>
-              <li><span className="text-white font-medium">Courier Partners:</span> To dispatch and deliver your discreet parcel.</li>
-              <li><span className="text-white font-medium">Hosting & DB Providers:</span> Secure cloud infrastructure hosting our code and databases.</li>
-            </ul>
-          </div>
-
-          <div>
-            <h2 className="text-lg sm:text-xl font-cinzel text-white font-bold tracking-wide mb-3">
-              7. Your Rights
-            </h2>
-            <p>
-              You have the right to request access to the personal data we hold about you, request corrections to out-of-date or incorrect details, or request that we delete your account and personal information (subject to certain overriding legal data retention obligations).
-            </p>
-          </div>
-
-          <div>
-            <h2 className="text-lg sm:text-xl font-cinzel text-white font-bold tracking-wide mb-3">
-              8. Changes to this Privacy Policy
-            </h2>
-            <p>
-              We reserve the right to revise this Privacy Policy at any time. Any changes will become effective immediately upon being published on this page. Your continued use of the website represents your agreement to the updated Privacy Policy.
-            </p>
-          </div>
-
-          <div>
-            <h2 className="text-lg sm:text-xl font-cinzel text-white font-bold tracking-wide mb-3">
-              9. Contact Us
-            </h2>
-            <p>
-              If you have any questions, concerns, or requests regarding this Privacy Policy or how your personal data is handled, please contact our support team through the Contact Us page on AdultDesire.in.
-            </p>
+              <div className="bg-velvet-400/50 p-6 rounded-2xl border border-luxePink-500/10">
+                <h3 className="text-white font-medium mb-2 uppercase tracking-wider text-xs">Legal Issues</h3>
+                <p>If in case a transactions gets involved into a legal dispute: we will be bound to summon the information in form of witness. We would have to furnish requisite information in such cases. If this occurs we will always try to contact the customer first in order to inform the legal obligations.</p>
+              </div>
+            </div>
           </div>
         </div>
       </div>
