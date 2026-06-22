@@ -16,65 +16,61 @@ export default function RefundsPage() {
         </Link>
 
         <h1 className="text-3xl sm:text-4xl font-cinzel text-white font-extrabold tracking-wide mb-8 text-glow-pink">
-          Refund Policy
+          Cancellation & Refund Policy
         </h1>
 
         <div className="h-[1px] w-full bg-gradient-to-r from-luxePink-500/30 via-luxePink-500/10 to-transparent mb-8"></div>
 
         <div className="text-gray-300 text-sm sm:text-base leading-relaxed space-y-8 font-light">
           <p>
-            At <span className="text-white font-medium">Naughtynights.in</span>, we aim to ensure complete satisfaction. Under specific circumstances where a product does not meet expectations due to defects or transit damage, we honor fair refund processes.
+            At <span className="text-white font-medium">NaughtyNights</span>, we prioritize your privacy and satisfaction. Due to the nature of our products, and to maintain hygiene standards, we have a strict cancellation and refund policy for all purchases. Please read the details below:
           </p>
 
-          <div>
-            <h2 className="text-lg sm:text-xl font-cinzel text-white font-bold tracking-wide mb-3">
-              Refund Eligibility
-            </h2>
-            <p>
-              Refunds are initiated only for orders that have been approved under our Return & Exchange criteria:
-            </p>
-            <ul className="list-disc list-inside mt-2 space-y-2 pl-4">
-              <li>The delivered product is confirmed by our team to have transit damage, physical damage, or wrong dispatch.</li>
-              <li>A manufacturing defect has been identified and reported within 48 hours of delivery.</li>
-              <li>The buyer has shipped the item back to our fulfillment center (with return shipping costs borne by the buyer).</li>
+          <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
+            <div className="bg-velvet-400/50 p-6 rounded-2xl border border-luxePink-500/10">
+              <h2 className="text-white font-medium mb-3 uppercase tracking-wider text-xs font-cinzel">Order Cancellation</h2>
+              <ul className="list-disc list-inside space-y-1.5 pl-1">
+                <li>You may cancel your order before it has been dispatched.</li>
+                <li>Once the order is dispatched, it cannot be canceled.</li>
+              </ul>
+            </div>
+
+            <div className="bg-velvet-400/50 p-6 rounded-2xl border border-luxePink-500/10">
+              <h2 className="text-white font-medium mb-3 uppercase tracking-wider text-xs font-cinzel">Prepaid Order Cancellation</h2>
+              <p>
+                If you cancel a prepaid order before it is dispatched, we will issue <span className="text-white font-medium">Naughty Coins</span> equal to the value of the order. These can be used for future purchases on our website.
+              </p>
+            </div>
+          </div>
+
+          <div className="bg-velvet-400/50 p-6 rounded-2xl border border-luxePink-500/10">
+            <h2 className="text-white font-medium mb-3 uppercase tracking-wider text-xs font-cinzel">Refunds</h2>
+            <ul className="list-disc list-inside space-y-2 pl-1">
+              <li>
+                Refunds are not offered for any orders that have been shipped, as we do not accept returns on intimate toys due to hygiene and safety reasons.
+              </li>
+              <li>
+                In the case of a manufacturing defect or damage to the product upon delivery, please contact us <span className="text-white font-medium">within 24 hours with unboxing video proof</span> of the issue. We will assess the situation and, if eligible, offer an exchange for the same item.
+              </li>
             </ul>
           </div>
 
-          <div>
-            <h2 className="text-lg sm:text-xl font-cinzel text-white font-bold tracking-wide mb-3 text-glow-pink">
-              Statement & Bank Privacy
-            </h2>
-            <p>
-              To maintain absolute confidentiality of your purchases:
-            </p>
-            <p className="mt-2 text-white font-medium bg-velvet-400/50 p-4 rounded-xl border border-luxePink-500/10">
-              You will not see "Naughtynights.in" or any adult product description on your credit card, debit card, or bank statement.
-            </p>
-            <p className="mt-2">
-              All electronic card and bank transactions are processed using a neutral generic billing name (e.g., our parent company name) to keep your private shopping activities completely secure and anonymous.
-            </p>
+          <div className="bg-velvet-400/50 p-6 rounded-2xl border border-luxePink-500/10">
+            <h2 className="text-white font-medium mb-3 uppercase tracking-wider text-xs font-cinzel">Exchanges</h2>
+            <ul className="list-disc list-inside space-y-2 pl-1">
+              <li>Exchanges are only applicable if the product is defective, unused, and returned in its original packaging.</li>
+              <li>The exchange is not valid if you simply change your mind or for incorrect products ordered by the customer.</li>
+              <li>The buyer must notify us <span className="text-white font-medium">within 24 hours of receiving the product</span> to request an exchange.</li>
+              <li>Once your request is approved, you will need to send the product back to us for review.</li>
+              <li>After receiving the shipment, our team will inspect the item, and if approved, we will process and dispatch the replacement within 3 working days.</li>
+            </ul>
           </div>
 
-          <div>
-            <h2 className="text-lg sm:text-xl font-cinzel text-white font-bold tracking-wide mb-3">
-              Refund Timeline & Method
-            </h2>
-            <p>
-              Once a returned product has been inspected and approved at our facility, refunds are processed back to the <span className="text-white font-medium">original payment source</span> (UPI, Credit/Debit Card, Net Banking, or Wallet).
-            </p>
-            <p className="mt-2">
-              Approved refunds are credited to your account within 5 to 7 working days, depending on your bank or card network processing cycles.
-            </p>
-          </div>
+          <div className="h-[1px] w-full bg-gradient-to-r from-luxePink-500/10 via-luxePink-500/10 to-transparent my-8"></div>
 
-          <div>
-            <h2 className="text-lg sm:text-xl font-cinzel text-white font-bold tracking-wide mb-3">
-              Order Cancellations
-            </h2>
-            <p>
-              If your order is cancelled by us before shipping (for example, due to a pricing error or out-of-stock inventory), your payment will be refunded immediately back to the original source.
-            </p>
-          </div>
+          <p className="text-xs text-gray-400 italic">
+            Please ensure to carefully review your order before finalizing it, as we cannot accept returns or refunds once the items are shipped, due to the sensitive nature of our products. If you have any questions, feel free to reach out to our customer support team for assistance.
+          </p>
         </div>
       </div>
     </div>
