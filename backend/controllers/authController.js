@@ -214,7 +214,8 @@ exports.registerUser = async (req, res) => {
       console.log(`[OTP Verification Bypass] For email ${user.email}, the OTP is: ${otp}`);
       res.status(200).json({ 
         message: 'OTP sent to email for verification (Bypassed via console logs)',
-        warning: 'Email sending failed. Please check server logs for the OTP.'
+        warning: 'Email sending failed. Please check server logs for the OTP.',
+        otp: process.env.NODE_ENV !== 'production' ? otp : undefined
       });
     }
   } catch (error) {
@@ -327,7 +328,8 @@ exports.forgotPassword = async (req, res) => {
       console.log(`[OTP Verification Bypass] For email ${user.email}, the OTP is: ${otp}`);
       res.json({ 
         message: 'OTP sent to email (Bypassed via console logs)',
-        warning: 'Email sending failed. Please check server logs for the OTP.'
+        warning: 'Email sending failed. Please check server logs for the OTP.',
+        otp: process.env.NODE_ENV !== 'production' ? otp : undefined
       });
     }
 

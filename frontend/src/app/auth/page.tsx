@@ -64,7 +64,14 @@ function AuthContent() {
       });
       const data = await res.json();
       if (res.ok) {
-        showToast("OTP sent to your email", "success");
+        if (data.warning) {
+          const warningMessage = data.otp 
+            ? `${data.warning} For testing, your verification code is: ${data.otp}`
+            : data.warning;
+          showToast(warningMessage, "info");
+        } else {
+          showToast("OTP sent to your email", "success");
+        }
         setAuthState('REGISTER_VERIFY_OTP');
       } else {
         showToast(data.message || "Registration failed", "error");
@@ -109,7 +116,14 @@ function AuthContent() {
       });
       const data = await res.json();
       if (res.ok) {
-        showToast("OTP sent to your email", "success");
+        if (data.warning) {
+          const warningMessage = data.otp 
+            ? `${data.warning} For testing, your verification code is: ${data.otp}`
+            : data.warning;
+          showToast(warningMessage, "info");
+        } else {
+          showToast("OTP sent to your email", "success");
+        }
         setAuthState("VERIFY_OTP");
       } else {
         showToast(data.message || "Failed to send OTP", "error");
@@ -316,8 +330,11 @@ function AuthContent() {
 
         {authState === 'REGISTER_VERIFY_OTP' && (
           <form onSubmit={handleVerifyRegistrationOTP} className="space-y-7">
-            <p className="text-xs text-gray-300 text-center mb-6 leading-relaxed font-light">
+            <p className="text-xs text-gray-300 text-center mb-4 leading-relaxed font-light">
               We have sent a 6-digit OTP to <br/><span className="text-luxePink-400 font-medium">{email}</span>.<br/>Please enter it below to verify your account.
+            </p>
+            <p className="text-[11px] text-gray-400 text-center -mt-4 mb-6 leading-normal font-light">
+              If it doesn't arrive in a minute, please check your <span className="text-luxePink-300 font-normal">Spam/Junk folder</span> or look at the server console logs.
             </p>
             <div className="relative group">
               <input
@@ -387,8 +404,11 @@ function AuthContent() {
 
         {authState === 'VERIFY_OTP' && (
           <form onSubmit={handleVerifyOTP} className="space-y-7">
-            <p className="text-xs text-gray-300 text-center mb-6 leading-relaxed font-light">
+            <p className="text-xs text-gray-300 text-center mb-4 leading-relaxed font-light">
               We have sent a 6-digit reset code to <br/><span className="text-luxePink-400 font-medium">{email}</span>.
+            </p>
+            <p className="text-[11px] text-gray-400 text-center -mt-4 mb-6 leading-normal font-light">
+              If it doesn't arrive in a minute, please check your <span className="text-luxePink-300 font-normal">Spam/Junk folder</span> or look at the server console logs.
             </p>
             <div className="relative group">
               <input
