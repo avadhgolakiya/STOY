@@ -83,34 +83,39 @@ export default function Footer() {
           </div>
 
           <div>
-            <h4 className="text-xs uppercase tracking-[0.25em] text-white font-bold mb-6">
-              VIP CLIENT PORTAL
+            <h4 className="text-sm text-white font-bold mb-6 font-cinzel tracking-wider">
+              Policies
             </h4>
-            <ul className="space-y-4 text-xs font-light">
-              <li>
-                <a href="#concierge" className="hover:text-luxePink-500 transition duration-200">
-                  Schedule Private Suite Experience
-                </a>
+            <ul className="space-y-4 text-xs font-light text-gray-400">
+              <li className="flex items-center gap-3">
+                <span className="text-luxePink-500/50 font-medium">—</span>
+                <Link href="/returns" className="hover:text-luxePink-500 transition duration-200">
+                  Return & Exchange
+                </Link>
               </li>
-              <li>
-                <a href="#" className="hover:text-luxePink-500 transition duration-200">
-                  Lifetime Certification & Pink Polishing
-                </a>
+              <li className="flex items-center gap-3">
+                <span className="text-luxePink-500/50 font-medium">—</span>
+                <Link href="/shipping" className="hover:text-luxePink-500 transition duration-200">
+                  Shipping & Customs
+                </Link>
               </li>
-              <li>
-                <a href="#" className="hover:text-luxePink-500 transition duration-200">
-                  Armored Delivery Tracking Systems
-                </a>
+              <li className="flex items-center gap-3">
+                <span className="text-luxePink-500/50 font-medium">—</span>
+                <Link href="/refunds" className="hover:text-luxePink-500 transition duration-200">
+                  Refund Policy
+                </Link>
               </li>
-              <li>
-                <a href="#" className="hover:text-luxePink-500 transition duration-200">
-                  Refunds & Secure Vault Transfers
-                </a>
+              <li className="flex items-center gap-3">
+                <span className="text-luxePink-500/50 font-medium">—</span>
+                <Link href="/privacy" className="hover:text-luxePink-500 transition duration-200">
+                  Privacy & Security
+                </Link>
               </li>
-              <li>
-                <a href="#" className="hover:text-luxePink-500 transition duration-200">
-                  Maison Bespoke Gifting Registry
-                </a>
+              <li className="flex items-center gap-3">
+                <span className="text-luxePink-500/50 font-medium">—</span>
+                <Link href="/terms" className="hover:text-luxePink-500 transition duration-200">
+                  Terms & Condition
+                </Link>
               </li>
             </ul>
           </div>
