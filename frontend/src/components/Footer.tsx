@@ -1,6 +1,7 @@
 "use client";
 
 import { useState } from "react";
+import Link from "next/link";
 import { useAppContext } from "../context/AppContext";
 
 export default function Footer() {
@@ -144,8 +145,8 @@ export default function Footer() {
         <div className="border-t border-luxePink-500/5 pt-8 flex flex-col sm:flex-row justify-between items-center text-[9px] tracking-widest uppercase text-gray-500">
           <p>&copy; 2026 ADULT STORE LUXURY INC. ALL RIGHTS RESERVED WORLDWIDE.</p>
           <div className="flex gap-6 mt-4 sm:mt-0">
-            <a href="#" className="hover:text-luxePink-500 transition">Privacy Policy</a>
-            <a href="#" className="hover:text-luxePink-500 transition">Terms of Royal Service</a>
+            <Link href="/privacy" className="hover:text-luxePink-500 transition">Privacy Policy</Link>
+            <Link href="/terms" className="hover:text-luxePink-500 transition">Terms of Royal Service</Link>
           </div>
         </div>
       </div>
