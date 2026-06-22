@@ -146,7 +146,7 @@ export default function Footer() {
           <p>&copy; 2026 ADULT STORE LUXURY INC. ALL RIGHTS RESERVED WORLDWIDE.</p>
           <div className="flex gap-6 mt-4 sm:mt-0">
             <Link href="/privacy" className="hover:text-luxePink-500 transition">Privacy Policy</Link>
-            <Link href="/terms" className="hover:text-luxePink-500 transition">Terms of Royal Service</Link>
+            <Link href="/terms" className="hover:text-luxePink-500 transition">Terms & Conditions</Link>
           </div>
         </div>
       </div>
