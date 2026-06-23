@@ -415,7 +415,10 @@ const createTransporter = () => {
 
   // Otherwise, default to Gmail service using specified credentials
   return nodemailer.createTransport({
-    service: 'gmail',
+    host: 'smtp.gmail.com',
+    port: 465,
+    secure: true,
+    family: 4, // Force IPv4
     auth: {
       user: smtpUser,
       pass: smtpPass
