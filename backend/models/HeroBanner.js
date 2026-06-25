@@ -2,8 +2,8 @@ const mongoose = require('mongoose');
 
 const heroBannerSchema = new mongoose.Schema(
   {
-    title: { type: String, required: true },
-    desc: { type: String, required: true },
+    title: { type: String, default: "" },
+    desc: { type: String, default: "" },
     image: { type: String, required: true },
     isActive: { type: Boolean, default: false },
   },

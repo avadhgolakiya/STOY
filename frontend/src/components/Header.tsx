@@ -32,16 +32,15 @@ export default function Header() {
 
       {/* Main Navbar */}
       <header className={`sticky top-0 z-50 transition-all duration-300 ${isScrolled ? "bg-velvet-400 shadow-lg" : "bg-velvet-400/95 backdrop-blur-md border-b border-luxePink-500/15"}`}>
-        <div className="max-w-[1400px] mx-auto px-6 sm:px-8 h-[90px] flex items-center justify-between">
+        <div className="max-w-[1400px] mx-auto px-6 sm:px-8 h-[70px] sm:h-[90px] flex items-center justify-between">
 
           {/* Logo Section */}
-          <div className="flex flex-col justify-center cursor-pointer group" onClick={handleLogoClick}>
-            <span className="font-[cursive] text-4xl text-luxePink-500 italic pr-1 transition duration-500 group-hover:text-white drop-shadow-md">
-              Adult store
-            </span>
-            <span style={{ fontSize: '5px !important' }} className="text-luxePink-500 text-xs sm:text-sm tracking-[0.15em] mt-1 font-sans uppercase text-glow-pink">
-              Exclusive Velvet & Pink Atelier
-            </span>
+          <div className="flex items-center cursor-pointer group" onClick={handleLogoClick}>
+            <img 
+              src="/logo.jpg" 
+              alt="adultDesire Logo" 
+              className="h-12 sm:h-20 w-auto object-contain transition duration-300 group-hover:scale-105 rounded-md"
+            />
           </div>
 
           {/* Navigation Links */}

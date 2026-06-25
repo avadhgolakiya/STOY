@@ -19,6 +19,9 @@ export default function AdminDashboard() {
   const [selectedProduct, setSelectedProduct] = useState<any | null>(null);
   const [editingProductId, setEditingProductId] = useState<string | null>(null);
   const [orders, setOrders] = useState<any[]>([]);
+  const [banners, setBanners] = useState<any[]>([]);
+  const [bannerForm, setBannerForm] = useState({ title: "", desc: "", image: "", isActive: false });
+  const [editingBannerId, setEditingBannerId] = useState<string | null>(null);
 
   const fetchProducts = async () => {
     try {
@@ -87,6 +90,18 @@ export default function AdminDashboard() {
       }
     } catch (err) {
       console.error("Failed to fetch testimonials", err);
+    }
+  };
+
+  const fetchBanners = async () => {
+    try {
+      const res = await fetch(`${process.env.NEXT_PUBLIC_API_URL}/api/banners`);
+      if (res.ok) {
+        const data = await res.json();
+        setBanners(data);
+      }
+    } catch (err) {
+      console.error("Failed to fetch banners", err);
     }
   };
 
@@ -159,6 +174,7 @@ export default function AdminDashboard() {
     fetchTestimonials();
     fetchProducts();
     fetchOrders();
+    fetchBanners();
     // Check if admin is logged in via token in localStorage
     const token = localStorage.getItem("adminToken");
     // For now, if there is no backend hooked up, we'll just show the dashboard for development
@@ -178,6 +194,8 @@ export default function AdminDashboard() {
       fetchCategories();
     } else if (activeTab === "testimonials") {
       fetchTestimonials();
+    } else if (activeTab === "banners") {
+      fetchBanners();
     }
   }, [activeTab]);
 
@@ -253,11 +271,18 @@ export default function AdminDashboard() {
               {activeTab === "orders" && "Recent Orders"}
             </h2>
             
-            {activeTab !== "orders" && (
+            {activeTab !== "orders" && activeTab !== "categories" && (
               <button 
                 onClick={() => {
-                  setFormData({ title: "", category: "", price: "", originalPrice: "", discount: "", desc: "", image: "", additionalImages: [], tag: "New Arrival", stock: "", size: "" });
-                  setEditingProductId(null);
+                  if (activeTab === "products") {
+                    setFormData({ title: "", category: "", price: "", originalPrice: "", discount: "", desc: "", image: "", additionalImages: [], tag: "New Arrival", stock: "", size: "" });
+                    setEditingProductId(null);
+                  } else if (activeTab === "testimonials") {
+                    setTestiForm({ clientName: "", role: "Client", quote: "", rating: 5, image: "" });
+                  } else if (activeTab === "banners") {
+                    setBannerForm({ title: "", desc: "", image: "", isActive: false });
+                    setEditingBannerId(null);
+                  }
                   setShowAddForm(true);
                 }}
                 className="bg-gradient-to-r from-luxePink-600 to-fuchsia-600 hover:from-luxePink-500 hover:to-fuchsia-500 text-white px-6 py-2.5 rounded-full text-sm font-bold uppercase tracking-wider luxury-transition shadow-[0_0_15px_rgba(236,72,153,0.3)]"
@@ -509,6 +534,63 @@ export default function AdminDashboard() {
             </div>
           )}
 
+          {!showAddForm && activeTab === "banners" && (
+            <div className="bg-velvet-400 border border-luxePink-500/20 rounded-2xl p-8 min-h-[500px] shadow-2xl relative">
+              <h4 className="font-cinzel text-white text-lg border-b border-luxePink-500/20 pb-4 mb-6">Existing Hero Banners</h4>
+              {banners.length === 0 ? (
+                <p className="text-gray-500 text-sm italic">No banners created yet.</p>
+              ) : (
+                <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-8">
+                  {banners.map((banner: any) => (
+                    <div key={banner._id} className="bg-[#131118] border border-[#2a2635] rounded-2xl overflow-hidden hover:border-luxePink-500/50 transition-all duration-300 shadow-lg relative group">
+                      <div className="aspect-[16/9] overflow-hidden relative bg-[#0a0a0a]">
+                        <img src={banner.image} alt="Banner" className="w-full h-full object-cover transition-transform duration-700 group-hover:scale-110" />
+                        <div className={`absolute top-3 right-3 px-3 py-1 rounded-full text-xs font-bold border border-white/10 shadow-lg tracking-wider ${banner.isActive ? 'bg-green-500/80 text-white' : 'bg-gray-500/80 text-white'}`}>
+                          {banner.isActive ? "Active" : "Inactive"}
+                        </div>
+                      </div>
+                      <div className="p-5">
+                        <div className="flex justify-between items-center">
+                          <h5 className="text-white font-cinzel font-bold text-base line-clamp-1 flex-1 pr-2">Banner Slide</h5>
+                          <div className="flex items-center gap-1">
+                            <button 
+                              onClick={() => {
+                                setBannerForm({
+                                  title: "",
+                                  desc: "",
+                                  image: banner.image || "",
+                                  isActive: banner.isActive || false
+                                });
+                                setEditingBannerId(banner._id);
+                                setShowAddForm(true);
+                              }}
+                              className="text-blue-500 hover:text-blue-400 hover:bg-blue-500/10 p-2 rounded-full transition-all"
+                              title="Edit Banner"
+                            >
+                              <i className="fa-solid fa-pen"></i>
+                            </button>
+                            <button 
+                              onClick={async () => {
+                                if (confirm("Delete this banner?")) {
+                                  await fetch(`${process.env.NEXT_PUBLIC_API_URL}/api/banners/${banner._id}`, { method: "DELETE" });
+                                  fetchBanners();
+                                }
+                              }}
+                              className="text-red-500 hover:text-red-400 hover:bg-red-500/10 p-2 rounded-full transition-all"
+                              title="Delete Banner"
+                            >
+                              <i className="fa-solid fa-trash"></i>
+                            </button>
+                          </div>
+                        </div>
+                      </div>
+                    </div>
+                  ))}
+                </div>
+              )}
+            </div>
+          )}
+
           {showAddForm && activeTab === "testimonials" && (
             <div className="bg-velvet-400 border border-luxePink-500/20 rounded-2xl p-8 shadow-2xl relative">
               <div className="flex justify-between items-center mb-6 border-b border-luxePink-500/20 pb-4">
@@ -652,6 +734,132 @@ export default function AdminDashboard() {
                 <div className="flex justify-end pt-4">
                   <button type="submit" className="bg-luxePink-600 hover:bg-luxePink-500 text-white px-8 py-3 rounded-full font-bold uppercase tracking-widest text-sm transition-all shadow-[0_0_15px_rgba(236,72,153,0.4)]">
                     Save Testimonial
+                  </button>
+                </div>
+              </form>
+            </div>
+          )}
+
+          {showAddForm && activeTab === "banners" && (
+            <div className="bg-velvet-400 border border-luxePink-500/20 rounded-2xl p-8 shadow-2xl relative">
+              <div className="flex justify-between items-center mb-6 border-b border-luxePink-500/20 pb-4">
+                <h3 className="text-xl font-cinzel font-bold text-white">{editingBannerId ? "Edit Hero Banner" : "Add New Hero Banner"}</h3>
+                <button onClick={() => setShowAddForm(false)} className="text-gray-400 hover:text-white">
+                  <i className="fa-solid fa-times text-xl"></i>
+                </button>
+              </div>
+              <form 
+                className="space-y-6"
+                onSubmit={async (e) => {
+                  e.preventDefault();
+                  try {
+                    const url = editingBannerId 
+                      ? `${process.env.NEXT_PUBLIC_API_URL}/api/banners/${editingBannerId}` 
+                      : `${process.env.NEXT_PUBLIC_API_URL}/api/banners`;
+                    const method = editingBannerId ? "PUT" : "POST";
+
+                    const res = await fetch(url, {
+                      method,
+                      headers: { "Content-Type": "application/json" },
+                      body: JSON.stringify(bannerForm)
+                    });
+                    if (res.ok) {
+                      setBannerForm({ title: "", desc: "", image: "", isActive: false });
+                      setEditingBannerId(null);
+                      setShowAddForm(false);
+                      fetchBanners();
+                      alert(`Banner ${editingBannerId ? "updated" : "added"} successfully!`);
+                    } else {
+                      alert(`Failed to ${editingBannerId ? "update" : "add"} banner`);
+                    }
+                  } catch (err) {
+                    console.error(err);
+                    alert("Error saving banner");
+                  }
+                }}
+              >
+                <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
+                  
+                  <div className="md:col-span-2 border border-luxePink-500/30 p-4 rounded-lg bg-velvet-600/50">
+                    <label className="block text-xs font-semibold text-luxePink-500 uppercase tracking-widest mb-2">Banner Image</label>
+                    <div className="flex flex-col gap-4">
+                      <div>
+                        <span className="text-gray-400 text-xs mb-1 block">Option 1: Paste an Image URL</span>
+                        <input 
+                          type="text" 
+                          value={bannerForm.image}
+                          onChange={(e) => setBannerForm({...bannerForm, image: e.target.value})}
+                          className="w-full bg-velvet-500 border border-luxePink-500/30 rounded-lg p-3 text-white focus:outline-none focus:border-luxePink-500 transition-colors" 
+                          placeholder="https://..." 
+                        />
+                      </div>
+                      <div className="flex items-center gap-4">
+                        <span className="text-gray-400 text-xs uppercase font-bold">OR</span>
+                        <div className="h-px bg-luxePink-500/20 flex-1"></div>
+                      </div>
+                      <div>
+                        <span className="text-gray-400 text-xs mb-1 block">Option 2: Upload from Computer</span>
+                        <div className="flex items-center gap-4">
+                          <input 
+                            type="file" 
+                            id="banner-image-file"
+                            onChange={async (e) => {
+                              const file = e.target.files?.[0];
+                              if (!file) return;
+                              const formDataFile = new FormData();
+                              formDataFile.append('image', file);
+                              setUploadingImage(true);
+                              try {
+                                const res = await fetch(`${process.env.NEXT_PUBLIC_API_URL}/api/upload`, {
+                                  method: "POST",
+                                  body: formDataFile
+                                });
+                                if (res.ok) {
+                                  const imagePath = await res.text();
+                                  setBannerForm({ ...bannerForm, image: `${process.env.NEXT_PUBLIC_API_URL}${imagePath}` });
+                                } else {
+                                  alert("Image upload failed.");
+                                }
+                              } catch (error) {
+                                console.error(error);
+                                alert("Image upload failed.");
+                              } finally {
+                                setUploadingImage(false);
+                              }
+                            }}
+                            className="hidden"
+                          />
+                          <label 
+                            htmlFor="banner-image-file"
+                            className="bg-velvet-400 border border-luxePink-500 hover:bg-luxePink-500/20 text-white px-6 py-2 rounded-lg text-sm font-semibold cursor-pointer transition-all"
+                          >
+                            <i className="fa-solid fa-upload mr-2"></i> Choose File
+                          </label>
+                          {uploadingImage && <span className="text-luxePink-500 text-sm animate-pulse">Uploading...</span>}
+                        </div>
+                        {bannerForm.image && bannerForm.image.startsWith(`${process.env.NEXT_PUBLIC_API_URL}`) && (
+                          <div className="mt-2 text-green-400 text-xs">
+                            <i className="fa-solid fa-check mr-1"></i> Uploaded successfully!
+                          </div>
+                        )}
+                      </div>
+                    </div>
+                  </div>
+
+                  <div className="flex items-center gap-3">
+                    <input 
+                      type="checkbox" 
+                      id="isActive" 
+                      checked={bannerForm.isActive} 
+                      onChange={e => setBannerForm({...bannerForm, isActive: e.target.checked})} 
+                      className="w-4 h-4 rounded border-gray-300 text-luxePink-600 focus:ring-luxePink-500" 
+                    />
+                    <label htmlFor="isActive" className="text-sm font-medium text-gray-300">Set as Active Banner (Will show on homepage slider)</label>
+                  </div>
+                </div>
+                <div className="flex justify-end pt-4">
+                  <button type="submit" className="bg-luxePink-600 hover:bg-luxePink-500 text-white px-8 py-3 rounded-full font-bold uppercase tracking-widest text-sm transition-all shadow-[0_0_15px_rgba(236,72,153,0.4)]">
+                    {editingBannerId ? "Update Banner" : "Save Banner"}
                   </button>
                 </div>
               </form>

@@ -27,11 +27,15 @@ export default function Footer() {
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
         <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-12 mb-16">
           <div>
-            <span className="font-cinzel text-xl tracking-widest text-white font-extrabold block mb-6 text-glow-pink">
-              ADULT STORE
-            </span>
+            <div className="mb-6">
+              <img 
+                src="/logo.jpg" 
+                alt="adultDesire Logo" 
+                className="h-24 w-auto object-contain rounded-md"
+              />
+            </div>
             <p className="text-xs text-gray-400 leading-relaxed mb-6 font-light">
-              Adult store represents the global vanguard of pure midnight purple and orchid pink themed products. We partner with the world's finest ateliers to curate, authenticate, and transport certified assets directly to elite collectors.
+              adultDesire represents the global vanguard of pure midnight purple and orchid pink themed wellness products. We partner with the world's finest ateliers to curate, authenticate, and transport certified assets directly to elite collectors.
             </p>
             <div className="flex gap-4">
               <a href="#" className="w-10 h-10 rounded-full border border-luxePink-500/20 flex items-center justify-center text-luxePink-500 hover:border-luxePink-500 hover:text-white luxury-transition hover:pink-border-glow">
@@ -148,7 +152,7 @@ export default function Footer() {
 
 
         <div className="border-t border-luxePink-500/5 pt-8 flex flex-col sm:flex-row justify-between items-center text-[9px] tracking-widest uppercase text-gray-500">
-          <p>&copy; 2026 ADULT STORE LUXURY INC. ALL RIGHTS RESERVED WORLDWIDE.</p>
+          <p>&copy; 2026 adultDesire. ALL RIGHTS RESERVED WORLDWIDE.</p>
           <div className="flex gap-6 mt-4 sm:mt-0">
             <Link href="/privacy" className="hover:text-luxePink-500 transition">Privacy Policy</Link>
             <Link href="/terms" className="hover:text-luxePink-500 transition">Terms & Conditions</Link>

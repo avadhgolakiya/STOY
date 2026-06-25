@@ -22,11 +22,11 @@ const categoryRoutes = require('./routes/categoryRoutes');
 const uploadRoutes = require('./routes/uploadRoutes');
 const testimonialRoutes = require('./routes/testimonialRoutes');
 const path = require('path');
-// const bannerRoutes = require('./routes/bannerRoutes');
 const orderRoutes = require('./routes/orderRoutes');
 const authRoutes = require('./routes/authRoutes');
 const userRoutes = require('./routes/userRoutes');
 const reviewRoutes = require('./routes/reviewRoutes');
+const bannerRoutes = require('./routes/bannerRoutes');
 
 // Mount routes
 app.use('/api/products', productRoutes);
@@ -36,7 +36,7 @@ app.use('/api/testimonials', testimonialRoutes);
 
 // Static folders
 app.use('/uploads', express.static(path.join(__dirname, '/uploads')));
-// app.use('/api/banners', bannerRoutes);
+app.use('/api/banners', bannerRoutes);
 app.use('/api/orders', orderRoutes);
 app.use('/api/auth', authRoutes);
 app.use('/api/users', userRoutes);

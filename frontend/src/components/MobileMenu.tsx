@@ -14,9 +14,11 @@ export default function MobileMenu() {
     >
       <div>
         <div className="flex justify-between items-center mb-12">
-          <span className="font-cinzel text-xl tracking-widest text-white text-glow-pink">
-            ADULT STORE
-          </span>
+          <img 
+            src="/logo.jpg" 
+            alt="adultDesire Logo" 
+            className="h-16 w-auto object-contain rounded-md"
+          />
           <button
             onClick={toggleMobileMenu}
             className="text-luxePink-500 hover:text-white text-xl"
