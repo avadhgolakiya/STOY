@@ -2,6 +2,13 @@ const User = require('../models/User');
 const bcrypt = require('bcrypt');
 const jwt = require('jsonwebtoken');
 const nodemailer = require('nodemailer');
+const {
+  SITE_NAME,
+  generateEmailTemplate,
+  generateForgotPasswordTemplate,
+  generatePasswordUpdatedTemplate,
+  generateRegisterSuccessTemplate,
+} = require('../utils/emailTemplates');
 const fs = require('fs');
 const path = require('path');
 
@@ -27,363 +34,6 @@ const generateToken = (id) => {
   return jwt.sign({ id }, getEnv('JWT_SECRET') || 'secret123', {
     expiresIn: '30d',
   });
-};
-
-const generateEmailTemplate = (otp, title, message, user = {}) => {
-  const greeting = user.name ? `Hi ${user.name}! ` : '';
-
-  return `
-  <!DOCTYPE html>
-  <html>
-  <head>
-    <meta charset="utf-8">
-    <style>
-      body {
-        font-family: 'Helvetica Neue', Helvetica, Arial, sans-serif;
-        background-color: #1a0b1c; /* Deep velvet dark mode default */
-        color: #ffffff;
-        margin: 0;
-        padding: 0;
-      }
-      .container {
-        max-width: 600px;
-        margin: 40px auto;
-        background-color: #2d1633;
-        border: 1px solid rgba(219, 39, 119, 0.2);
-        border-radius: 12px;
-        padding: 40px;
-        text-align: center;
-        box-shadow: 0 10px 25px rgba(0,0,0,0.5);
-      }
-      .logo {
-        font-size: 32px;
-        font-style: italic;
-        color: #db2777; /* luxePink-500 */
-        margin-bottom: 10px;
-        font-weight: bold;
-      }
-      .subtitle {
-        font-size: 10px;
-        letter-spacing: 2px;
-        text-transform: uppercase;
-        color: #db2777;
-        margin-bottom: 30px;
-      }
-      .title {
-        font-size: 24px;
-        font-weight: 300;
-        letter-spacing: 2px;
-        text-transform: uppercase;
-        margin-bottom: 20px;
-        color: #ffffff;
-      }
-      .message {
-        font-size: 14px;
-        color: #d1d5db;
-        line-height: 1.6;
-        margin-bottom: 30px;
-      }
-      .otp-box {
-        background-color: rgba(219, 39, 119, 0.1);
-        border: 1px solid #db2777;
-        border-radius: 8px;
-        padding: 20px;
-        font-size: 32px;
-        letter-spacing: 8px;
-        font-weight: bold;
-        color: #ffffff;
-        margin-bottom: 30px;
-        display: inline-block;
-      }
-      .footer {
-        font-size: 12px;
-        color: #9ca3af;
-        margin-top: 30px;
-        border-top: 1px solid rgba(255,255,255,0.1);
-        padding-top: 20px;
-      }
-
-      /* Light Mode Override */
-      @media (prefers-color-scheme: light) {
-        body {
-          background-color: #fce7f3; /* pink-100 */
-          color: #1f2937;
-        }
-        .container {
-          background-color: #ffffff;
-          border: 1px solid #fbcfe8;
-          box-shadow: 0 10px 25px rgba(219, 39, 119, 0.1);
-        }
-        .title {
-          color: #1f2937;
-        }
-        .message {
-          color: #4b5563;
-        }
-        .otp-box {
-          background-color: #fdf2f8;
-          color: #be185d;
-        }
-        .footer {
-          border-top: 1px solid #fbcfe8;
-          color: #6b7280;
-        }
-      }
-    </style>
-  </head>
-  <body>
-    <div class="container">
-      <div class="logo">Adult store</div>
-      <div class="subtitle">Exclusive Velvet & Pink Atelier</div>
-      <div class="title">${title}</div>
-      <div class="message">${greeting}${message}</div>
-      <div class="otp-box">${otp}</div>
-      <div class="message">This code will expire in 10 minutes. Please do not share it with anyone.</div>
-      <div class="footer">
-        &copy; ${new Date().getFullYear()} Adult store. All rights reserved.
-      </div>
-    </div>
-  </body>
-  </html>
-  `;
-};
-
-const generatePasswordUpdatedTemplate = (user) => {
-  const userName = user.name || '';
-  const greeting = userName ? `Hi ${userName}! ` : '';
-
-  return `
-  <!DOCTYPE html>
-  <html>
-  <head>
-    <meta charset="utf-8">
-    <style>
-      body {
-        font-family: 'Helvetica Neue', Helvetica, Arial, sans-serif;
-        background-color: #1a0b1c; /* Deep velvet dark mode default */
-        color: #ffffff;
-        margin: 0;
-        padding: 0;
-      }
-      .container {
-        max-width: 600px;
-        margin: 40px auto;
-        background-color: #2d1633;
-        border: 1px solid rgba(219, 39, 119, 0.2);
-        border-radius: 12px;
-        padding: 40px;
-        text-align: center;
-        box-shadow: 0 10px 25px rgba(0,0,0,0.5);
-      }
-      .logo {
-        font-size: 32px;
-        font-style: italic;
-        color: #db2777; /* luxePink-500 */
-        margin-bottom: 10px;
-        font-weight: bold;
-      }
-      .subtitle {
-        font-size: 10px;
-        letter-spacing: 2px;
-        text-transform: uppercase;
-        color: #db2777;
-        margin-bottom: 30px;
-      }
-      .title {
-        font-size: 24px;
-        font-weight: 300;
-        letter-spacing: 2px;
-        text-transform: uppercase;
-        margin-bottom: 20px;
-        color: #ffffff;
-      }
-      .message {
-        font-size: 14px;
-        color: #d1d5db;
-        line-height: 1.6;
-        margin-bottom: 30px;
-      }
-      .login-btn {
-        background-color: #db2777;
-        color: #ffffff !important;
-        text-decoration: none;
-        padding: 12px 30px;
-        border-radius: 8px;
-        font-weight: bold;
-        display: inline-block;
-        margin-bottom: 30px;
-        letter-spacing: 1px;
-        text-transform: uppercase;
-        font-size: 12px;
-      }
-      .footer {
-        font-size: 12px;
-        color: #9ca3af;
-        margin-top: 30px;
-        border-top: 1px solid rgba(255,255,255,0.1);
-        padding-top: 20px;
-      }
-
-      /* Light Mode Override */
-      @media (prefers-color-scheme: light) {
-        body {
-          background-color: #fce7f3; /* pink-100 */
-          color: #1f2937;
-        }
-        .container {
-          background-color: #ffffff;
-          border: 1px solid #fbcfe8;
-          box-shadow: 0 10px 25px rgba(219, 39, 119, 0.1);
-        }
-        .title {
-          color: #1f2937;
-        }
-        .message {
-          color: #4b5563;
-        }
-        .login-btn {
-          background-color: #be185d;
-        }
-        .footer {
-          border-top: 1px solid #fbcfe8;
-          color: #6b7280;
-        }
-      }
-    </style>
-  </head>
-  <body>
-    <div class="container">
-      <div class="logo">Adult store</div>
-      <div class="subtitle">Exclusive Velvet & Pink Atelier</div>
-      <div class="title">Password Updated</div>
-      <div class="message">${greeting}Your password has been updated successfully. You can now sign in to your Adult store account with your new credentials.</div>
-      <a href="http://localhost:3000/auth" class="login-btn">Sign In to Your Account</a>
-      <div class="footer">
-        &copy; ${new Date().getFullYear()} Adult store. All rights reserved.
-      </div>
-    </div>
-  </body>
-  </html>
-  `;
-};
-
-const generateRegisterSuccessTemplate = (user) => {
-  const userName = user.name || '';
-  const greeting = userName ? `Hi ${userName}! ` : '';
-
-  return `
-  <!DOCTYPE html>
-  <html>
-  <head>
-    <meta charset="utf-8">
-    <style>
-      body {
-        font-family: 'Helvetica Neue', Helvetica, Arial, sans-serif;
-        background-color: #1a0b1c; /* Deep velvet dark mode default */
-        color: #ffffff;
-        margin: 0;
-        padding: 0;
-      }
-      .container {
-        max-width: 600px;
-        margin: 40px auto;
-        background-color: #2d1633;
-        border: 1px solid rgba(219, 39, 119, 0.2);
-        border-radius: 12px;
-        padding: 40px;
-        text-align: center;
-        box-shadow: 0 10px 25px rgba(0,0,0,0.5);
-      }
-      .logo {
-        font-size: 32px;
-        font-style: italic;
-        color: #db2777; /* luxePink-500 */
-        margin-bottom: 10px;
-        font-weight: bold;
-      }
-      .subtitle {
-        font-size: 10px;
-        letter-spacing: 2px;
-        text-transform: uppercase;
-        color: #db2777;
-        margin-bottom: 30px;
-      }
-      .title {
-        font-size: 24px;
-        font-weight: 300;
-        letter-spacing: 2px;
-        text-transform: uppercase;
-        margin-bottom: 20px;
-        color: #ffffff;
-      }
-      .message {
-        font-size: 14px;
-        color: #d1d5db;
-        line-height: 1.6;
-        margin-bottom: 30px;
-      }
-      .start-btn {
-        background-color: #db2777;
-        color: #ffffff !important;
-        text-decoration: none;
-        padding: 12px 30px;
-        border-radius: 8px;
-        font-weight: bold;
-        display: inline-block;
-        margin-bottom: 30px;
-        letter-spacing: 1px;
-        text-transform: uppercase;
-        font-size: 12px;
-      }
-      .footer {
-        font-size: 12px;
-        color: #9ca3af;
-        margin-top: 30px;
-        border-top: 1px solid rgba(255,255,255,0.1);
-        padding-top: 20px;
-      }
-
-      /* Light Mode Override */
-      @media (prefers-color-scheme: light) {
-        body {
-          background-color: #fce7f3; /* pink-100 */
-          color: #1f2937;
-        }
-        .container {
-          background-color: #ffffff;
-          border: 1px solid #fbcfe8;
-          box-shadow: 0 10px 25px rgba(219, 39, 119, 0.1);
-        }
-        .title {
-          color: #1f2937;
-        }
-        .message {
-          color: #4b5563;
-        }
-        .start-btn {
-          background-color: #be185d;
-        }
-        .footer {
-          border-top: 1px solid #fbcfe8;
-          color: #6b7280;
-        }
-      }
-    </style>
-  </head>
-  <body>
-    <div class="container">
-      <div class="logo">Adult store</div>
-      <div class="subtitle">Exclusive Velvet & Pink Atelier</div>
-      <div class="title">Welcome to Adult store</div>
-      <div class="message">${greeting}Your account has been successfully created and verified. We are absolutely thrilled to welcome you to our exclusive boutique atelier. You can now log in and explore our collection.</div>
-      <a href="http://localhost:3000/auth" class="start-btn">Explore Now</a>
-      <div class="footer">
-        &copy; ${new Date().getFullYear()} Adult store. All rights reserved.
-      </div>
-    </div>
-  </body>
-  </html>
-  `;
 };
 
 const createTransporter = () => {
@@ -473,11 +123,11 @@ exports.registerUser = async (req, res) => {
     }
 
     const mailOptions = {
-      from: `"Adult store" <${smtpUser}>`,
+      from: `"${SITE_NAME}" <${smtpUser}>`,
       to: user.email,
-      subject: '🔑 Adult store - Registration OTP',
-      text: `Welcome to Adult store! Your registration verification code is: ${otp}`,
-      html: generateEmailTemplate(otp, 'Verify Your Email', 'Welcome to Adult store! To complete your registration, please enter the verification code below.', user)
+      subject: `🔑 ${SITE_NAME} — Verify Your Email`,
+      text: `Welcome to ${SITE_NAME}! Your registration verification code is: ${otp}`,
+      html: generateEmailTemplate(otp, 'Verify Your Email', `Welcome to ${SITE_NAME}! To complete your registration, please enter the verification code below.`, user)
     };
 
     try {
@@ -519,10 +169,10 @@ exports.verifyRegistrationOTP = async (req, res) => {
     const transporter = createTransporter();
     const smtpUser = getEnv('SMTP_USER') || 'avadhgolakiya88@gmail.com';
     const mailOptions = {
-      from: `"Adult store" <${smtpUser}>`,
+      from: `"${SITE_NAME}" <${smtpUser}>`,
       to: user.email,
-      subject: '✨ Welcome to Adult store - Account Verified!',
-      text: `Hi ${user.name || 'there'}! Your account has been verified successfully. Welcome to Adult store!`,
+      subject: `✨ Welcome to ${SITE_NAME} — Account Verified!`,
+      text: `Hi ${user.name || 'there'}! Your account has been verified successfully. Welcome to ${SITE_NAME}!`,
       html: generateRegisterSuccessTemplate(user)
     };
 
@@ -595,11 +245,11 @@ exports.forgotPassword = async (req, res) => {
     }
 
     const mailOptions = {
-      from: `"Adult store" <${smtpUser}>`,
+      from: `"${SITE_NAME}" <${smtpUser}>`,
       to: user.email,
-      subject: '🔑 Adult store - Password Reset OTP',
-      text: `We received a request to reset your Adult store password. Your verification code is: ${otp}`,
-      html: generateEmailTemplate(otp, 'Reset Your Password', 'We received a request to reset your Adult store password. Please use the verification code below to set a new password.', user)
+      subject: `🔐 ${SITE_NAME} — Reset Your Password`,
+      text: `Hi${user.name ? ` ${user.name}` : ''}, we received a request to reset your ${SITE_NAME} password. Your reset code is: ${otp}. This code expires in 10 minutes.`,
+      html: generateForgotPasswordTemplate(otp, user),
     };
 
     try {
@@ -662,9 +312,9 @@ exports.resetPassword = async (req, res) => {
     const transporter = createTransporter();
     const smtpUser = getEnv('SMTP_USER') || 'avadhgolakiya88@gmail.com';
     const mailOptions = {
-      from: `"Adult store" <${smtpUser}>`,
+      from: `"${SITE_NAME}" <${smtpUser}>`,
       to: user.email,
-      subject: '✅ Your Adult store Password Has Been Updated',
+      subject: `✅ Your ${SITE_NAME} Password Has Been Updated`,
       html: generatePasswordUpdatedTemplate(user)
     };
 
@@ -677,5 +327,36 @@ exports.resetPassword = async (req, res) => {
     res.json({ message: 'Password updated successfully' });
   } catch (error) {
     res.status(500).json({ message: 'Server Error' });
+  }
+};
+
+const AdminUser = require('../models/AdminUser');
+
+exports.loginAdmin = async (req, res) => {
+  try {
+    const { email, password } = req.body;
+    
+    // Seed default admin if none exist
+    const adminCount = await AdminUser.countDocuments();
+    if (adminCount === 0) {
+      await AdminUser.create({
+        email: 'admin@adultdesire.com',
+        password: 'adminpassword',
+      });
+    }
+
+    const admin = await AdminUser.findOne({ email });
+
+    if (admin && (await admin.matchPassword(password))) {
+      res.json({
+        _id: admin._id,
+        email: admin.email,
+        token: generateToken(admin._id),
+      });
+    } else {
+      res.status(401).json({ message: 'Invalid admin email or password' });
+    }
+  } catch (error) {
+    res.status(500).json({ message: 'Server Error', error: error.message });
   }
 };

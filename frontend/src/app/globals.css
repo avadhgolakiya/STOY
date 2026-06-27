@@ -27,14 +27,18 @@
 @layer utilities {
   /* Premium custom scrollbar */
   ::-webkit-scrollbar {
-      width: 6px;
+      width: 5px;
+      height: 5px;
   }
   ::-webkit-scrollbar-track {
-      background: var(--color-velvet-400);
+      background: transparent;
   }
   ::-webkit-scrollbar-thumb {
-      background: var(--color-luxePink-500);
-      border-radius: 3px;
+      background: rgba(236, 72, 153, 0.35);
+      border-radius: 10px;
+  }
+  ::-webkit-scrollbar-thumb:hover {
+      background: rgba(236, 72, 153, 0.7);
   }
   
   /* Custom elite transition properties */
@@ -83,7 +87,19 @@ body {
   animation: slideFromRight 0.5s cubic-bezier(0.16, 1, 0.3, 1) forwards;
 }
 
+@keyframes slideFromLeft {
+  0% { transform: translateX(-100%); }
+  100% { transform: translateX(0); }
+}
+.animate-slide-from-left {
+  animation: slideFromLeft 0.3s cubic-bezier(0.16, 1, 0.3, 1) forwards;
+}
+
 @layer base {
+  a, button, select, [role="button"] {
+    cursor: pointer !important;
+  }
+
   a, button, [role="button"], input, select, textarea {
     transition-property: color, background-color, border-color, text-decoration-color, fill, stroke, opacity, box-shadow, transform, filter, backdrop-filter;
     transition-timing-function: cubic-bezier(0.16, 1, 0.3, 1) !important;

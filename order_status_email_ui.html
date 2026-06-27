@@ -1,0 +1,598 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Order Status Update — Adult Desire</title>
+  <style>
+    * { box-sizing: border-box; margin: 0; padding: 0; }
+    body { background: #0b0112; padding: 20px; font-family: 'Montserrat', 'Segoe UI', Arial, sans-serif; }
+
+    .email-wrap {
+      max-width: 600px;
+      margin: 0 auto;
+      padding: 20px 0 40px;
+    }
+
+    .email-card {
+      background: #150421;
+      border-radius: 20px;
+      overflow: hidden;
+      border: 1px solid rgba(236, 72, 153, 0.2);
+      box-shadow: 0 24px 48px rgba(0, 0, 0, 0.65), 0 0 40px rgba(236, 72, 153, 0.08);
+    }
+
+    /* Header */
+    .email-header {
+      background: linear-gradient(135deg, #4c0519 0%, #db2777 50%, #831843 100%);
+      padding: 36px 40px 32px;
+      text-align: center;
+      position: relative;
+    }
+    .email-header::after {
+      content: '';
+      position: absolute;
+      bottom: -1px; left: 0; right: 0;
+      height: 20px;
+      background: #150421;
+      border-radius: 20px 20px 0 0;
+    }
+    .brand-logo {
+      display: inline-flex;
+      align-items: center;
+      gap: 10px;
+      margin-bottom: 18px;
+    }
+    .brand-icon {
+      width: 40px; height: 40px;
+      background: rgba(255, 255, 255, 0.15);
+      border-radius: 10px;
+      display: flex; align-items: center; justify-content: center;
+      font-size: 20px;
+    }
+    .brand-name {
+      color: #fff;
+      font-size: 22px;
+      font-weight: 700;
+      letter-spacing: 2px;
+      text-transform: uppercase;
+      font-family: 'Cinzel', Georgia, serif;
+    }
+    .header-title {
+      color: #fff;
+      font-size: 17px;
+      font-weight: 400;
+      opacity: 0.95;
+      margin-bottom: 6px;
+      letter-spacing: 0.5px;
+    }
+    .header-badge {
+      display: inline-block;
+      background: rgba(236, 72, 153, 0.2);
+      border: 1px solid rgba(236, 72, 153, 0.4);
+      color: #fff;
+      font-size: 12px;
+      font-weight: 600;
+      letter-spacing: 1.5px;
+      padding: 5px 16px;
+      border-radius: 20px;
+      text-transform: uppercase;
+      margin-top: 6px;
+    }
+
+    /* Body */
+    .email-body {
+      padding: 32px 40px 0;
+    }
+
+    .greeting {
+      font-size: 20px;
+      font-weight: 600;
+      color: #ffffff;
+      margin-bottom: 8px;
+    }
+    .subtext {
+      color: #9ca3af;
+      font-size: 14px;
+      line-height: 1.6;
+      margin-bottom: 28px;
+    }
+
+    /* Order Info */
+    .order-info {
+      display: flex;
+      gap: 0;
+      background: #0b0112;
+      border-radius: 12px;
+      overflow: hidden;
+      margin-bottom: 32px;
+      border: 1px solid rgba(236, 72, 153, 0.15);
+    }
+    .order-info-item {
+      flex: 1;
+      padding: 14px 18px;
+      border-right: 1px solid rgba(236, 72, 153, 0.15);
+    }
+    .order-info-item:last-child { border-right: none; }
+    .oi-label {
+      font-size: 11px;
+      text-transform: uppercase;
+      letter-spacing: 1px;
+      color: #ec4899;
+      font-weight: 600;
+      margin-bottom: 4px;
+    }
+    .oi-value {
+      font-size: 14px;
+      font-weight: 700;
+      color: #ffffff;
+    }
+
+    /* Progress Tracker */
+    .progress-section {
+      margin-bottom: 32px;
+    }
+    .section-label {
+      font-size: 12px;
+      text-transform: uppercase;
+      letter-spacing: 1.2px;
+      font-weight: 700;
+      color: #ec4899;
+      margin-bottom: 20px;
+    }
+
+    .stepper {
+      position: relative;
+      display: flex;
+      align-items: flex-start;
+      justify-content: space-between;
+      padding: 0 10px;
+    }
+
+    .step-line-track {
+      position: absolute;
+      top: 20px;
+      left: 30px;
+      right: 30px;
+      height: 3px;
+      background: rgba(255, 255, 255, 0.08);
+      z-index: 0;
+    }
+    .step-line-fill {
+      height: 100%;
+      width: 75%;
+      background: linear-gradient(90deg, #db2777, #ec4899);
+      border-radius: 3px;
+      transition: width 0.8s ease;
+    }
+
+    .step-item {
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      gap: 10px;
+      width: 80px;
+      z-index: 1;
+      cursor: pointer;
+    }
+
+    .step-circle {
+      width: 40px; height: 40px;
+      border-radius: 50%;
+      display: flex; align-items: center; justify-content: center;
+      font-size: 16px;
+      transition: all 0.3s;
+      position: relative;
+    }
+    .step-circle.done {
+      background: linear-gradient(135deg, #db2777, #ec4899);
+      box-shadow: 0 0 0 4px rgba(236, 72, 153, 0.15);
+      color: #ffffff;
+    }
+    .step-circle.active {
+      background: linear-gradient(135deg, #ec4899, #db2777);
+      box-shadow: 0 0 0 4px rgba(236, 72, 153, 0.3), 0 0 16px rgba(236, 72, 153, 0.4);
+      animation: pulse 2s infinite;
+      color: #ffffff;
+    }
+    .step-circle.pending {
+      background: #0b0112;
+      border: 2px solid rgba(255, 255, 255, 0.1);
+      color: #4b5563;
+    }
+
+    @keyframes pulse {
+      0%, 100% { box-shadow: 0 0 0 4px rgba(236, 72, 153, 0.25), 0 0 16px rgba(236, 72, 153, 0.3); }
+      50% { box-shadow: 0 0 0 6px rgba(236, 72, 153, 0.35), 0 0 24px rgba(236, 72, 153, 0.5); }
+    }
+
+    .step-label {
+      font-size: 11px;
+      font-weight: 600;
+      text-align: center;
+      line-height: 1.3;
+    }
+    .step-label.done { color: #ec4899; }
+    .step-label.active { color: #f9a8d4; }
+    .step-label.pending { color: #4b5563; }
+
+    .step-date {
+      font-size: 10px;
+      color: #4b5563;
+      text-align: center;
+    }
+    .step-date.done, .step-date.active { color: #db2777; }
+
+    /* Active Step Detail */
+    .active-detail {
+      margin-top: 24px;
+      background: rgba(255, 255, 255, 0.03);
+      border: 1px solid rgba(236, 72, 153, 0.25);
+      border-radius: 12px;
+      padding: 16px 20px;
+      display: flex;
+      align-items: center;
+      gap: 14px;
+    }
+    .active-detail-icon {
+      width: 44px; height: 44px;
+      background: linear-gradient(135deg, #db2777, #ec4899);
+      border-radius: 10px;
+      display: flex; align-items: center; justify-content: center;
+      font-size: 20px;
+      flex-shrink: 0;
+      color: #ffffff;
+    }
+    .active-detail-text .title {
+      font-size: 14px;
+      font-weight: 700;
+      color: #ffffff;
+      margin-bottom: 3px;
+    }
+    .active-detail-text .sub {
+      font-size: 12px;
+      color: #9ca3af;
+    }
+
+    /* Divider */
+    .divider {
+      height: 1px;
+      background: linear-gradient(90deg, transparent, rgba(236, 72, 153, 0.15), transparent);
+      margin: 28px 0;
+    }
+
+    /* Product section */
+    .product-section { margin-bottom: 28px; }
+
+    .product-row {
+      display: flex;
+      align-items: center;
+      gap: 16px;
+      padding: 14px 16px;
+      background: rgba(255, 255, 255, 0.02);
+      border-radius: 10px;
+      border: 1px solid rgba(236, 72, 153, 0.08);
+      margin-bottom: 10px;
+      transition: border-color 0.2s;
+    }
+    .product-row:hover { border-color: rgba(236, 72, 153, 0.25); }
+
+    .product-img {
+      width: 56px; height: 56px;
+      background: rgba(0, 0, 0, 0.3);
+      border-radius: 8px;
+      display: flex; align-items: center; justify-content: center;
+      font-size: 24px;
+      flex-shrink: 0;
+      border: 1px solid rgba(236, 72, 153, 0.15);
+    }
+    .product-info { flex: 1; }
+    .product-name {
+      font-size: 13px;
+      font-weight: 600;
+      color: #ffffff;
+      margin-bottom: 3px;
+    }
+    .product-meta {
+      font-size: 11px;
+      color: #9ca3af;
+      font-weight: 500;
+    }
+    .product-price {
+      font-size: 14px;
+      font-weight: 700;
+      color: #ec4899;
+    }
+
+    /* Order total */
+    .order-total {
+      background: rgba(236, 72, 153, 0.1);
+      border: 1px solid rgba(236, 72, 153, 0.15);
+      border-radius: 10px;
+      padding: 14px 18px;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      margin-bottom: 28px;
+    }
+    .order-total .label {
+      color: #f9a8d4;
+      font-size: 13px;
+      font-weight: 500;
+    }
+    .order-total .amount {
+      color: #ffffff;
+      font-size: 18px;
+      font-weight: 700;
+    }
+
+    /* CTA */
+    .cta-section {
+      text-align: center;
+      padding: 0 0 32px;
+    }
+    .cta-btn {
+      display: inline-block;
+      background: linear-gradient(135deg, #db2777, #ec4899);
+      color: #fff;
+      font-size: 14px;
+      font-weight: 700;
+      letter-spacing: 1px;
+      padding: 14px 36px;
+      border-radius: 30px;
+      text-decoration: none;
+      text-transform: uppercase;
+      margin-bottom: 12px;
+      cursor: pointer;
+      border: none;
+      transition: opacity 0.2s;
+      box-shadow: 0 8px 20px rgba(236, 72, 153, 0.3);
+    }
+    .cta-btn:hover { opacity: 0.88; }
+    .cta-secondary {
+      display: block;
+      font-size: 12px;
+      color: #9ca3af;
+      margin-top: 10px;
+      cursor: pointer;
+      text-decoration: underline;
+    }
+
+    /* Footer */
+    .email-footer {
+      background: #0b0112;
+      padding: 28px 40px;
+      text-align: center;
+      border-top: 1px solid rgba(255, 255, 255, 0.05);
+    }
+    .footer-brand {
+      color: #f9a8d4;
+      font-size: 12px;
+      font-weight: 700;
+      letter-spacing: 2px;
+      text-transform: uppercase;
+      margin-bottom: 10px;
+    }
+    .footer-links {
+      display: flex;
+      justify-content: center;
+      gap: 20px;
+      margin-bottom: 14px;
+    }
+    .footer-links a {
+      color: #9ca3af;
+      font-size: 11px;
+      text-decoration: none;
+      letter-spacing: 0.5px;
+    }
+    .footer-links a:hover { color: #ec4899; }
+    .footer-copy {
+      color: #4b5563;
+      font-size: 10px;
+      letter-spacing: 0.5px;
+    }
+
+    /* Status dot */
+    .live-dot {
+      display: inline-block;
+      width: 7px; height: 7px;
+      background: #ec4899;
+      border-radius: 50%;
+      margin-right: 6px;
+      animation: blink 1.5s infinite;
+      vertical-align: middle;
+    }
+    @keyframes blink {
+      0%, 100% { opacity: 1; }
+      50% { opacity: 0.3; }
+    }
+
+    /* Step tooltip */
+    .step-item:hover .step-circle.pending {
+      border-color: #ec4899;
+      background: rgba(236, 72, 153, 0.1);
+    }
+  </style>
+</head>
+<body>
+
+<h2 style="display:none;">Order status email preview — your order is currently out for delivery</h2>
+
+<div class="email-wrap">
+  <div class="email-card">
+
+    <!-- Header -->
+    <div class="email-header">
+      <div class="brand-logo">
+        <div class="brand-icon">💋</div>
+        <span class="brand-name">AdultDesire</span>
+      </div>
+      <div class="header-title">Your order is on its way!</div>
+      <span class="header-badge"><span class="live-dot"></span> Live tracking</span>
+    </div>
+
+    <!-- Body -->
+    <div class="email-body">
+
+      <p class="greeting">Hello, Priya ✨</p>
+      <p class="subtext">Your luxury order is out for delivery. Estimated arrival is <strong style="color:#ec4899;">today between 3 PM – 7 PM</strong>. You can track your shipment in real time below.</p>
+
+      <!-- Order info pills -->
+      <div class="order-info">
+        <div class="order-info-item">
+          <div class="oi-label">Order</div>
+          <div class="oi-value">#AD-78412</div>
+        </div>
+        <div class="order-info-item">
+          <div class="oi-label">Placed on</div>
+          <div class="oi-value">22 Jun 2026</div>
+        </div>
+        <div class="order-info-item">
+          <div class="oi-label">Courier</div>
+          <div class="oi-value">BlueDart</div>
+        </div>
+      </div>
+
+      <!-- Progress Tracker -->
+      <div class="progress-section">
+        <div class="section-label">— Shipment progress</div>
+
+        <div class="stepper">
+          <div class="step-line-track">
+            <div class="step-line-fill" id="lineFill"></div>
+          </div>
+
+          <div class="step-item" onclick="setActive(0)">
+            <div class="step-circle done">✓</div>
+            <div class="step-label done">Order<br>Placed</div>
+            <div class="step-date done">22 Jun</div>
+          </div>
+
+          <div class="step-item" onclick="setActive(1)">
+            <div class="step-circle done">✓</div>
+            <div class="step-label done">Confirmed</div>
+            <div class="step-date done">22 Jun</div>
+          </div>
+
+          <div class="step-item" onclick="setActive(2)">
+            <div class="step-circle done">✓</div>
+            <div class="step-label done">Packed &amp;<br>Shipped</div>
+            <div class="step-date done">24 Jun</div>
+          </div>
+
+          <div class="step-item" onclick="setActive(3)">
+            <div class="step-circle active">🚚</div>
+            <div class="step-label active">Out for<br>Delivery</div>
+            <div class="step-date active">27 Jun</div>
+          </div>
+
+          <div class="step-item" onclick="setActive(4)">
+            <div class="step-circle pending">🏠</div>
+            <div class="step-label pending">Delivered</div>
+            <div class="step-date">—</div>
+          </div>
+        </div>
+
+        <!-- Active step callout -->
+        <div class="active-detail" id="activeDetail">
+          <div class="active-detail-icon" id="activeIcon">🚚</div>
+          <div class="active-detail-text">
+            <div class="title" id="activeTitle">Out for delivery — arriving today</div>
+            <div class="sub" id="activeSub">Your package is with the delivery agent · Tracking: BDA2947183</div>
+          </div>
+        </div>
+      </div>
+
+      <div class="divider"></div>
+
+      <!-- Products -->
+      <div class="product-section">
+        <div class="section-label">— Items in this order</div>
+
+        <div class="product-row">
+          <div class="product-img">💋</div>
+          <div class="product-info">
+            <div class="product-name">Velvet Orchid Chronograph</div>
+            <div class="product-meta">Qty: 1 · Rose Pink Edition</div>
+          </div>
+          <div class="product-price">₹18,999</div>
+        </div>
+
+        <div class="product-row">
+          <div class="product-img">💄</div>
+          <div class="product-info">
+            <div class="product-name">Imperial VVS Rose Set</div>
+            <div class="product-meta">Qty: 1 · Gold + Diamond</div>
+          </div>
+          <div class="product-price">₹34,500</div>
+        </div>
+      </div>
+
+      <!-- Total -->
+      <div class="order-total">
+        <span class="label">Order total (incl. GST)</span>
+        <span class="amount">₹53,499</span>
+      </div>
+
+      <!-- CTA -->
+      <div class="cta-section">
+        <button class="cta-btn" onclick="sendPrompt('Track my order #AD-78412 live and show me the delivery map')">Track Live Order ↗</button>
+        <a class="cta-secondary" onclick="sendPrompt('I need help with my order #AD-78412')">Need help with this order?</a>
+      </div>
+
+    </div>
+
+    <!-- Footer -->
+    <div class="email-footer">
+      <div class="footer-brand">AdultDesire — Luxury Boutique</div>
+      <div class="footer-links">
+        <a href="#">Track Order</a>
+        <a href="#">Returns</a>
+        <a href="#">Support</a>
+        <a href="#">Unsubscribe</a>
+      </div>
+      <div class="footer-copy">© 2026 AdultDesire. All rights reserved. · patron@maisonvelours.com</div>
+    </div>
+
+  </div>
+</div>
+
+<script>
+const steps = [
+  { icon: '📦', title: 'Order placed successfully', sub: 'We received your order and payment · 22 Jun, 10:32 AM', linePct: '0%' },
+  { icon: '✅', title: 'Order confirmed by the team', sub: 'Your items have been reserved and queued for packing · 22 Jun, 2:15 PM', linePct: '25%' },
+  { icon: '🏭', title: 'Packed and dispatched', sub: 'Your luxury package was sealed and handed to BlueDart · 24 Jun, 11:00 AM', linePct: '50%' },
+  { icon: '🚚', title: 'Out for delivery — arriving today', sub: 'Your package is with the delivery agent · Tracking: BDA2947183', linePct: '75%' },
+  { icon: '🏠', title: 'Delivered to your doorstep', sub: 'Your order was delivered successfully — enjoy!', linePct: '100%' },
+];
+
+function setActive(index) {
+  const circles = document.querySelectorAll('.step-circle');
+  const labels = document.querySelectorAll('.step-label');
+  const dates = document.querySelectorAll('.step-date');
+
+  circles.forEach((c, i) => {
+    c.className = 'step-circle';
+    labels[i].className = 'step-label';
+    if (i < index) { c.classList.add('done'); c.textContent = '✓'; labels[i].classList.add('done'); dates[i].className = 'step-date done'; }
+    else if (i === index) {
+      c.classList.add('active');
+      c.textContent = steps[index].icon;
+      labels[i].classList.add('active');
+      dates[i].className = 'step-date active';
+    } else {
+      c.classList.add('pending');
+      c.textContent = steps[i].icon;
+      labels[i].classList.add('pending');
+      dates[i].className = 'step-date';
+    }
+  });
+
+  document.getElementById('activeIcon').textContent = steps[index].icon;
+  document.getElementById('activeTitle').textContent = steps[index].title;
+  document.getElementById('activeSub').textContent = steps[index].sub;
+  document.getElementById('lineFill').style.width = steps[index].linePct;
+}
+</script>
+</body>
+</html>

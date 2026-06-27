@@ -1,5 +1,6 @@
 "use client";
 
+import { usePathname } from "next/navigation";
 import { AppProvider } from "../context/AppContext";
 import Header from "./Header";
 import MobileMenu from "./MobileMenu";
@@ -8,14 +9,17 @@ import CartDrawer from "./CartDrawer";
 import ToastContainer from "./ToastContainer";
 
 export default function ClientLayout({ children }: { children: React.ReactNode }) {
+  const pathname = usePathname();
+  const isAdminRoute = pathname?.startsWith("/admin");
+
   return (
     <AppProvider>
-      <Header />
-      <MobileMenu />
-      <main className="min-h-screen">
+      {!isAdminRoute && <Header />}
+      {!isAdminRoute && <MobileMenu />}
+      <main className={isAdminRoute ? "" : "min-h-screen"}>
         {children}
       </main>
-      <Footer />
+      {!isAdminRoute && <Footer />}
       <CartDrawer />
       <ToastContainer />
     </AppProvider>

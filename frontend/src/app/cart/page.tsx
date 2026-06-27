@@ -52,33 +52,33 @@ export default function CartPage() {
           <div className="grid grid-cols-1 lg:grid-cols-3 gap-12">
             <div className="lg:col-span-2 space-y-6">
               {cart.map((item) => (
-                <div key={item._id || item.id} className="flex gap-4 sm:gap-6 bg-velvet-300 border border-luxePink-500/10 p-4 rounded-xl items-center relative group">
+                <div key={item._id || item.id} className="flex gap-4 sm:gap-6 bg-velvet-300 border border-luxePink-500/10 p-3 sm:p-4 rounded-xl items-center relative group">
                   <div className="w-20 h-20 sm:w-24 sm:h-24 rounded-lg overflow-hidden flex-shrink-0 bg-velvet-200">
-                    <img src={item.image} alt={item.title} className="w-full h-full object-contain" />
+                    <img src={item.image} alt={item.title} className="w-full h-full object-cover" />
                   </div>
                   <div className="flex-1 min-w-0">
-                    <div className="flex justify-between items-start mb-1 sm:mb-2 gap-2">
-                      <h3 className="text-white font-cinzel font-semibold text-sm sm:text-lg truncate">{item.title}</h3>
+                    <div className="flex justify-between items-start gap-2 mb-1 sm:mb-2">
+                      <h3 className="text-white font-cinzel font-semibold text-sm sm:text-base md:text-lg truncate">{item.title}</h3>
                       <button 
                         onClick={() => removeFromCart((item._id || item.id)!)}
-                        className="text-gray-500 hover:text-luxePink-500 transition"
+                        className="text-gray-500 hover:text-luxePink-500 transition flex-shrink-0"
                       >
-                        <i className="fa-solid fa-xmark text-lg"></i>
+                        <i className="fa-solid fa-xmark text-base sm:text-lg"></i>
                       </button>
                     </div>
-                    <p className="text-xs text-luxePink-500 tracking-widest uppercase mb-4">{item.category}</p>
+                    <p className="text-[10px] sm:text-xs text-luxePink-500 tracking-widest uppercase mb-3 sm:mb-4">{item.category}</p>
                     
-                    <div className="flex justify-between items-center">
-                      <div className="flex items-center gap-4 bg-velvet-400 rounded-lg px-2 py-1 border border-luxePink-500/20">
+                    <div className="flex flex-wrap items-center justify-between gap-3">
+                      <div className="flex items-center gap-2 sm:gap-4 bg-velvet-400 rounded-lg px-2 py-1 border border-luxePink-500/20">
                         <button onClick={() => changeQuantity((item._id || item.id)!, -1)} className="w-6 h-6 text-gray-400 hover:text-white transition">
                           <i className="fa-solid fa-minus text-xs"></i>
                         </button>
-                        <span className="text-white font-bold w-4 text-center">{item.quantity}</span>
+                        <span className="text-white font-bold w-4 text-center text-sm sm:text-base">{item.quantity}</span>
                         <button onClick={() => changeQuantity((item._id || item.id)!, 1)} className="w-6 h-6 text-gray-400 hover:text-white transition">
                           <i className="fa-solid fa-plus text-xs"></i>
                         </button>
                       </div>
-                      <span className="text-luxePink-400 font-bold">{formattedPrice(item.price * item.quantity)}</span>
+                      <span className="text-luxePink-400 font-bold text-sm sm:text-base">{formattedPrice(item.price * item.quantity)}</span>
                     </div>
                   </div>
                 </div>
@@ -102,7 +102,7 @@ export default function CartPage() {
 
                 <button 
                   onClick={handleCheckout}
-                  className="w-full bg-gradient-to-r from-luxePink-600 to-luxePink-400 hover:from-luxePink-500 hover:to-luxePink-300 text-white font-extrabold uppercase tracking-widest h-14 rounded-lg transition duration-300 shadow-[0_0_20px_rgba(219,39,119,0.3)] flex justify-center items-center"
+                  className="w-full bg-gradient-to-r cursor-pointer from-luxePink-600 to-luxePink-400 hover:from-luxePink-500 hover:to-luxePink-300 text-white font-extrabold uppercase tracking-widest h-14 rounded-lg transition duration-300 shadow-[0_0_20px_rgba(219,39,119,0.3)] flex justify-center items-center"
                 >
                   Proceed to Checkout
                 </button>

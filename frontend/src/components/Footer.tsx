@@ -87,36 +87,31 @@ export default function Footer() {
           </div>
 
           <div>
-            <h4 className="text-sm text-white font-bold mb-6 font-cinzel tracking-wider">
-              Policies
+            <h4 className="text-xs uppercase tracking-[0.25em] text-white font-bold mb-6">
+              POLICIES
             </h4>
             <ul className="space-y-4 text-xs font-light text-gray-400">
-              <li className="flex items-center gap-3">
-                <span className="text-luxePink-500/50 font-medium">—</span>
+              <li>
                 <Link href="/returns" className="hover:text-luxePink-500 transition duration-200">
                   Return & Exchange
                 </Link>
               </li>
-              <li className="flex items-center gap-3">
-                <span className="text-luxePink-500/50 font-medium">—</span>
+              <li>
                 <Link href="/shipping" className="hover:text-luxePink-500 transition duration-200">
                   Shipping & Customs
                 </Link>
               </li>
-              <li className="flex items-center gap-3">
-                <span className="text-luxePink-500/50 font-medium">—</span>
+              <li>
                 <Link href="/refunds" className="hover:text-luxePink-500 transition duration-200">
                   Refund Policy
                 </Link>
               </li>
-              <li className="flex items-center gap-3">
-                <span className="text-luxePink-500/50 font-medium">—</span>
+              <li>
                 <Link href="/privacy" className="hover:text-luxePink-500 transition duration-200">
                   Privacy & Security
                 </Link>
               </li>
-              <li className="flex items-center gap-3">
-                <span className="text-luxePink-500/50 font-medium">—</span>
+              <li>
                 <Link href="/terms" className="hover:text-luxePink-500 transition duration-200">
                   Terms & Condition
                 </Link>

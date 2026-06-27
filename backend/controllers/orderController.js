@@ -1,6 +1,7 @@
 const Order = require('../models/Order');
 const Razorpay = require('razorpay');
 const crypto = require('crypto');
+const { SITE_NAME, generateOrderStatusTemplate } = require('../utils/emailTemplates');
 const fs = require('fs');
 const path = require('path');
 
@@ -160,7 +161,23 @@ const nodemailer = require('nodemailer');
 
 exports.getAllOrders = async (req, res) => {
   try {
-    const orders = await Order.find({}).sort({ createdAt: -1 });
+    const { search } = req.query;
+    let query = {};
+
+    if (search) {
+      if (/^[0-9a-fA-F]{24}$/.test(search)) {
+        query = { _id: search };
+      } else {
+        query = {
+          $or: [
+            { customerEmail: { $regex: search, $options: 'i' } },
+            { customerName: { $regex: search, $options: 'i' } }
+          ]
+        };
+      }
+    }
+
+    const orders = await Order.find(query).sort({ createdAt: -1 });
     res.json(orders);
   } catch (error) {
     console.error('Error fetching all orders:', error);
@@ -171,7 +188,7 @@ exports.getAllOrders = async (req, res) => {
 exports.updateOrderStatus = async (req, res) => {
   try {
     const { id } = req.params;
-    const { deliveryStatus } = req.body;
+    const { deliveryStatus, message } = req.body;
 
     const order = await Order.findById(id);
     if (!order) {
@@ -207,11 +224,14 @@ exports.updateOrderStatus = async (req, res) => {
       });
 
       const mailOptions = {
-        from: smtpUser ? `"Adult store" <${smtpUser}>` : '"Adult store" <no-reply@adultstore.com>',
+        from: smtpUser ? `"${SITE_NAME}" <${smtpUser}>` : `"${SITE_NAME}" <no-reply@adultdesire.com>`,
         to: order.customerEmail,
-        subject: `Update on your Order #${order._id.toString().substring(0, 8)}`,
-        text: `Hello ${order.customerName},\n\nYour order status has been updated to: ${deliveryStatus}.\n\nThank you for shopping with us!\nAdult store`,
-        html: `<h3>Hello ${order.customerName},</h3><p>Your order status has been updated to: <strong>${deliveryStatus}</strong>.</p><p>Thank you for shopping with us!<br/>Adult store</p>`
+        subject: `${SITE_NAME} — Order #${order._id.toString().substring(0, 8).toUpperCase()} Update`,
+        text: `Hello ${order.customerName},\n\nYour order status has been updated to: ${deliveryStatus}.${message ? `\n\nMessage: ${message}` : ''}\n\nThank you for shopping with ${SITE_NAME}!`,
+        html: generateOrderStatusTemplate({
+          order,
+          message,
+        }),
       };
 
       if (!smtpHost && !smtpUser) {

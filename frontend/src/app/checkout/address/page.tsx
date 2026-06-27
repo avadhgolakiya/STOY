@@ -1,25 +1,42 @@
 "use client";
 
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import { useRouter } from "next/navigation";
 import { useAppContext } from "../../../context/AppContext";
 
 export default function AddressPage() {
   const router = useRouter();
-  const { setShippingAddress, cart, showToast } = useAppContext();
-  
+  const { shippingAddress, setShippingAddress, cart, showToast } = useAppContext();
+
   const [address, setAddress] = useState({
-    firstName: "",
-    lastName: "",
-    mobileNumber: "",
-    email: "",
-    flatNo: "",
-    street: "",
-    landmark: "",
-    pinCode: "",
-    city: "",
-    state: "",
+    firstName: shippingAddress?.firstName || "",
+    lastName: shippingAddress?.lastName || "",
+    mobileNumber: shippingAddress?.mobileNumber || "",
+    email: shippingAddress?.email || "",
+    flatNo: shippingAddress?.flatNo || "",
+    street: shippingAddress?.street || "",
+    landmark: shippingAddress?.landmark || "",
+    pinCode: shippingAddress?.pinCode || "",
+    city: shippingAddress?.city || "",
+    state: shippingAddress?.state || "",
   });
+
+  useEffect(() => {
+    if (shippingAddress) {
+      setAddress({
+        firstName: shippingAddress.firstName || "",
+        lastName: shippingAddress.lastName || "",
+        mobileNumber: shippingAddress.mobileNumber || "",
+        email: shippingAddress.email || "",
+        flatNo: shippingAddress.flatNo || "",
+        street: shippingAddress.street || "",
+        landmark: shippingAddress.landmark || "",
+        pinCode: shippingAddress.pinCode || "",
+        city: shippingAddress.city || "",
+        state: shippingAddress.state || "",
+      });
+    }
+  }, [shippingAddress]);
 
   const [couponCode, setCouponCode] = useState("");
 
@@ -59,11 +76,11 @@ export default function AddressPage() {
       <div className="bg-[#1a1820] border-b border-[#2a2635] pt-12 pb-6 px-6 lg:px-12">
         <div className="max-w-6xl mx-auto">
           <h1 className="text-2xl font-extrabold text-white tracking-widest uppercase mb-4">Checkout</h1>
-          <div className="flex items-center text-xs font-bold tracking-widest text-gray-500 gap-2">
+          <div className="flex flex-wrap items-center text-[10px] sm:text-xs font-bold tracking-widest text-gray-500 gap-1.5 sm:gap-2">
             <span className="flex items-center text-[#00d084] gap-1"><i className="fa-solid fa-circle-check"></i> CART</span>
-            <span><i className="fa-solid fa-chevron-right text-[8px]"></i></span>
+            <span className="flex items-center"><i className="fa-solid fa-chevron-right text-[8px]"></i></span>
             <span className="flex items-center text-luxePink-500 gap-1"><span className="w-4 h-4 bg-luxePink-500 text-white rounded-full flex items-center justify-center text-[10px]">2</span> DETAILS</span>
-            <span><i className="fa-solid fa-chevron-right text-[8px]"></i></span>
+            <span className="flex items-center"><i className="fa-solid fa-chevron-right text-[8px]"></i></span>
             <span className="flex items-center gap-1"><span className="w-4 h-4 bg-[#2a2635] text-white rounded-full flex items-center justify-center text-[10px]">3</span> PAYMENT</span>
           </div>
         </div>
@@ -71,10 +88,10 @@ export default function AddressPage() {
 
       <div className="max-w-6xl mx-auto px-6 lg:px-12 mt-8">
         <form onSubmit={handleSubmit} className="grid grid-cols-1 lg:grid-cols-3 gap-8">
-          
+
           {/* Left Column (Forms) */}
           <div className="lg:col-span-2 space-y-6">
-            
+
             {/* Personal Information */}
             <div>
               <h2 className="text-sm font-bold text-gray-400 tracking-widest uppercase mb-4">Personal Information</h2>
@@ -183,9 +200,9 @@ export default function AddressPage() {
                 <h2 className="text-sm font-bold text-gray-400 tracking-widest uppercase mb-4 flex items-center gap-2">
                   <i className="fa-solid fa-tag text-yellow-500"></i> Discount Coupon
                 </h2>
-                <div className="flex gap-4">
+                <div className="flex flex-col sm:flex-row gap-3 sm:gap-4">
                   <input type="text" value={couponCode} onChange={(e) => setCouponCode(e.target.value)} className="flex-1 bg-[#131118] border border-[#2a2635] rounded-lg px-4 py-3 text-sm text-white focus:outline-none focus:border-luxePink-500 transition-colors uppercase" placeholder="Enter coupon code" />
-                  <button type="button" className="bg-[#2a2635] hover:bg-[#383344] text-white font-bold px-6 rounded-lg text-sm transition-colors">APPLY</button>
+                  <button type="button" className="bg-[#2a2635] hover:bg-[#383344] text-white font-bold px-6 py-3 rounded-lg text-sm transition-colors">APPLY</button>
                 </div>
               </div>
             </div>
@@ -197,7 +214,7 @@ export default function AddressPage() {
             <div className="bg-[#1e1c24] border border-[#2a2635] rounded-xl p-6 sticky top-24">
               <h2 className="text-sm font-bold text-white tracking-widest uppercase mb-1">Order Summary</h2>
               <p className="text-xs text-gray-400 mb-6">{cart.length} item{cart.length > 1 ? 's' : ''}</p>
-              
+
               <div className="space-y-4 mb-6 max-h-48 overflow-y-auto pr-2 custom-scrollbar">
                 {cart.map(item => (
                   <div key={item.id} className="flex gap-4 items-center">
@@ -243,12 +260,12 @@ export default function AddressPage() {
               </div>
 
               {discount > 0 && (
-                <div className="bg-[#00d084]/10 text-[#00d084] text-xs font-bold rounded-lg py-2 flex items-center justify-center gap-2 mb-6">
+                <div className="bg-[#00d084]/10 text-[#00d084] text-xs p-[10px] font-bold rounded-lg py-2 flex items-center justify-center gap-2 mb-6">
                   <i className="fa-solid fa-tag"></i> You save {formattedPrice(discount)} on this order
                 </div>
               )}
 
-              <button 
+              <button
                 type="submit"
                 className="w-full bg-[#ff2e93] hover:bg-[#ff1482] text-white font-extrabold uppercase tracking-widest py-4 rounded-lg transition duration-300 shadow-[0_0_20px_rgba(255,46,147,0.3)] flex justify-center items-center mb-6"
               >

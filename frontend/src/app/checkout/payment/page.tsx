@@ -9,12 +9,14 @@ export default function PaymentPage() {
   const { cart, shippingAddress, showToast, clearCart } = useAppContext();
   const paymentMethod = "razorpay";
   const [isProcessing, setIsProcessing] = useState(false);
+  const [isSuccess, setIsSuccess] = useState(false);
 
   useEffect(() => {
+    if (isSuccess) return;
     if (cart.length === 0 || !shippingAddress) {
       router.push("/cart");
     }
-  }, [cart, shippingAddress, router]);
+  }, [cart, shippingAddress, router, isSuccess]);
 
   const subtotal = cart.reduce((acc, item) => acc + item.price * item.quantity, 0);
   const deliveryFee = 0;
@@ -45,7 +47,7 @@ export default function PaymentPage() {
     setIsProcessing(true);
     try {
       const token = localStorage.getItem("token");
-      
+
       const res = await fetch(`${process.env.NEXT_PUBLIC_API_URL}/api/orders/create`, {
         method: "POST",
         headers: {
@@ -68,6 +70,7 @@ export default function PaymentPage() {
 
       if (paymentMethod === "razorpay") {
         if (data.razorpayOrder.isDummy) {
+          setIsSuccess(true);
           showToast("Simulated Payment Successful! (Razorpay Keys Missing)", "info");
           clearCart();
           router.push("/thank-you");
@@ -96,6 +99,7 @@ export default function PaymentPage() {
             });
             const verifyData = await verifyRes.json();
             if (verifyData.success) {
+              setIsSuccess(true);
               showToast("Payment Successful! Your luxury pieces are being prepared.", "success");
               clearCart();
               router.push("/thank-you");
@@ -170,7 +174,7 @@ export default function PaymentPage() {
           <div>
             <div className="bg-velvet-300 border border-luxePink-500/10 rounded-2xl p-6 sticky top-32">
               <h2 className="text-xl font-cinzel text-white mb-6 border-b border-luxePink-500/10 pb-4">Order Summary</h2>
-              
+
               <div className="space-y-4 mb-8 text-sm">
                 <div className="flex justify-between text-gray-400">
                   <span>Subtotal ({cart.length} items)</span>
@@ -186,13 +190,13 @@ export default function PaymentPage() {
                 </div>
               </div>
 
-              <button 
+              <button
                 onClick={handleCheckout}
                 disabled={isProcessing}
-                className="w-full bg-gradient-to-r from-luxePink-600 to-luxePink-400 hover:from-luxePink-500 hover:to-luxePink-300 text-white font-extrabold uppercase tracking-widest h-14 rounded-lg transition duration-300 shadow-[0_0_20px_rgba(219,39,119,0.3)] flex justify-center items-center disabled:opacity-50"
+                className="w-full bg-gradient-to-r cursor-pointer from-luxePink-600 to-luxePink-400 hover:from-luxePink-500 hover:to-luxePink-300 text-white font-extrabold uppercase tracking-widest h-14 rounded-lg transition duration-300 shadow-[0_0_20px_rgba(219,39,119,0.3)] flex justify-center items-center disabled:opacity-50"
               >
                 {isProcessing ? (
-                  <div className="w-5 h-5 border-2 border-white border-t-transparent rounded-full animate-spin"></div>
+                  <div className="w-5 cursor-pointer h-5 border-2 border-white border-t-transparent rounded-full animate-spin"></div>
                 ) : (
                   "Place Order"
                 )}
