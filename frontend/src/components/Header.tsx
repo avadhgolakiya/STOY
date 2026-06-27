@@ -82,7 +82,7 @@ export default function Header() {
           </div>
 
           {/* Mobile menu button */}
-          <div className="lg:hidden flex items-center gap-5">
+          <div className="lg:hidden flex items-center gap-3 sm:gap-5">
             <button
               onClick={() => {
                 if (isLoggedIn) {
@@ -91,16 +91,16 @@ export default function Header() {
                   router.push('/auth');
                 }
               }}
-              className="text-white hover:text-luxePink-500 cursor-pointer transition duration-300"
+              className="text-white hover:text-luxePink-500 cursor-pointer transition duration-300 p-2"
             >
               <i className="fa-regular fa-user text-xl"></i>
             </button>
-            <div onClick={toggleCart} className="relative cursor-pointer text-luxePink-500">
+            <div onClick={toggleCart} className="relative cursor-pointer text-luxePink-500 p-2">
               <i className="fa-solid fa-bag-shopping text-xl"></i>
-              <span className="absolute -top-1 -right-2 bg-white text-velvet-400 text-[10px] font-bold rounded-full w-5 h-5 flex items-center justify-center shadow-md animate-bounce">{cartItemCount}</span>
+              <span className="absolute top-0 right-0 bg-white text-velvet-400 text-[10px] font-bold rounded-full w-5 h-5 flex items-center justify-center shadow-md animate-bounce">{cartItemCount}</span>
             </div>
-            <button onClick={toggleMobileMenu} className="text-white hover:text-luxePink-500 transition duration-300">
-              <svg xmlns="http://www.w3.org/2000/svg" className="h-8 w-8" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+            <button onClick={toggleMobileMenu} className="text-white hover:text-luxePink-500 transition duration-300 p-2 ml-1">
+              <svg xmlns="http://www.w3.org/2000/svg" className="h-7 w-7 sm:h-8 sm:w-8" fill="none" viewBox="0 0 24 24" stroke="currentColor">
                 <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M4 6h16M4 12h16m-7 6h7" />
               </svg>
             </button>

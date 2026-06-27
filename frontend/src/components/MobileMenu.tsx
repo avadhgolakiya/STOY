@@ -21,7 +21,7 @@ export default function MobileMenu() {
           />
           <button
             onClick={toggleMobileMenu}
-            className="text-luxePink-500 hover:text-white text-xl"
+            className="text-luxePink-500 hover:text-white text-xl p-2 -mr-2"
           >
             <i className="fa-solid fa-times"></i>
           </button>
@@ -35,20 +35,20 @@ export default function MobileMenu() {
           />
           <i className="fa-solid fa-magnifying-glass absolute left-3.5 top-3.5 text-luxePink-500 text-xs"></i>
         </div>
-        <nav className="flex flex-col gap-6 text-[12px] uppercase tracking-[0.2em]">
-          <a href="#hero" onClick={toggleMobileMenu} className="text-luxePink-500 font-semibold">
+        <nav className="flex flex-col gap-2 text-[12px] uppercase tracking-[0.2em]">
+          <a href="#hero" onClick={toggleMobileMenu} className="text-luxePink-500 font-semibold py-2">
             Home
           </a>
-          <a href="#collections" onClick={toggleMobileMenu} className="text-gray-300 hover:text-luxePink-500 luxury-transition hover:text-glow-pink">
+          <a href="#collections" onClick={toggleMobileMenu} className="text-gray-300 hover:text-luxePink-500 luxury-transition hover:text-glow-pink py-2">
             The Luxury Edit
           </a>
-          <a href="#brand-showcase" onClick={toggleMobileMenu} className="text-gray-300 hover:text-luxePink-500 luxury-transition hover:text-glow-pink">
+          <a href="#brand-showcase" onClick={toggleMobileMenu} className="text-gray-300 hover:text-luxePink-500 luxury-transition hover:text-glow-pink py-2">
             Luxury Maisons
           </a>
-          <a href="#new-arrivals" onClick={toggleMobileMenu} className="text-gray-300 hover:text-luxePink-500 luxury-transition hover:text-glow-pink">
+          <a href="#new-arrivals" onClick={toggleMobileMenu} className="text-gray-300 hover:text-luxePink-500 luxury-transition hover:text-glow-pink py-2">
             New Collections
           </a>
-          <a href="#concierge" onClick={toggleMobileMenu} className="text-gray-300 hover:text-luxePink-500 luxury-transition hover:text-glow-pink">
+          <a href="#concierge" onClick={toggleMobileMenu} className="text-gray-300 hover:text-luxePink-500 luxury-transition hover:text-glow-pink py-2">
             VIP Concierge Portal
           </a>
         </nav>

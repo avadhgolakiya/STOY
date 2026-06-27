@@ -69,8 +69,8 @@ export default function ProductGrid() {
               </h2>
             </div>
 
-            <div className="flex flex-col items-start xl:items-end">
-              <div className="flex flex-wrap gap-2 sm:gap-3 text-[10px] uppercase tracking-[0.2em] sm:tracking-[0.25em]">
+            <div className="flex flex-col items-center xl:items-end w-full xl:w-auto">
+              <div className="flex flex-wrap justify-center xl:justify-end gap-2 sm:gap-3 text-[10px] uppercase tracking-[0.2em] sm:tracking-[0.25em] w-full">
                 {categories.map((cat) => (
                   <button
                     key={cat}
@@ -90,7 +90,7 @@ export default function ProductGrid() {
               </div>
 
               {currentFilter.toLowerCase() === 'dildo' && (
-                <div className="flex flex-wrap gap-2 sm:gap-3 mt-4 text-[10px] uppercase tracking-[0.2em] sm:tracking-[0.25em]">
+                <div className="flex flex-wrap justify-center xl:justify-end gap-2 sm:gap-3 mt-4 text-[10px] uppercase tracking-[0.2em] sm:tracking-[0.25em] w-full">
                   {["All Sizes", "Small", "Medium", "Large"].map((size) => (
                     <button
                       key={size}

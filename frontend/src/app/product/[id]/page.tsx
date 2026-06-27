@@ -60,8 +60,8 @@ export default async function ProductDetail({ params }: { params: Promise<{ id: 
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
         
         {/* Breadcrumbs & Navigation */}
-        <div className="flex justify-between items-center mb-8 border-b border-luxePink-500/10 pb-4">
-          <div className="flex items-center gap-2 text-xs uppercase tracking-widest text-gray-400">
+        <div className="flex justify-between items-start sm:items-center mb-8 border-b border-luxePink-500/10 pb-4 flex-col sm:flex-row gap-4">
+          <div className="flex flex-wrap items-center gap-2 text-xs uppercase tracking-widest text-gray-400">
             <Link href="/" className="hover:text-luxePink-500 transition">Home</Link>
             <span>&gt;</span>
             <span className="hover:text-luxePink-500 transition cursor-pointer">{product.category}</span>

@@ -191,7 +191,7 @@ function AuthContent() {
       <div className="absolute top-[-20%] left-[-10%] w-[50%] h-[50%] bg-luxePink-500/10 blur-[120px] rounded-full pointer-events-none"></div>
       <div className="absolute bottom-[-20%] right-[-10%] w-[40%] h-[40%] bg-fuchsia-600/10 blur-[120px] rounded-full pointer-events-none"></div>
 
-      <div className="max-w-md w-full bg-velvet-400/60 backdrop-blur-xl p-10 rounded-xl shadow-2xl border border-luxePink-500/20 relative z-10">
+      <div className="max-w-md w-full bg-velvet-400/60 backdrop-blur-xl p-6 sm:p-10 rounded-xl shadow-2xl border border-luxePink-500/20 relative z-10 mx-4 sm:mx-0">
         <div className="text-center mb-10">
           <h2 className="text-3xl font-cinzel text-white uppercase tracking-[0.2em] font-light">
             {authState === 'LOGIN' && 'Sign In'}

@@ -49,15 +49,15 @@ export default function CartDrawer() {
           </div>
         ) : (
           cart.map((item) => (
-            <div key={item._id || item.id} className="flex items-center gap-4 bg-velvet-400 p-4 rounded-xl border border-luxePink-500/10">
+            <div key={item._id || item.id} className="flex items-center gap-3 sm:gap-4 bg-velvet-400 p-3 sm:p-4 rounded-xl border border-luxePink-500/10">
               <img
                 src={item.image}
                 alt={item.title}
-                className="w-16 h-16 object-cover rounded-lg border border-luxePink-500/15 hue-rotate-[290deg]"
+                className="w-14 h-14 sm:w-16 sm:h-16 object-cover rounded-lg border border-luxePink-500/15 hue-rotate-[290deg]"
               />
-              <div className="flex-1">
-                <h4 className="text-xs text-white font-semibold uppercase tracking-wider truncate">{item.title}</h4>
-                <p className="text-[11px] text-luxePink-500 font-bold mt-1">
+              <div className="flex-1 min-w-0">
+                <h4 className="text-[11px] sm:text-xs text-white font-semibold uppercase tracking-wider truncate">{item.title}</h4>
+                <p className="text-[10px] sm:text-[11px] text-luxePink-500 font-bold mt-1">
                   {new Intl.NumberFormat("en-IN", { style: "currency", currency: "INR", maximumFractionDigits: 0 }).format(item.price)}
                 </p>
                 <div className="flex items-center gap-2 mt-2">

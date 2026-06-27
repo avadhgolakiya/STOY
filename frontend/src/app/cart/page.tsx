@@ -52,13 +52,13 @@ export default function CartPage() {
           <div className="grid grid-cols-1 lg:grid-cols-3 gap-12">
             <div className="lg:col-span-2 space-y-6">
               {cart.map((item) => (
-                <div key={item._id || item.id} className="flex gap-6 bg-velvet-300 border border-luxePink-500/10 p-4 rounded-xl items-center relative group">
-                  <div className="w-24 h-24 rounded-lg overflow-hidden flex-shrink-0 bg-velvet-200">
+                <div key={item._id || item.id} className="flex gap-4 sm:gap-6 bg-velvet-300 border border-luxePink-500/10 p-4 rounded-xl items-center relative group">
+                  <div className="w-20 h-20 sm:w-24 sm:h-24 rounded-lg overflow-hidden flex-shrink-0 bg-velvet-200">
                     <img src={item.image} alt={item.title} className="w-full h-full object-cover" />
                   </div>
-                  <div className="flex-1">
-                    <div className="flex justify-between items-start mb-2">
-                      <h3 className="text-white font-cinzel font-semibold text-lg">{item.title}</h3>
+                  <div className="flex-1 min-w-0">
+                    <div className="flex justify-between items-start mb-1 sm:mb-2 gap-2">
+                      <h3 className="text-white font-cinzel font-semibold text-sm sm:text-lg truncate">{item.title}</h3>
                       <button 
                         onClick={() => removeFromCart((item._id || item.id)!)}
                         className="text-gray-500 hover:text-luxePink-500 transition"

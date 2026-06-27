@@ -57,29 +57,29 @@ export default function Footer() {
             <h4 className="text-xs uppercase tracking-[0.25em] text-white font-bold mb-6">
               THE LUXURY HOUSES
             </h4>
-            <ul className="space-y-4 text-xs font-light">
+            <ul className="space-y-2 sm:space-y-4 text-xs font-light">
               <li>
-                <button onClick={() => handleLinkClick("Watches")} className="hover:text-luxePink-500 transition duration-200">
+                <button onClick={() => handleLinkClick("Watches")} className="hover:text-luxePink-500 transition duration-200 py-1 sm:py-0 text-left">
                   The Chronograph Elite Indices
                 </button>
               </li>
               <li>
-                <button onClick={() => handleLinkClick("Jewelry")} className="hover:text-luxePink-500 transition duration-200">
+                <button onClick={() => handleLinkClick("Jewelry")} className="hover:text-luxePink-500 transition duration-200 py-1 sm:py-0 text-left">
                   Imperial VVS Rose Jewelry
                 </button>
               </li>
               <li>
-                <button onClick={() => handleLinkClick("Leather Goods")} className="hover:text-luxePink-500 transition duration-200">
+                <button onClick={() => handleLinkClick("Leather Goods")} className="hover:text-luxePink-500 transition duration-200 py-1 sm:py-0 text-left">
                   Orchid Strap Leather Carryalls
                 </button>
               </li>
               <li>
-                <button onClick={() => handleLinkClick("Fragrances")} className="hover:text-luxePink-500 transition duration-200">
+                <button onClick={() => handleLinkClick("Fragrances")} className="hover:text-luxePink-500 transition duration-200 py-1 sm:py-0 text-left">
                   Elixirs, Perfumes & Colognes
                 </button>
               </li>
               <li>
-                <button onClick={() => handleLinkClick("Apparel")} className="hover:text-luxePink-500 transition duration-200">
+                <button onClick={() => handleLinkClick("Apparel")} className="hover:text-luxePink-500 transition duration-200 py-1 sm:py-0 text-left">
                   Exclusive Luxury Outerwear
                 </button>
               </li>
