@@ -53,7 +53,7 @@ export default function CartDrawer() {
               <img
                 src={item.image}
                 alt={item.title}
-                className="w-14 h-14 sm:w-16 sm:h-16 object-cover rounded-lg border border-luxePink-500/15 hue-rotate-[290deg]"
+                className="w-14 h-14 sm:w-16 sm:h-16 object-contain rounded-lg border border-luxePink-500/15 hue-rotate-[290deg]"
               />
               <div className="flex-1 min-w-0">
                 <h4 className="text-[11px] sm:text-xs text-white font-semibold uppercase tracking-wider truncate">{item.title}</h4>

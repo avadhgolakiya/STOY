@@ -137,7 +137,7 @@ export default function ProductGrid() {
                       <img
                         src={p.image}
                         alt={p.title}
-                        className="w-full h-full object-cover group-hover:brightness-75 luxury-transition"
+                        className="w-full h-full object-contain group-hover:brightness-75 luxury-transition"
                       />
                       <span className="absolute top-4 left-4 bg-velvet-400/90 backdrop-blur-sm border border-luxePink-500/30 text-luxePink-500 text-[8px] font-extrabold tracking-[0.2em] px-3 py-1 rounded">
                         {p.tag}

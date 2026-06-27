@@ -44,7 +44,7 @@ export default function RelatedProductCard({ related }: { related: Product }) {
         <img
           src={related.image}
           alt={related.title}
-          className="w-full h-full object-cover group-hover:brightness-75 luxury-transition"
+          className="w-full h-full object-contain group-hover:brightness-75 luxury-transition"
         />
         <span className="absolute top-4 left-4 bg-velvet-400/90 backdrop-blur-sm border border-luxePink-500/30 text-luxePink-500 text-[8px] font-extrabold tracking-[0.2em] px-3 py-1 rounded">
           {related.tag}

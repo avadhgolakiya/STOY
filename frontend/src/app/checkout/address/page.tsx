@@ -201,7 +201,7 @@ export default function AddressPage() {
               <div className="space-y-4 mb-6 max-h-48 overflow-y-auto pr-2 custom-scrollbar">
                 {cart.map(item => (
                   <div key={item.id} className="flex gap-4 items-center">
-                    <img src={item.image} alt={item.title} className="w-12 h-12 rounded-md object-cover border border-[#2a2635]" />
+                    <img src={item.image} alt={item.title} className="w-12 h-12 rounded-md object-contain border border-[#2a2635]" />
                     <div className="flex-1 min-w-0">
                       <p className="text-xs text-white font-semibold truncate">{item.title}</p>
                       <p className="text-[10px] text-gray-400 mt-0.5">Qty: {item.quantity} · {formattedPrice(item.price)} each</p>

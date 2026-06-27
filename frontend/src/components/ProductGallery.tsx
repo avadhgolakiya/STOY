@@ -74,7 +74,7 @@ export default function ProductGallery({ product }: { product: Product }) {
            ref={imageRef}
            src={activeThumb.url}
            alt={product.title}
-           className={`w-full h-full object-cover group-hover:scale-105 transition-transform duration-500`}
+           className={`w-full h-full object-contain group-hover:scale-105 transition-transform duration-500`}
          />
          <button className="absolute top-4 right-4 w-10 h-10 bg-velvet-400/80 backdrop-blur rounded-full text-white hover:text-luxePink-500 flex items-center justify-center transition border border-luxePink-500/20">
            <i className="fa-solid fa-expand"></i>

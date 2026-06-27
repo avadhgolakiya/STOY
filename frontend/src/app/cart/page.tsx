@@ -54,7 +54,7 @@ export default function CartPage() {
               {cart.map((item) => (
                 <div key={item._id || item.id} className="flex gap-4 sm:gap-6 bg-velvet-300 border border-luxePink-500/10 p-4 rounded-xl items-center relative group">
                   <div className="w-20 h-20 sm:w-24 sm:h-24 rounded-lg overflow-hidden flex-shrink-0 bg-velvet-200">
-                    <img src={item.image} alt={item.title} className="w-full h-full object-cover" />
+                    <img src={item.image} alt={item.title} className="w-full h-full object-contain" />
                   </div>
                   <div className="flex-1 min-w-0">
                     <div className="flex justify-between items-start mb-1 sm:mb-2 gap-2">
