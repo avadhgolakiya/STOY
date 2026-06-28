@@ -7,6 +7,7 @@ import MobileMenu from "./MobileMenu";
 import Footer from "./Footer";
 import CartDrawer from "./CartDrawer";
 import ToastContainer from "./ToastContainer";
+import AgeVerificationModal from "./AgeVerificationModal";
 
 export default function ClientLayout({ children }: { children: React.ReactNode }) {
   const pathname = usePathname();
@@ -22,6 +23,7 @@ export default function ClientLayout({ children }: { children: React.ReactNode }
       {!isAdminRoute && <Footer />}
       <CartDrawer />
       <ToastContainer />
+      {!isAdminRoute && <AgeVerificationModal />}
     </AppProvider>
   );
 }
