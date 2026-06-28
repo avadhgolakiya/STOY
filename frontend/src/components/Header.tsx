@@ -39,14 +39,14 @@ export default function Header() {
             <img
               src="/logo.png"
               alt="adultDesire Logo"
-              className="h-12 sm:h-20 w-auto object-contain transition duration-300 group-hover:scale-105 rounded-md"
+              className="h-[90px] sm:h-20 sm:w-auto w-[90px] object-contain transition duration-300 group-hover:scale-105 rounded-md"
             />
           </div>
 
           {/* Navigation Links */}
           <nav className="hidden lg:flex items-center gap-6 text-white font-medium text-[12px] uppercase tracking-widest">
             <a href="/" className="hover:text-luxePink-400 luxury-transition hover:text-glow-pink">Home</a>
-            
+
             {/* For Men Dropdown */}
             <div className="relative group py-2">
               <button className="flex items-center gap-1 hover:text-luxePink-400 luxury-transition hover:text-glow-pink uppercase tracking-widest text-[12px] font-medium focus:outline-none cursor-pointer">
