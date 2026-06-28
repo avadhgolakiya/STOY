@@ -2,6 +2,7 @@
 
 import { useState, useEffect } from "react";
 import { useRouter } from "next/navigation";
+import Link from "next/link";
 import { useAppContext } from "../context/AppContext";
 
 export default function Header() {
@@ -45,7 +46,7 @@ export default function Header() {
 
           {/* Navigation Links */}
           <nav className="hidden lg:flex items-center gap-6 text-white font-medium text-[12px] uppercase tracking-widest">
-            <a href="/" className="hover:text-luxePink-400 luxury-transition hover:text-glow-pink">Home</a>
+            <Link href="/" className="hover:text-luxePink-400 luxury-transition hover:text-glow-pink">Home</Link>
 
             {/* For Men Dropdown */}
             <div className="relative group py-2">
@@ -53,9 +54,9 @@ export default function Header() {
                 For Men <i className="fa-solid fa-chevron-down text-[8px] opacity-70 group-hover:rotate-180 transition-transform duration-300"></i>
               </button>
               <div className="absolute top-full left-0 mt-1 w-48 bg-velvet-300 border border-luxePink-500/15 rounded-xl shadow-2xl p-2 opacity-0 invisible group-hover:opacity-100 group-hover:visible transition-all duration-300 z-50">
-                <a href="/?category=masturbators#new-arrivals" className="block px-4 py-2 text-[10px] text-gray-300 hover:text-luxePink-400 hover:bg-luxePink-500/5 rounded-lg luxury-transition whitespace-nowrap">Masturbators</a>
-                <a href="/?category=penis-sleeves#new-arrivals" className="block px-4 py-2 text-[10px] text-gray-300 hover:text-luxePink-400 hover:bg-luxePink-500/5 rounded-lg luxury-transition whitespace-nowrap">Penis Sleeves</a>
-                <a href="/?category=Sex+Doll#new-arrivals" className="block px-4 py-2 text-[10px] text-gray-300 hover:text-luxePink-400 hover:bg-luxePink-500/5 rounded-lg luxury-transition whitespace-nowrap">Sex Dolls</a>
+                <Link href="/?category=masturbators#new-arrivals" className="block px-4 py-2 text-[10px] text-gray-300 hover:text-luxePink-400 hover:bg-luxePink-500/5 rounded-lg luxury-transition whitespace-nowrap">Masturbators</Link>
+                <Link href="/?category=penis-sleeves#new-arrivals" className="block px-4 py-2 text-[10px] text-gray-300 hover:text-luxePink-400 hover:bg-luxePink-500/5 rounded-lg luxury-transition whitespace-nowrap">Penis Sleeves</Link>
+                <Link href="/?category=Sex+Doll#new-arrivals" className="block px-4 py-2 text-[10px] text-gray-300 hover:text-luxePink-400 hover:bg-luxePink-500/5 rounded-lg luxury-transition whitespace-nowrap">Sex Dolls</Link>
               </div>
             </div>
 
@@ -65,15 +66,14 @@ export default function Header() {
                 For Women <i className="fa-solid fa-chevron-down text-[8px] opacity-70 group-hover:rotate-180 transition-transform duration-300"></i>
               </button>
               <div className="absolute top-full left-0 mt-1 w-48 bg-velvet-300 border border-luxePink-500/15 rounded-xl shadow-2xl p-2 opacity-0 invisible group-hover:opacity-100 group-hover:visible transition-all duration-300 z-50">
-                <a href="/?category=vibrators#new-arrivals" className="block px-4 py-2 text-[10px] text-gray-300 hover:text-luxePink-400 hover:bg-luxePink-500/5 rounded-lg luxury-transition whitespace-nowrap">Vibrators</a>
-                <a href="/?category=dildo#new-arrivals" className="block px-4 py-2 text-[10px] text-gray-300 hover:text-luxePink-400 hover:bg-luxePink-500/5 rounded-lg luxury-transition whitespace-nowrap">Dildos</a>
-                <a href="/?category=butt-plug#new-arrivals" className="block px-4 py-2 text-[10px] text-gray-300 hover:text-luxePink-400 hover:bg-luxePink-500/5 rounded-lg luxury-transition whitespace-nowrap">Butt Plugs</a>
+                <Link href="/?category=vibrators#new-arrivals" className="block px-4 py-2 text-[10px] text-gray-300 hover:text-luxePink-400 hover:bg-luxePink-500/5 rounded-lg luxury-transition whitespace-nowrap">Vibrators</Link>
+                <Link href="/?category=dildo#new-arrivals" className="block px-4 py-2 text-[10px] text-gray-300 hover:text-luxePink-400 hover:bg-luxePink-500/5 rounded-lg luxury-transition whitespace-nowrap">Dildos</Link>
+                <Link href="/?category=butt-plug#new-arrivals" className="block px-4 py-2 text-[10px] text-gray-300 hover:text-luxePink-400 hover:bg-luxePink-500/5 rounded-lg luxury-transition whitespace-nowrap">Butt Plugs</Link>
               </div>
             </div>
 
-
-
-            <a href="/track-order" className="hover:text-luxePink-400 luxury-transition hover:text-glow-pink">Track Order</a>
+            <Link href="/track-order" className="hover:text-luxePink-400 luxury-transition hover:text-glow-pink">Track Order</Link>
+            <Link href="/contact" className="hover:text-luxePink-400 luxury-transition hover:text-glow-pink">Contact Us</Link>
           </nav>
 
           {/* Right Section: Icons and CTA Button */}

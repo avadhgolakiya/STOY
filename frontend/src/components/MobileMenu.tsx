@@ -84,6 +84,9 @@ export default function MobileMenu() {
           <a href="/track-order" onClick={handleNavClick} className="text-gray-300 hover:text-luxePink-500 py-2">
             Track Order
           </a>
+          <a href="/contact" onClick={handleNavClick} className="text-gray-300 hover:text-luxePink-500 py-2">
+            Contact Us
+          </a>
         </nav>
       </div>
       <div className="border-t border-luxePink-500/10 pt-6">

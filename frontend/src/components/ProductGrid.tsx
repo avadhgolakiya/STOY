@@ -104,8 +104,17 @@ export default function ProductGrid() {
     }
   }, [apiCategories]);
 
+  const MEN_CATEGORIES = ["masturbators", "sex dolls", "penis sleeves", "sex doll"];
+
   const filteredProducts = products.filter((p) => {
-    const matchesFilter = currentFilter === "All" || p.category === currentFilter;
+    let matchesFilter: boolean;
+    if (currentFilter === "All") {
+      matchesFilter = true;
+    } else if (currentFilter.toLowerCase() === "men") {
+      matchesFilter = MEN_CATEGORIES.some(c => p.category.toLowerCase().includes(c));
+    } else {
+      matchesFilter = p.category === currentFilter;
+    }
     const matchesSize = currentSizeFilter === "All Sizes" || p.size === currentSizeFilter;
     const lowerSearch = searchQuery.toLowerCase();
     const matchesSearch = p.title.toLowerCase().includes(lowerSearch) || p.desc.toLowerCase().includes(lowerSearch) || p.category.toLowerCase().includes(lowerSearch);

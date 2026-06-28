@@ -25,7 +25,7 @@ export default function Footer() {
   return (
     <footer className="bg-gradient-to-b from-velvet-300 via-velvet-400 to-velvet-500 text-gray-400 pt-20 pb-8 border-t border-luxePink-500/20">
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-12 mb-16">
+        <div className="grid grid-cols-1 md:grid-cols-3 gap-8 mb-10">
           <div>
             <div className="mb-6">
               <img
@@ -51,39 +51,6 @@ export default function Footer() {
                 <i className="fa-brands fa-whatsapp"></i>
               </a>
             </div>
-          </div>
-
-          <div>
-            <h4 className="text-xs uppercase tracking-[0.25em] text-white font-bold mb-6">
-              THE LUXURY HOUSES
-            </h4>
-            <ul className="space-y-2 sm:space-y-4 text-xs font-light">
-              <li>
-                <button onClick={() => handleLinkClick("Watches")} className="hover:text-luxePink-500 transition duration-200 py-1 sm:py-0 text-left">
-                  The Chronograph Elite Indices
-                </button>
-              </li>
-              <li>
-                <button onClick={() => handleLinkClick("Jewelry")} className="hover:text-luxePink-500 transition duration-200 py-1 sm:py-0 text-left">
-                  Imperial VVS Rose Jewelry
-                </button>
-              </li>
-              <li>
-                <button onClick={() => handleLinkClick("Leather Goods")} className="hover:text-luxePink-500 transition duration-200 py-1 sm:py-0 text-left">
-                  Orchid Strap Leather Carryalls
-                </button>
-              </li>
-              <li>
-                <button onClick={() => handleLinkClick("Fragrances")} className="hover:text-luxePink-500 transition duration-200 py-1 sm:py-0 text-left">
-                  Elixirs, Perfumes & Colognes
-                </button>
-              </li>
-              <li>
-                <button onClick={() => handleLinkClick("Apparel")} className="hover:text-luxePink-500 transition duration-200 py-1 sm:py-0 text-left">
-                  Exclusive Luxury Outerwear
-                </button>
-              </li>
-            </ul>
           </div>
 
           <div>
@@ -116,6 +83,11 @@ export default function Footer() {
                   Terms & Condition
                 </Link>
               </li>
+              <li>
+                <Link href="/contact" className="hover:text-luxePink-500 transition duration-200">
+                  Contact Us
+                </Link>
+              </li>
             </ul>
           </div>
 
@@ -130,8 +102,7 @@ export default function Footer() {
         </div>
 
 
-
-        <div className="border-t border-luxePink-500/10 pt-8 flex flex-col sm:flex-row justify-between items-center text-[9px] tracking-widest uppercase text-gray-500">
+        <div className="border-t border-luxePink-500/10 pt-6 flex flex-col sm:flex-row justify-between items-center text-[9px] tracking-widest uppercase text-gray-500">
           <p>&copy; 2026 adultDesire. ALL RIGHTS RESERVED WORLDWIDE.</p>
           <div className="flex gap-6 mt-4 sm:mt-0">
             <Link href="/privacy" className="hover:text-luxePink-500 transition">Privacy Policy</Link>
