@@ -61,9 +61,20 @@ function TrackerContent() {
     setLoading(true);
     setError(null);
     setOrder(null);
+
+    const token = typeof window !== "undefined" ? localStorage.getItem("token") : null;
+    if (!token) {
+      setError("Please log in to track your order.");
+      setLoading(false);
+      return;
+    }
     
     try {
-      const res = await fetch(`${process.env.NEXT_PUBLIC_API_URL}/api/orders/track/${searchId.trim()}`);
+      const res = await fetch(`${process.env.NEXT_PUBLIC_API_URL}/api/orders/track/${searchId.trim()}`, {
+        headers: {
+          "Authorization": `Bearer ${token}`
+        }
+      });
       const data = await res.json();
       
       if (!res.ok) {
@@ -162,10 +173,18 @@ function TrackerContent() {
 
       {/* Error State */}
       {error && (
-        <div className="max-w-xl w-full bg-red-500/10 border border-red-500/20 rounded-xl p-5 text-center text-red-400 text-xs sm:text-sm animate-fade-in relative overflow-hidden">
+        <div className="max-w-xl w-full bg-red-500/10 border border-red-500/20 rounded-xl p-6 text-center text-red-400 text-xs sm:text-sm animate-fade-in relative overflow-hidden flex flex-col items-center">
           <div className="absolute -top-12 -right-12 w-24 h-24 bg-red-500/5 rounded-full blur-2xl"></div>
           <i className="fa-solid fa-triangle-exclamation text-2xl mb-2 block text-red-500"></i>
-          {error}
+          <p className="mb-4">{error}</p>
+          {error.includes("log in") && (
+            <a 
+              href="/auth" 
+              className="bg-gradient-to-r from-luxePink-600 to-luxePink-400 hover:from-luxePink-500 hover:to-luxePink-300 text-white font-bold uppercase tracking-wider text-[10px] px-6 py-2.5 rounded-lg transition-all duration-300 cursor-pointer shadow-md"
+            >
+              Go to Login
+            </a>
+          )}
         </div>
       )}
 

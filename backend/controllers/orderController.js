@@ -268,6 +268,11 @@ exports.trackOrder = async (req, res) => {
       return res.status(404).json({ message: 'Order not found' });
     }
 
+    // Verify order owner
+    if (!req.user || !order.customerEmail || order.customerEmail.toLowerCase() !== req.user.email.toLowerCase()) {
+      return res.status(403).json({ message: 'You are not authorized to track this order' });
+    }
+
     // Mask sensitive fields to preserve privacy on public tracking
     const maskName = (name) => {
       if (!name) return '';
