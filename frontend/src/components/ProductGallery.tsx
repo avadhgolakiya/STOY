@@ -23,6 +23,7 @@ export default function ProductGallery({ product }: { product: Product }) {
   }));
 
   const [activeThumb, setActiveThumb] = useState(thumbnails[0]);
+  const [isLightboxOpen, setIsLightboxOpen] = useState(false);
   const containerRef = useRef<HTMLDivElement>(null);
   const imageRef = useRef<HTMLImageElement | HTMLVideoElement>(null);
 
@@ -109,10 +110,45 @@ export default function ProductGallery({ product }: { product: Product }) {
              className="w-full h-full object-contain group-hover:scale-105 transition-transform duration-500"
            />
          )}
-         <button className="absolute top-4 right-4 w-10 h-10 bg-velvet-400/80 backdrop-blur rounded-full text-white hover:text-luxePink-500 flex items-center justify-center transition border border-luxePink-500/20">
-           <i className="fa-solid fa-expand"></i>
-         </button>
-      </div>
+          <button 
+            onClick={() => setIsLightboxOpen(true)}
+            className="absolute top-4 right-4 w-10 h-10 bg-velvet-400/80 backdrop-blur rounded-full text-white hover:text-luxePink-500 flex items-center justify-center transition border border-luxePink-500/20"
+          >
+            <i className="fa-solid fa-expand"></i>
+          </button>
+       </div>
+
+      {/* Lightbox Modal */}
+      {isLightboxOpen && activeThumb && (
+        <div className="fixed inset-0 z-[100] bg-black/95 backdrop-blur-lg flex items-center justify-center animate-fade-in">
+          {/* Close button */}
+          <button 
+            onClick={() => setIsLightboxOpen(false)}
+            className="absolute top-6 right-6 w-12 h-12 bg-velvet-400/80 hover:bg-luxePink-500 rounded-full text-white flex items-center justify-center transition-all duration-300 border border-luxePink-500/20 shadow-[0_0_15px_rgba(0,0,0,0.5)] z-[110] cursor-pointer"
+          >
+            <i className="fa-solid fa-xmark text-xl"></i>
+          </button>
+          
+          {/* Main Media in Lightbox */}
+          <div className="max-w-[90vw] max-h-[90vh] flex items-center justify-center relative">
+            {isVideoUrl(activeThumb.url) ? (
+              <video 
+                src={activeThumb.url} 
+                controls 
+                autoPlay 
+                playsInline
+                className="max-w-full max-h-[90vh] rounded-lg shadow-2xl"
+              />
+            ) : (
+              <img 
+                src={activeThumb.url} 
+                alt={product.title} 
+                className="max-w-full max-h-[90vh] object-contain rounded-lg shadow-2xl animate-scale-in"
+              />
+            )}
+          </div>
+        </div>
+      )}
     </div>
   );
 }
