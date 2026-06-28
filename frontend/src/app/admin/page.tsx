@@ -311,7 +311,8 @@ export default function AdminDashboard() {
       });
       if (res.ok) {
         const imagePath = await res.text();
-        setFormData({ ...formData, image: `${process.env.NEXT_PUBLIC_API_URL}${imagePath}` });
+        const finalPath = imagePath.startsWith('http') ? imagePath : `${process.env.NEXT_PUBLIC_API_URL}${imagePath}`;
+        setFormData({ ...formData, image: finalPath });
       } else {
         showToast("Image upload failed.", "error");
       }
@@ -342,7 +343,8 @@ export default function AdminDashboard() {
 
         if (res.ok) {
           const imagePath = await res.text();
-          newImages.push(`${process.env.NEXT_PUBLIC_API_URL}${imagePath}`);
+          const finalPath = imagePath.startsWith('http') ? imagePath : `${process.env.NEXT_PUBLIC_API_URL}${imagePath}`;
+          newImages.push(finalPath);
         } else {
           console.error(`Failed to upload file ${files[i].name}`);
         }
@@ -1318,7 +1320,8 @@ export default function AdminDashboard() {
                                 });
                                 if (res.ok) {
                                   const imagePath = await res.text();
-                                  setTestiForm({ ...testiForm, image: `${process.env.NEXT_PUBLIC_API_URL}${imagePath}` });
+                                  const finalPath = imagePath.startsWith('http') ? imagePath : `${process.env.NEXT_PUBLIC_API_URL}${imagePath}`;
+                                  setTestiForm({ ...testiForm, image: finalPath });
                                 } else {
                                   showToast("Image upload failed.", "error");
                                 }
@@ -1444,7 +1447,8 @@ export default function AdminDashboard() {
                                 });
                                 if (res.ok) {
                                   const imagePath = await res.text();
-                                  setBannerForm({ ...bannerForm, image: `${process.env.NEXT_PUBLIC_API_URL}${imagePath}` });
+                                  const finalPath = imagePath.startsWith('http') ? imagePath : `${process.env.NEXT_PUBLIC_API_URL}${imagePath}`;
+                                  setBannerForm({ ...bannerForm, image: finalPath });
                                 } else {
                                   showToast("Image upload failed.", "error");
                                 }
