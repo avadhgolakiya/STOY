@@ -23,7 +23,7 @@ export default function Footer() {
   };
 
   return (
-    <footer className="bg-velvet-500 text-gray-400 pt-20 pb-8 border-t border-luxePink-500/20">
+    <footer className="bg-gradient-to-b from-velvet-300 via-velvet-400 to-velvet-500 text-gray-400 pt-20 pb-8 border-t border-luxePink-500/20">
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
         <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-12 mb-16">
           <div>
@@ -126,27 +126,12 @@ export default function Footer() {
             <p className="text-xs text-gray-400 mb-4 font-light">
               Join our priority subscription register to receive private launch invitations, seasonal catalog drops, and VIP runway access.
             </p>
-            <div className="flex">
-              <input
-                type="email"
-                value={email}
-                onChange={(e) => setEmail(e.target.value)}
-                placeholder="VIP email address"
-                className="bg-velvet-300 border border-luxePink-500/20 rounded-l-lg px-4 py-3 text-xs text-white placeholder-gray-500 focus:outline-none focus:border-luxePink-500 w-full luxury-transition hover:pink-border-glow focus:pink-border-glow"
-              />
-              <button
-                onClick={handleSubscribe}
-                className="bg-luxePink-500 hover:bg-luxePink-600 text-velvet-400 px-5 py-3 rounded-r-lg luxury-transition hover:pink-border-glow font-extrabold text-xs"
-              >
-                SUBSCRIBE
-              </button>
-            </div>
           </div>
         </div>
 
 
 
-        <div className="border-t border-luxePink-500/5 pt-8 flex flex-col sm:flex-row justify-between items-center text-[9px] tracking-widest uppercase text-gray-500">
+        <div className="border-t border-luxePink-500/10 pt-8 flex flex-col sm:flex-row justify-between items-center text-[9px] tracking-widest uppercase text-gray-500">
           <p>&copy; 2026 adultDesire. ALL RIGHTS RESERVED WORLDWIDE.</p>
           <div className="flex gap-6 mt-4 sm:mt-0">
             <Link href="/privacy" className="hover:text-luxePink-500 transition">Privacy Policy</Link>
