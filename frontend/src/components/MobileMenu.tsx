@@ -107,7 +107,7 @@ export default function MobileMenu() {
             Blog
           </button>
           
-          <a href={isLoggedIn ? "/profile" : "/auth"} onClick={handleNavClick} className="text-gray-300 hover:text-luxePink-500 py-2">
+          <a href="/track-order" onClick={handleNavClick} className="text-gray-300 hover:text-luxePink-500 py-2">
             Track Order
           </a>
         </nav>

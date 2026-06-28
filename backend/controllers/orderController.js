@@ -4,6 +4,7 @@ const crypto = require('crypto');
 const { SITE_NAME, generateOrderStatusTemplate } = require('../utils/emailTemplates');
 const fs = require('fs');
 const path = require('path');
+const mongoose = require('mongoose');
 
 // Helper to manually parse .env if dotenvx ignores our newly appended keys
 function getEnv(key) {
@@ -251,6 +252,75 @@ exports.updateOrderStatus = async (req, res) => {
     res.json({ success: true, order, message: 'Order status updated successfully' });
   } catch (error) {
     console.error('Error updating order status:', error);
+    res.status(500).json({ message: 'Server Error', error: error.message });
+  }
+};
+
+exports.trackOrder = async (req, res) => {
+  try {
+    const { id } = req.params;
+    if (!mongoose.Types.ObjectId.isValid(id)) {
+      return res.status(400).json({ message: 'Invalid Order ID format' });
+    }
+
+    const order = await Order.findById(id);
+    if (!order) {
+      return res.status(404).json({ message: 'Order not found' });
+    }
+
+    // Mask sensitive fields to preserve privacy on public tracking
+    const maskName = (name) => {
+      if (!name) return '';
+      if (name.length <= 2) return name[0] + '*';
+      return name[0] + '*'.repeat(name.length - 2) + name[name.length - 1];
+    };
+
+    const maskEmail = (email) => {
+      if (!email) return '';
+      const parts = email.split('@');
+      if (parts.length !== 2) return '***';
+      const first = parts[0];
+      const domain = parts[1];
+      if (first.length <= 2) return first[0] + '*@' + domain;
+      return first[0] + '***' + first[first.length - 1] + '@' + domain;
+    };
+
+    const maskPhone = (phone) => {
+      if (!phone) return '';
+      if (phone.length <= 4) return '****';
+      return phone.substring(0, 2) + '******' + phone.substring(phone.length - 2);
+    };
+
+    const maskedShipping = {
+      firstName: maskName(order.shippingAddress?.firstName),
+      lastName: maskName(order.shippingAddress?.lastName),
+      mobileNumber: maskPhone(order.shippingAddress?.mobileNumber),
+      email: maskEmail(order.shippingAddress?.email),
+      flatNo: '***',
+      street: '***',
+      landmark: order.shippingAddress?.landmark ? '***' : '',
+      pinCode: order.shippingAddress?.pinCode,
+      city: order.shippingAddress?.city,
+      state: order.shippingAddress?.state,
+    };
+
+    const trackedOrder = {
+      _id: order._id,
+      customerName: maskName(order.customerName),
+      customerEmail: maskEmail(order.customerEmail),
+      totalAmount: order.totalAmount,
+      deliveryFee: order.deliveryFee,
+      paymentMethod: order.paymentMethod,
+      paymentStatus: order.paymentStatus,
+      deliveryStatus: order.deliveryStatus,
+      items: order.items,
+      createdAt: order.createdAt,
+      shippingAddress: maskedShipping,
+    };
+
+    res.json(trackedOrder);
+  } catch (error) {
+    console.error('Error tracking order:', error);
     res.status(500).json({ message: 'Server Error', error: error.message });
   }
 };

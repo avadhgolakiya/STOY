@@ -89,7 +89,7 @@ export default function Header() {
             >
               Blog
             </button>
-            <a href={isLoggedIn ? "/profile" : "/auth"} className="hover:text-luxePink-400 luxury-transition hover:text-glow-pink">Track Order</a>
+            <a href="/track-order" className="hover:text-luxePink-400 luxury-transition hover:text-glow-pink">Track Order</a>
           </nav>
 
           {/* Right Section: Icons and CTA Button */}
