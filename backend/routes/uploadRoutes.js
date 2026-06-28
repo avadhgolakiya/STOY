@@ -36,20 +36,21 @@ const diskStorage = multer.diskStorage({
 const memoryStorage = multer.memoryStorage();
 
 function checkFileType(file, cb) {
-  const filetypes = /jpg|jpeg|png|webp/;
+  const filetypes = /jpg|jpeg|png|webp|mp4|mov|avi|mkv|webm/;
   const extname = filetypes.test(path.extname(file.originalname).toLowerCase());
-  const mimetype = filetypes.test(file.mimetype);
+  const isImageOrVideo = file.mimetype.startsWith('image/') || file.mimetype.startsWith('video/');
 
-  if (extname && mimetype) {
+  if (extname && isImageOrVideo) {
     return cb(null, true);
   } else {
-    cb('Images only!');
+    cb('Images and videos only!');
   }
 }
 
-// Multer instances
+// Multer instances with 100 MB limits
 const uploadLocal = multer({
   storage: diskStorage,
+  limits: { fileSize: 100 * 1024 * 1024 }, // 100MB limit
   fileFilter: function (req, file, cb) {
     checkFileType(file, cb);
   },
@@ -57,16 +58,17 @@ const uploadLocal = multer({
 
 const uploadCloudinary = multer({
   storage: memoryStorage,
+  limits: { fileSize: 100 * 1024 * 1024 }, // 100MB limit
   fileFilter: function (req, file, cb) {
     checkFileType(file, cb);
   },
 });
 
-// Stream helper for Cloudinary
+// Stream helper for Cloudinary (detects resource_type: auto for videos)
 const uploadFromBuffer = (fileBuffer) => {
   return new Promise((resolve, reject) => {
     const uploadStream = cloudinary.uploader.upload_stream(
-      { folder: 'products' },
+      { folder: 'products', resource_type: 'auto' },
       (error, result) => {
         if (error) return reject(error);
         resolve(result);
@@ -87,7 +89,10 @@ router.post('/', (req, res, next) => {
     const uploadSingle = uploadCloudinary.single('image');
     uploadSingle(req, res, async (err) => {
       if (err) {
-        return res.status(400).send({ message: err });
+        if (err.code === 'LIMIT_FILE_SIZE') {
+          return res.status(400).send({ message: 'File size too large. Maximum size allowed is 100MB.' });
+        }
+        return res.status(400).send({ message: err.message || err });
       }
       if (!req.file) {
         return res.status(400).send({ message: 'No file uploaded' });
@@ -108,7 +113,10 @@ router.post('/', (req, res, next) => {
     const uploadSingle = uploadLocal.single('image');
     uploadSingle(req, res, (err) => {
       if (err) {
-        return res.status(400).send({ message: err });
+        if (err.code === 'LIMIT_FILE_SIZE') {
+          return res.status(400).send({ message: 'File size too large. Maximum size allowed is 100MB.' });
+        }
+        return res.status(400).send({ message: err.message || err });
       }
       if (!req.file) {
         return res.status(400).send({ message: 'No file uploaded' });

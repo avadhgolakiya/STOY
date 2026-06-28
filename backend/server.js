@@ -1,5 +1,36 @@
 require('dotenv').config();
 const dns = require('dns');
+const net = require('net');
+
+// Global DNS lookup override to resolve hostnames via Google DNS on systems with unstable local DNS resolver configurations
+const originalLookup = dns.lookup;
+dns.lookup = function(hostname, options, callback) {
+  let cb = callback;
+  let opts = options;
+  if (typeof options === 'function') {
+    cb = options;
+    opts = {};
+  }
+  
+  if (net.isIP(hostname)) {
+    return originalLookup(hostname, opts, cb);
+  }
+
+  const all = opts && opts.all;
+
+  dns.resolve4(hostname, (err, addresses) => {
+    if (!err && addresses && addresses.length > 0) {
+      if (all) {
+        const addrObjects = addresses.map(addr => ({ address: addr, family: 4 }));
+        return cb(null, addrObjects);
+      } else {
+        return cb(null, addresses[0], 4);
+      }
+    }
+    originalLookup(hostname, opts, cb);
+  });
+};
+
 if (dns.setDefaultResultOrder) {
   dns.setDefaultResultOrder('ipv4first');
 }
