@@ -4,11 +4,13 @@ import BrandShowcase from "../components/BrandShowcase";
 import ProductGrid from "../components/ProductGrid";
 import RoyalMandate from "../components/RoyalMandate";
 import Testimonials from "../components/Testimonials";
+import LookingFor from "../components/LookingFor";
 
 export default function Home() {
   return (
     <>
       <Hero />
+      <LookingFor />
       {/* <AtelierEdit /> */}
       {/* <BrandShowcase /> */}
       <ProductGrid />
