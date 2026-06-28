@@ -35,31 +35,39 @@ export default function AgeVerificationModal() {
   if (!mounted || !showModal) return null;
 
   return (
-    <div className="fixed inset-0 z-[99999] flex items-center justify-center bg-velvet-500 bg-opacity-95 backdrop-blur-2xl p-4">
+    <div className="fixed inset-0 z-[99999] flex items-center justify-center bg-velvet-500/60 backdrop-blur-md p-4">
       {isUnderage ? (
-        /* Underage / Sorry Screen matching the user image exactly */
-        <div className="max-w-md w-full bg-[#C2F0C2] rounded-3xl p-8 sm:p-12 shadow-2xl text-center relative overflow-hidden flex flex-col items-center">
+        /* Underage / Sorry Screen matching site style colors */
+        <div className="max-w-md w-full bg-velvet-300/90 border border-red-500/30 rounded-3xl p-8 sm:p-12 shadow-2xl text-center relative overflow-hidden flex flex-col items-center group">
+          {/* Glow effect */}
+          <div className="absolute -top-24 -left-24 w-48 h-48 bg-red-500/10 rounded-full blur-3xl"></div>
+          
+          {/* Warning Icon */}
+          <div className="w-20 h-20 rounded-full border-2 border-red-500/30 flex items-center justify-center mb-6 bg-red-500/5 shadow-lg shadow-red-500/5">
+            <span className="text-white text-3xl font-extrabold">🚫</span>
+          </div>
+
           {/* Header */}
-          <h2 className="text-gray-900 text-xl sm:text-2xl font-bold tracking-tight mb-3 font-sans mt-4">
+          <h2 className="font-cinzel text-white text-xl sm:text-2xl font-bold tracking-widest uppercase mb-3 mt-2">
             Come back when you're 18 or older
           </h2>
           
           {/* Subtitle */}
-          <p className="text-gray-700 text-sm sm:text-base mb-10 font-sans">
+          <p className="text-gray-300 text-sm sm:text-base mb-8 leading-relaxed font-light font-montserrat">
             Sorry, you're not eligible to access this site.
           </p>
 
           {/* I Made a Mistake Button */}
           <button
             onClick={() => setIsUnderage(false)}
-            className="w-full border border-gray-900 text-gray-900 bg-transparent rounded-full py-3.5 text-xs font-bold uppercase tracking-widest hover:bg-black/5 transition-all duration-300 cursor-pointer"
+            className="w-full border border-luxePink-500/50 text-luxePink-400 hover:text-white hover:bg-luxePink-500/25 rounded-full py-3.5 text-xs font-bold uppercase tracking-widest transition-all duration-300 cursor-pointer"
           >
             I made a mistake
           </button>
         </div>
       ) : (
         /* Normal Age Verification Screen */
-        <div className="max-w-md w-full bg-velvet-300 border border-luxePink-500/20 rounded-2xl p-8 sm:p-10 shadow-2xl text-center relative overflow-hidden group">
+        <div className="max-w-md w-full bg-velvet-300/95 border border-luxePink-500/20 rounded-3xl p-8 sm:p-10 shadow-2xl text-center relative overflow-hidden group">
           {/* Glow effect in background */}
           <div className="absolute -top-24 -left-24 w-48 h-48 bg-luxePink-500/10 rounded-full blur-3xl group-hover:bg-luxePink-500/15 transition-all duration-700"></div>
           <div className="absolute -bottom-24 -right-24 w-48 h-48 bg-purple-500/10 rounded-full blur-3xl group-hover:bg-purple-500/15 transition-all duration-700"></div>
