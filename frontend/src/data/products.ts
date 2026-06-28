@@ -103,6 +103,38 @@ export const products: Product[] = [
 
 export const heroSlides = [
     {
+        img: "/BANNER1.png",
+        badge: "PREMIUM QUALITY • 100% SAFE • DISCREET",
+        badgeType: "pill",
+        title: "Discover Premium <br class=\"hidden sm:inline\" /><span class=\"text-luxePink-500 font-serif font-bold\">Adult Wellness</span> <br class=\"hidden sm:inline\" />Products",
+        titleClass: "font-serif text-white normal-case font-bold",
+        titleWords: [
+            { text: "Discover" },
+            { text: "Premium" },
+            { text: "\n", className: "basis-full h-0 hidden sm:block" },
+            { text: "Adult", className: "text-luxePink-500 font-serif font-bold" },
+            { text: "Wellness", className: "text-luxePink-500 font-serif font-bold" },
+            { text: "\n", className: "basis-full h-0 hidden sm:block" },
+            { text: "Products" }
+        ],
+        desc: "Safe, Discreet & High-Quality Intimate Products Delivered Across India.",
+        bgOpacity: "opacity-90",
+        bgPosition: "object-center sm:object-center",
+        buttons: [
+            {
+                text: "SHOP NOW",
+                link: "#new-arrivals",
+                primary: true,
+                showBagIcon: true
+            },
+            {
+                text: "EXPLORE COLLECTION",
+                link: "#brand-showcase",
+                primary: false
+            }
+        ]
+    },
+    {
         img: "/BANNER2.jpeg",
         badge: "PREMIUM QUALITY • 100% SAFE • DISCREET",
         badgeType: "pill",
