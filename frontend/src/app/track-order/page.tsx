@@ -317,7 +317,7 @@ function TrackerContent() {
             </div>
           )}
 
-          {/* Masked Customer & Shipping Details */}
+          {/* Customer & Shipping Details */}
           <div className="grid grid-cols-1 md:grid-cols-2 gap-6 border-t border-luxePink-500/10 pt-8 mb-8 text-xs font-light">
             <div>
               <h4 className="font-cinzel text-white text-[10px] tracking-[0.2em] uppercase font-bold mb-3">
@@ -328,7 +328,7 @@ function TrackerContent() {
             </div>
             <div>
               <h4 className="font-cinzel text-white text-[10px] tracking-[0.2em] uppercase font-bold mb-3">
-                Delivery Address (Masked)
+                Delivery Address
               </h4>
               <p className="text-gray-400 mb-1">
                 {order.shippingAddress.firstName} {order.shippingAddress.lastName}

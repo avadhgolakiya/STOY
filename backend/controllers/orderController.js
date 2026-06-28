@@ -290,46 +290,10 @@ exports.trackOrder = async (req, res) => {
       return res.status(403).json({ message: 'You are not authorized to track this order' });
     }
 
-    // Mask sensitive fields to preserve privacy on public tracking
-    const maskName = (name) => {
-      if (!name) return '';
-      if (name.length <= 2) return name[0] + '*';
-      return name[0] + '*'.repeat(name.length - 2) + name[name.length - 1];
-    };
-
-    const maskEmail = (email) => {
-      if (!email) return '';
-      const parts = email.split('@');
-      if (parts.length !== 2) return '***';
-      const first = parts[0];
-      const domain = parts[1];
-      if (first.length <= 2) return first[0] + '*@' + domain;
-      return first[0] + '***' + first[first.length - 1] + '@' + domain;
-    };
-
-    const maskPhone = (phone) => {
-      if (!phone) return '';
-      if (phone.length <= 4) return '****';
-      return phone.substring(0, 2) + '******' + phone.substring(phone.length - 2);
-    };
-
-    const maskedShipping = {
-      firstName: maskName(order.shippingAddress?.firstName),
-      lastName: maskName(order.shippingAddress?.lastName),
-      mobileNumber: maskPhone(order.shippingAddress?.mobileNumber),
-      email: maskEmail(order.shippingAddress?.email),
-      flatNo: '***',
-      street: '***',
-      landmark: order.shippingAddress?.landmark ? '***' : '',
-      pinCode: order.shippingAddress?.pinCode,
-      city: order.shippingAddress?.city,
-      state: order.shippingAddress?.state,
-    };
-
     const trackedOrder = {
       _id: order._id,
-      customerName: maskName(order.customerName),
-      customerEmail: maskEmail(order.customerEmail),
+      customerName: order.customerName,
+      customerEmail: order.customerEmail,
       totalAmount: order.totalAmount,
       deliveryFee: order.deliveryFee,
       paymentMethod: order.paymentMethod,
@@ -337,7 +301,7 @@ exports.trackOrder = async (req, res) => {
       deliveryStatus: order.deliveryStatus,
       items: order.items,
       createdAt: order.createdAt,
-      shippingAddress: maskedShipping,
+      shippingAddress: order.shippingAddress,
     };
 
     res.json(trackedOrder);
