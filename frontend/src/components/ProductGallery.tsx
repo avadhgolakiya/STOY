@@ -7,8 +7,15 @@ import { Product } from "../context/AppContext";
 
 gsap.registerPlugin(useGSAP);
 
+const isVideoUrl = (url: string) => {
+  if (!url) return false;
+  const videoExtensions = /\.(mp4|webm|ogg|mov|avi|mkv|3gp|flv|wmv)($|\?)/i;
+  const isCloudinaryVideo = url.includes('/video/upload/');
+  return videoExtensions.test(url) || isCloudinaryVideo;
+};
+
 export default function ProductGallery({ product }: { product: Product }) {
-  const allImages = [product.image, ...(product.additionalImages || [])];
+  const allImages = [product.image, ...(product.additionalImages || [])].filter(Boolean);
   
   const thumbnails = allImages.map((img, index) => ({
     id: index + 1,
@@ -17,7 +24,7 @@ export default function ProductGallery({ product }: { product: Product }) {
 
   const [activeThumb, setActiveThumb] = useState(thumbnails[0]);
   const containerRef = useRef<HTMLDivElement>(null);
-  const imageRef = useRef<HTMLImageElement>(null);
+  const imageRef = useRef<HTMLImageElement | HTMLVideoElement>(null);
 
   const { contextSafe } = useGSAP({ scope: containerRef });
 
@@ -58,24 +65,50 @@ export default function ProductGallery({ product }: { product: Product }) {
               onClick={() => handleThumbnailClick(thumb)}
             className={`w-full aspect-square rounded-xl overflow-hidden border-2 transition-all duration-300 ${activeThumb.id === thumb.id ? 'border-luxePink-500 shadow-[0_0_15px_rgba(219,39,119,0.3)]' : 'border-transparent hover:border-luxePink-500/50'}`}
             >
-              <img 
-                src={thumb.url} 
-                alt="thumbnail" 
-                className={`w-full h-full object-cover`}
-              />
+              {isVideoUrl(thumb.url) ? (
+                <div className="w-full h-full relative bg-black/40 flex items-center justify-center">
+                  <video 
+                    src={thumb.url} 
+                    className="w-full h-full object-cover opacity-75"
+                    muted
+                    playsInline
+                  />
+                  <div className="absolute inset-0 flex items-center justify-center text-white">
+                    <i className="fa-solid fa-play text-xs bg-luxePink-500 p-1.5 rounded-full shadow-[0_0_10px_rgba(219,39,119,0.5)]"></i>
+                  </div>
+                </div>
+              ) : (
+                <img 
+                  src={thumb.url} 
+                  alt="thumbnail" 
+                  className="w-full h-full object-cover"
+                />
+              )}
             </button>
           ))}
         </div>
       )}
       
-      {/* Main Image */}
+      {/* Main Image/Video */}
       <div className="flex-1 bg-velvet-300 rounded-2xl overflow-hidden relative border border-luxePink-500/10 luxury-card-shadow group">
-         <img 
-           ref={imageRef}
-           src={activeThumb.url}
-           alt={product.title}
-           className={`w-full h-full object-contain group-hover:scale-105 transition-transform duration-500`}
-         />
+         {activeThumb && isVideoUrl(activeThumb.url) ? (
+           <video
+             ref={imageRef as any}
+             src={activeThumb.url}
+             controls
+             autoPlay
+             muted
+             playsInline
+             className="w-full h-full object-contain"
+           />
+         ) : (
+           <img 
+             ref={imageRef as any}
+             src={activeThumb ? activeThumb.url : ''}
+             alt={product.title}
+             className="w-full h-full object-contain group-hover:scale-105 transition-transform duration-500"
+           />
+         )}
          <button className="absolute top-4 right-4 w-10 h-10 bg-velvet-400/80 backdrop-blur rounded-full text-white hover:text-luxePink-500 flex items-center justify-center transition border border-luxePink-500/20">
            <i className="fa-solid fa-expand"></i>
          </button>

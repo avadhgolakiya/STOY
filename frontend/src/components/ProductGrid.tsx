@@ -7,6 +7,13 @@ import { useAppContext, Product } from "../context/AppContext";
 
 import { CardContainer, CardBody, CardItem } from "./ThreeDCard";
 
+const isVideoUrl = (url: string) => {
+  if (!url) return false;
+  const videoExtensions = /\.(mp4|webm|ogg|mov|avi|mkv|3gp|flv|wmv)($|\?)/i;
+  const isCloudinaryVideo = url.includes('/video/upload/');
+  return videoExtensions.test(url) || isCloudinaryVideo;
+};
+
 function Shimmer({ className = "" }: { className?: string }) {
   return (
     <div
@@ -190,11 +197,22 @@ export default function ProductGrid() {
                       className="cursor-pointer w-full luxury-card-shadow bg-velvet-300 border border-luxePink-500/10 rounded-2xl overflow-hidden relative group transition-all duration-300 animate-fade-in-up"
                     >
                       <CardItem translateZ={50} className="relative h-72 overflow-hidden bg-velvet-200 luxury-scale-hover w-full">
-                        <img
-                          src={p.image}
-                          alt={p.title}
-                          className="w-full h-full object-contain group-hover:brightness-75 luxury-transition"
-                        />
+                        {isVideoUrl(p.image) ? (
+                          <video
+                            src={p.image}
+                            muted
+                            playsInline
+                            autoPlay
+                            loop
+                            className="w-full h-full object-cover group-hover:brightness-75 luxury-transition"
+                          />
+                        ) : (
+                          <img
+                            src={p.image}
+                            alt={p.title}
+                            className="w-full h-full object-contain group-hover:brightness-75 luxury-transition"
+                          />
+                        )}
                         <span className="absolute top-4 left-4 bg-velvet-400/90 backdrop-blur-sm border border-luxePink-500/30 text-luxePink-500 text-[8px] font-extrabold tracking-[0.2em] px-3 py-1 rounded">
                           {p.tag}
                         </span>

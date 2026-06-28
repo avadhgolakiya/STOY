@@ -19,6 +19,13 @@ import {
 
 const COLORS = ["#EC4899", "#A855F7", "#F97316", "#06B6D4", "#22C55E", "#EF4444"];
 
+const isVideoUrl = (url: string) => {
+  if (!url) return false;
+  const videoExtensions = /\.(mp4|webm|ogg|mov|avi|mkv|3gp|flv|wmv)($|\?)/i;
+  const isCloudinaryVideo = url.includes('/video/upload/');
+  return videoExtensions.test(url) || isCloudinaryVideo;
+};
+
 const STATUS_COLORS: Record<string, string> = {
   'Not Confirmed': '#EC4899',
   'Confirmed': '#A855F7',
@@ -991,7 +998,16 @@ export default function AdminDashboard() {
                   {products.map(product => (
                     <div key={product._id} className="bg-[#131118] border border-[#2a2635] rounded-2xl overflow-hidden hover:border-luxePink-500/50 transition-all duration-300 shadow-lg hover:shadow-[0_0_20px_rgba(219,39,119,0.15)] group cursor-pointer" onClick={() => setSelectedProduct(product)}>
                       <div className="aspect-[4/5] overflow-hidden relative bg-[#0a0a0a]">
-                        <img src={product.image} alt={product.title} className="w-full h-full object-cover transition-transform duration-700 group-hover:scale-110" />
+                        {isVideoUrl(product.image) ? (
+                          <video
+                            src={product.image}
+                            muted
+                            playsInline
+                            className="w-full h-full object-cover transition-transform duration-700 group-hover:scale-110"
+                          />
+                        ) : (
+                          <img src={product.image} alt={product.title} className="w-full h-full object-cover transition-transform duration-700 group-hover:scale-110" />
+                        )}
                         <div className="absolute top-3 right-3 bg-black/60 backdrop-blur-md px-3 py-1.5 rounded-full text-xs text-white font-bold border border-white/10 shadow-lg tracking-wider">
                           ₹{product.price}
                         </div>
@@ -1694,7 +1710,15 @@ export default function AdminDashboard() {
                   <i className="fa-solid fa-times"></i>
                 </button>
                 <div className="md:w-1/2 h-64 md:h-auto bg-[#0a0a0a]">
-                  <img src={selectedProduct.image} alt={selectedProduct.title} className="w-full h-full object-cover" />
+                  {isVideoUrl(selectedProduct.image) ? (
+                    <video
+                      src={selectedProduct.image}
+                      controls
+                      className="w-full h-full object-cover"
+                    />
+                  ) : (
+                    <img src={selectedProduct.image} alt={selectedProduct.title} className="w-full h-full object-cover" />
+                  )}
                 </div>
                 <div className="md:w-1/2 p-8 flex flex-col justify-center">
                   <span className="text-xs text-luxePink-500 font-bold uppercase tracking-widest mb-2 block">{selectedProduct.category}</span>
