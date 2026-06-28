@@ -97,16 +97,6 @@ export default function MobileMenu() {
             </div>
           </div>
 
-          <button 
-            onClick={() => {
-              handleNavClick();
-              showToast("Maison Blog is coming soon!", "info");
-            }}
-            className="text-left text-gray-300 hover:text-luxePink-500 py-2 uppercase tracking-[0.15em] cursor-pointer"
-          >
-            Blog
-          </button>
-          
           <a href="/track-order" onClick={handleNavClick} className="text-gray-300 hover:text-luxePink-500 py-2">
             Track Order
           </a>

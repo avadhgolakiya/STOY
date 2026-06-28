@@ -83,12 +83,6 @@ export default function Header() {
               </div>
             </div>
 
-            <button 
-              onClick={() => showToast("Maison Blog is coming soon!", "info")} 
-              className="hover:text-luxePink-400 luxury-transition hover:text-glow-pink uppercase tracking-widest text-[12px] font-medium cursor-pointer"
-            >
-              Blog
-            </button>
             <a href="/track-order" className="hover:text-luxePink-400 luxury-transition hover:text-glow-pink">Track Order</a>
           </nav>
 
