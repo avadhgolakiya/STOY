@@ -103,7 +103,7 @@ export const products: Product[] = [
 
 export const heroSlides = [
     {
-        img: "/BANNER1.png",
+        img: "/BANNER2.jpeg",
         badge: "PREMIUM QUALITY • 100% SAFE • DISCREET",
         badgeType: "pill",
         title: "Discover Premium <br class=\"hidden sm:inline\" /><span class=\"text-luxePink-500 font-serif font-bold\">Adult Wellness</span> <br class=\"hidden sm:inline\" />Products",
@@ -135,7 +135,7 @@ export const heroSlides = [
         ]
     },
     {
-        img: "/BANNER2.jpeg",
+        img: "/BANNER1.png",
         badge: "PREMIUM QUALITY • 100% SAFE • DISCREET",
         badgeType: "pill",
         title: "Discover Premium <br class=\"hidden sm:inline\" /><span class=\"text-luxePink-500 font-serif font-bold\">Adult Wellness</span> <br class=\"hidden sm:inline\" />Products",
