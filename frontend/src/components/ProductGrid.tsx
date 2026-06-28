@@ -66,6 +66,19 @@ export default function ProductGrid() {
       });
   }, []);
 
+  useEffect(() => {
+    if (typeof window !== "undefined") {
+      const params = new URLSearchParams(window.location.search);
+      const catParam = params.get("category");
+      if (catParam) {
+        const matched = apiCategories.find(c => c.toLowerCase() === catParam.toLowerCase());
+        if (matched) {
+          setCurrentFilter(matched);
+        }
+      }
+    }
+  }, [apiCategories]);
+
   const filteredProducts = products.filter((p) => {
     const matchesFilter = currentFilter === "All" || p.category === currentFilter;
     const matchesSize = currentSizeFilter === "All Sizes" || p.size === currentSizeFilter;
