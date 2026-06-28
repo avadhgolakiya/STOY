@@ -32,13 +32,13 @@ export default function LookingFor() {
             className="group cursor-pointer flex flex-col items-center"
           >
             <div className="relative w-[140px] h-[160px] sm:w-[240px] sm:h-[280px] rounded-[2rem] sm:rounded-[3rem] overflow-hidden border-2 border-luxePink-500/20 group-hover:border-luxePink-500 transition-all duration-500 shadow-lg group-hover:shadow-luxePink-500/20 group-hover:shadow-2xl group-hover:scale-105">
-              {/* Background gradient */}
-              <div className="absolute inset-0 bg-gradient-to-br from-[#3b1a4a] via-[#1e082e] to-[#0b0112]" />
+              {/* Solid yellow background matching reference */}
+              <div className="absolute inset-0 bg-[#F5A623]" />
               {/* Image */}
               <img
-                src="https://images.unsplash.com/photo-1519085360753-af0119f7cbe7?auto=format&fit=crop&w=400&q=80"
+                src="https://images.unsplash.com/photo-1570295999919-56ceb5ecca61?auto=format&fit=crop&w=500&q=80"
                 alt="King"
-                className="absolute inset-0 w-full h-full object-cover object-top opacity-80 group-hover:opacity-100 group-hover:scale-105 transition-all duration-500"
+                className="absolute inset-0 w-full h-full object-cover object-top group-hover:scale-105 transition-all duration-500"
               />
               {/* Overlay gradient */}
               <div className="absolute inset-0 bg-gradient-to-t from-velvet-500/60 via-transparent to-transparent" />
@@ -63,13 +63,13 @@ export default function LookingFor() {
             className="group cursor-pointer flex flex-col items-center"
           >
             <div className="relative w-[140px] h-[160px] sm:w-[240px] sm:h-[280px] rounded-[2rem] sm:rounded-[3rem] overflow-hidden border-2 border-luxePink-500/20 group-hover:border-luxePink-500 transition-all duration-500 shadow-lg group-hover:shadow-luxePink-500/20 group-hover:shadow-2xl group-hover:scale-105">
-              {/* Background gradient */}
-              <div className="absolute inset-0 bg-gradient-to-br from-[#4a1a3b] via-[#2e081e] to-[#120b0b]" />
+              {/* Teal/blue background matching reference */}
+              <div className="absolute inset-0 bg-[#3DBFD0]" />
               {/* Image */}
               <img
-                src="https://images.unsplash.com/photo-1531746020798-e6953c6e8e04?auto=format&fit=crop&w=400&q=80"
+                src="https://images.unsplash.com/photo-1580489944761-15a19d654956?auto=format&fit=crop&w=500&q=80"
                 alt="Queen"
-                className="absolute inset-0 w-full h-full object-cover object-top opacity-80 group-hover:opacity-100 group-hover:scale-105 transition-all duration-500"
+                className="absolute inset-0 w-full h-full object-cover object-top group-hover:scale-105 transition-all duration-500"
               />
               {/* Overlay gradient */}
               <div className="absolute inset-0 bg-gradient-to-t from-velvet-500/60 via-transparent to-transparent" />
