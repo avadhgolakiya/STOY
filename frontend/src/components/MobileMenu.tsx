@@ -48,26 +48,26 @@ export default function MobileMenu() {
           <a href="/" onClick={handleNavClick} className="text-luxePink-500 font-semibold py-2">
             Home
           </a>
-          
+
           {/* For Men Accordion */}
           <div>
-            <button 
+            <button
               onClick={() => toggleSection("men")}
               className="w-full text-left text-gray-300 hover:text-luxePink-500 py-2 flex justify-between items-center cursor-pointer"
             >
               <span>For Men</span>
               <i className={`fa-solid fa-chevron-down text-[8px] transition-transform duration-300 ${openSection === "men" ? "rotate-180" : ""}`}></i>
             </button>
-            <div className={`pl-4 flex flex-col gap-2 overflow-hidden transition-all duration-300 ${openSection === "men" ? "max-h-32 mt-1 mb-2 opacity-100" : "max-h-0 opacity-0"}`}>
+            <div className={`pl-4 flex flex-col gap-2 overflow-hidden transition-all duration-300 ${openSection === "men" ? "max-h-40 mt-1 mb-2 opacity-100" : "max-h-0 opacity-0"}`}>
               <a href="/?category=masturbators#new-arrivals" onClick={handleNavClick} className="text-[10px] text-gray-400 hover:text-luxePink-400 py-1">Masturbators</a>
-              <a href="/?category=cock-rings#new-arrivals" onClick={handleNavClick} className="text-[10px] text-gray-400 hover:text-luxePink-400 py-1">Cock Rings</a>
               <a href="/?category=penis-sleeves#new-arrivals" onClick={handleNavClick} className="text-[10px] text-gray-400 hover:text-luxePink-400 py-1">Penis Sleeves</a>
+              <a href="/?category=Sex+Doll#new-arrivals" onClick={handleNavClick} className="text-[10px] text-gray-400 hover:text-luxePink-400 py-1">Sex Dolls</a>
             </div>
           </div>
 
           {/* For Women Accordion */}
           <div>
-            <button 
+            <button
               onClick={() => toggleSection("women")}
               className="w-full text-left text-gray-300 hover:text-luxePink-500 py-2 flex justify-between items-center cursor-pointer"
             >
@@ -78,22 +78,6 @@ export default function MobileMenu() {
               <a href="/?category=vibrators#new-arrivals" onClick={handleNavClick} className="text-[10px] text-gray-400 hover:text-luxePink-400 py-1">Vibrators</a>
               <a href="/?category=dildo#new-arrivals" onClick={handleNavClick} className="text-[10px] text-gray-400 hover:text-luxePink-400 py-1">Dildos</a>
               <a href="/?category=butt-plug#new-arrivals" onClick={handleNavClick} className="text-[10px] text-gray-400 hover:text-luxePink-400 py-1">Butt Plugs</a>
-            </div>
-          </div>
-
-          {/* For Couples Accordion */}
-          <div>
-            <button 
-              onClick={() => toggleSection("couples")}
-              className="w-full text-left text-gray-300 hover:text-luxePink-500 py-2 flex justify-between items-center cursor-pointer"
-            >
-              <span>For Couples</span>
-              <i className={`fa-solid fa-chevron-down text-[8px] transition-transform duration-300 ${openSection === "couples" ? "rotate-180" : ""}`}></i>
-            </button>
-            <div className={`pl-4 flex flex-col gap-2 overflow-hidden transition-all duration-300 ${openSection === "couples" ? "max-h-32 mt-1 mb-2 opacity-100" : "max-h-0 opacity-0"}`}>
-              <a href="/?category=BDSM#new-arrivals" onClick={handleNavClick} className="text-[10px] text-gray-400 hover:text-luxePink-400 py-1">BDSM Kits</a>
-              <a href="/?category=LUBRICANTS#new-arrivals" onClick={handleNavClick} className="text-[10px] text-gray-400 hover:text-luxePink-400 py-1">Lubricants</a>
-              <a href="/?category=Sex+Doll#new-arrivals" onClick={handleNavClick} className="text-[10px] text-gray-400 hover:text-luxePink-400 py-1">Sex Dolls</a>
             </div>
           </div>
 
