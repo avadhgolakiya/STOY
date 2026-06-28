@@ -9,8 +9,8 @@ export default function Home() {
   return (
     <>
       <Hero />
-      <AtelierEdit />
-      <BrandShowcase />
+      {/* <AtelierEdit /> */}
+      {/* <BrandShowcase /> */}
       <ProductGrid />
       <RoyalMandate />
       <Testimonials />
