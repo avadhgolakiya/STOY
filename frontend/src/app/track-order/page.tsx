@@ -69,9 +69,11 @@ function TrackerContent() {
       return;
     }
 
-    // Client-side validation for MongoDB ObjectId format
-    if (!/^[0-9a-fA-F]{24}$/.test(searchId.trim())) {
-      setError("Invalid Order ID format. Please enter a valid 24-character ID (e.g., 667f5b2ac3d4e6f9a0123456).");
+    // Client-side validation for short (8-char) or full (24-char) hex ID format
+    const cleanId = searchId.trim();
+    const isValidFormat = /^[0-9a-fA-F]{8}$/.test(cleanId) || /^[0-9a-fA-F]{24}$/.test(cleanId);
+    if (!isValidFormat) {
+      setError("Invalid Order ID format. Please enter either the short 8-character ID (e.g., 6A40EEFB) or the full 24-character ID.");
       setLoading(false);
       return;
     }

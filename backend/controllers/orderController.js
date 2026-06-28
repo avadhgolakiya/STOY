@@ -259,11 +259,28 @@ exports.updateOrderStatus = async (req, res) => {
 exports.trackOrder = async (req, res) => {
   try {
     const { id } = req.params;
-    if (!mongoose.Types.ObjectId.isValid(id)) {
-      return res.status(400).json({ message: 'Invalid Order ID format' });
+    let order;
+    if (mongoose.Types.ObjectId.isValid(id)) {
+      order = await Order.findById(id);
+    } else if (id.length === 8) {
+      // Find by short 8-character ID prefix matching the start of ObjectId hex string
+      const matches = await Order.aggregate([
+        {
+          $addFields: {
+            idString: { $toString: "$_id" }
+          }
+        },
+        {
+          $match: {
+            idString: { $regex: `^${id}`, $options: 'i' }
+          }
+        }
+      ]);
+      if (matches.length > 0) {
+        order = matches[0];
+      }
     }
 
-    const order = await Order.findById(id);
     if (!order) {
       return res.status(404).json({ message: 'Order not found' });
     }
