@@ -10,7 +10,7 @@ export default function Home() {
     <>
       <Hero />
       {/* <AtelierEdit /> */}
-      {/* <BrandShowcase /> */}
+      <BrandShowcase />
       <ProductGrid />
       <RoyalMandate />
       <Testimonials />
