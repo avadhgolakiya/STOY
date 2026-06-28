@@ -1,4 +1,4 @@
-import type { Metadata } from "next";
+import type { Metadata, Viewport } from "next";
 import { Playfair_Display, Cinzel, Montserrat } from "next/font/google";
 import "./globals.css";
 import ClientLayout from "../components/ClientLayout";
@@ -24,6 +24,13 @@ const montserrat = Montserrat({
 export const metadata: Metadata = {
   title: "ADULT STORE | Premium Pink & Purple Luxury Boutique",
   description: "Premium pink & purple luxury boutique.",
+};
+
+export const viewport: Viewport = {
+  width: "device-width",
+  initialScale: 1,
+  maximumScale: 1,
+  userScalable: false,
 };
 
 export default function RootLayout({

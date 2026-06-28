@@ -17,7 +17,16 @@ import {
   Cell 
 } from "recharts";
 
-const COLORS = ["#EC4899", "#A855F7", "#F97316", "#06B6D4", "#22C55E"];
+const COLORS = ["#EC4899", "#A855F7", "#F97316", "#06B6D4", "#22C55E", "#EF4444"];
+
+const STATUS_COLORS: Record<string, string> = {
+  'Not Confirmed': '#EC4899',
+  'Confirmed': '#A855F7',
+  'Processing': '#F97316',
+  'Shipped': '#06B6D4',
+  'Delivered': '#22C55E',
+  'Cancelled': '#EF4444'
+};
 
 const CustomTooltip = ({ active, payload, label }: any) => {
   if (active && payload && payload.length) {
@@ -183,7 +192,8 @@ export default function AdminDashboard() {
       'Confirmed': 0,
       'Processing': 0,
       'Shipped': 0,
-      'Delivered': 0
+      'Delivered': 0,
+      'Cancelled': 0
     };
 
     filteredOrders.forEach(order => {
@@ -193,6 +203,7 @@ export default function AdminDashboard() {
       else if (status === 'Processing') counts['Processing']++;
       else if (status === 'Shipped') counts['Shipped']++;
       else if (status === 'Delivered') counts['Delivered']++;
+      else if (status === 'Cancelled') counts['Cancelled']++;
     });
 
     return [
@@ -200,7 +211,8 @@ export default function AdminDashboard() {
       { name: 'Confirmed', value: counts['Confirmed'] },
       { name: 'Processing', value: counts['Processing'] },
       { name: 'Shipped', value: counts['Shipped'] },
-      { name: 'Delivered', value: counts['Delivered'] }
+      { name: 'Delivered', value: counts['Delivered'] },
+      { name: 'Cancelled', value: counts['Cancelled'] }
     ].filter(item => item.value > 0);
   };
 
@@ -705,7 +717,7 @@ export default function AdminDashboard() {
                   },
                   {
                     title: "Pending Orders",
-                    value: getFilteredOrders().filter(o => o.deliveryStatus === 'Not Confirmed yet' || o.paymentStatus === 'pending').length,
+                    value: getFilteredOrders().filter(o => (o.deliveryStatus === 'Not Confirmed yet' || o.paymentStatus === 'pending') && o.deliveryStatus !== 'Cancelled').length,
                     icon: "fa-clock-rotate-left",
                     color: "text-yellow-400",
                     bg: "bg-yellow-500/10 border-yellow-500/20"
@@ -729,12 +741,13 @@ export default function AdminDashboard() {
               </div>
 
               {/* Status Stats Grid */}
-              <div className="grid grid-cols-2 md:grid-cols-4 gap-4 bg-velvet-400 border border-luxePink-500/10 p-5 rounded-xl">
+              <div className="grid grid-cols-2 md:grid-cols-5 gap-4 bg-velvet-400 border border-luxePink-500/10 p-5 rounded-xl">
                 {[
                   { label: "Confirmed", count: getFilteredOrders().filter(o => o.deliveryStatus === 'Order Confirmed').length, color: "text-purple-400" },
                   { label: "Processing", count: getFilteredOrders().filter(o => o.deliveryStatus === 'Processing').length, color: "text-orange-400" },
                   { label: "Shipped", count: getFilteredOrders().filter(o => o.deliveryStatus === 'Shipped').length, color: "text-cyan-400" },
-                  { label: "Delivered", count: getFilteredOrders().filter(o => o.deliveryStatus === 'Delivered').length, color: "text-green-400" }
+                  { label: "Delivered", count: getFilteredOrders().filter(o => o.deliveryStatus === 'Delivered').length, color: "text-green-400" },
+                  { label: "Cancelled", count: getFilteredOrders().filter(o => o.deliveryStatus === 'Cancelled').length, color: "text-red-400" }
                 ].map((item, idx) => (
                   <div key={idx} className="text-center p-3 bg-velvet-500/50 rounded-lg border border-[#2a2635]">
                     <span className="block text-[10px] font-bold text-gray-500 uppercase tracking-wider mb-1">{item.label}</span>
@@ -836,12 +849,18 @@ export default function AdminDashboard() {
                               dataKey="value"
                             >
                               {getStatusBreakdownData(getFilteredOrders()).map((entry, index) => (
-                                <Cell key={`cell-${index}`} fill={COLORS[index % COLORS.length]} />
+                                <Cell key={`cell-${index}`} fill={STATUS_COLORS[entry.name] || COLORS[index % COLORS.length]} />
                               ))}
                             </Pie>
                             <Tooltip 
-                              formatter={(value: any) => [`${value} Orders`, 'Count']} 
-                              contentStyle={{ backgroundColor: "#150421", border: "1px solid rgba(236,72,153,0.3)", borderRadius: "8px", color: "#ffffff", fontSize: "12px" }}
+                              formatter={(value: any, name: any) => [`${value} Orders`, name]} 
+                              contentStyle={{ 
+                                backgroundColor: "#150421", 
+                                border: "1px solid rgba(236,72,153,0.3)", 
+                                borderRadius: "8px", 
+                                fontSize: "12px" 
+                              }}
+                              itemStyle={{ color: "#ffffff" }}
                             />
                           </PieChart>
                         </ResponsiveContainer>
@@ -849,7 +868,7 @@ export default function AdminDashboard() {
                       <div className="flex flex-wrap justify-center gap-x-4 gap-y-2 mt-2 text-[11px] text-gray-400 font-semibold">
                         {getStatusBreakdownData(getFilteredOrders()).map((item, idx) => (
                           <div key={idx} className="flex items-center gap-1.5">
-                            <span className="w-2 h-2 rounded-full" style={{ backgroundColor: COLORS[idx % COLORS.length] }}></span>
+                            <span className="w-2 h-2 rounded-full" style={{ backgroundColor: STATUS_COLORS[item.name] || COLORS[idx % COLORS.length] }}></span>
                             <span>{item.name}: {item.value}</span>
                           </div>
                         ))}
@@ -948,6 +967,7 @@ export default function AdminDashboard() {
                               <option value="Processing">Processing</option>
                               <option value="Shipped">Shipped</option>
                               <option value="Delivered">Delivered</option>
+                              <option value="Cancelled">Cancelled</option>
                             </select>
                           </td>
                           <td className="px-6 py-4">{new Date(order.createdAt).toLocaleDateString()}</td>

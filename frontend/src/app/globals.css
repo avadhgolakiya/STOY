@@ -22,6 +22,23 @@
   --font-serif: "Playfair Display", serif;
   --font-cinzel: "Cinzel", serif;
   --font-sans: "Montserrat", sans-serif;
+
+  --animate-shimmer: shimmer 1.6s infinite linear;
+  --animate-fade-in-up: fade-in-up 0.4s ease-out both;
+  --animate-blink: blink 0.8s step-end infinite;
+
+  @keyframes shimmer {
+    0% { transform: translateX(-100%); }
+    100% { transform: translateX(100%); }
+  }
+  @keyframes fade-in-up {
+    0% { opacity: 0; transform: translateY(6px); }
+    100% { opacity: 1; transform: translateY(0); }
+  }
+  @keyframes blink {
+    from, to { background-color: transparent }
+    50% { background-color: #EC4899 }
+  }
 }
 
 @layer utilities {

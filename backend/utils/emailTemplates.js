@@ -229,6 +229,73 @@ function generateOrderStatusTemplate({ order, message }) {
 
   const activeIcon = stepIcons[stepIndex];
 
+  const isCancelled = deliveryStatus === 'Cancelled';
+  let progressSectionHtml = '';
+
+  if (isCancelled) {
+    progressSectionHtml = 
+      '<!-- Cancelled Status Callout -->\n' +
+      '<div class="cancelled-section" style="margin-bottom: 32px; text-align: left; background: rgba(239, 68, 68, 0.05); border: 1px solid rgba(239, 68, 68, 0.3); border-radius: 12px; padding: 18px 20px;">\n' +
+      '  <table border="0" cellpadding="0" cellspacing="0" width="100%">\n' +
+      '    <tr>\n' +
+      '      <td width="44" valign="middle">\n' +
+      '        <div style="width: 44px; height: 44px; background: linear-gradient(135deg, #dc2626, #ef4444); border-radius: 10px; text-align: center; line-height: 44px; font-size: 20px; color: #ffffff;">\n' +
+      '          ❌\n' +
+      '        </div>\n' +
+      '      </td>\n' +
+      '      <td style="padding-left: 14px;" valign="middle">\n' +
+      '        <div style="font-size: 16px; font-weight: 700; color: #ef4444; margin-bottom: 4px;">\n' +
+      '          Order Cancelled\n' +
+      '        </div>\n' +
+      '        <div style="font-size: 13px; color: #9ca3af; line-height: 1.5;">\n' +
+      '          ' + (message || 'This order has been cancelled.') + '\n' +
+      '        </div>\n' +
+      '      </td>\n' +
+      '    </tr>\n' +
+      '  </table>\n' +
+      '</div>';
+  } else {
+    progressSectionHtml = 
+      '<!-- Stepper Progress section -->\n' +
+      '<div class="progress-section" style="margin-bottom: 32px; text-align: left;">\n' +
+      '  <div class="section-label" style="font-size: 12px; text-transform: uppercase; letter-spacing: 1.2px; font-weight: 700; color: #ec4899; margin-bottom: 20px;">— Shipment progress</div>\n' +
+      '\n' +
+      '  <div class="stepper" style="position: relative; text-align: center; font-size: 0; padding: 0 10px;">\n' +
+      '    <!-- Track line -->\n' +
+      '    <div class="step-line-track" style="position: absolute; top: 20px; left: 30px; right: 30px; height: 3px; background: rgba(255, 255, 255, 0.08); z-index: 0;">\n' +
+      '      <table border="0" cellpadding="0" cellspacing="0" width="100%" height="100%">\n' +
+      '        <tr>\n' +
+      '          <td width="' + linePct + '" style="background: linear-gradient(90deg, #db2777, #ec4899); border-radius: 3px;"></td>\n' +
+      '          <td style="background: transparent;"></td>\n' +
+      '        </tr>\n' +
+      '      </table>\n' +
+      '    </div>\n' +
+      '    ' + stepperHtml + '\n' +
+      '  </div>\n' +
+      '\n' +
+      '  <!-- Active step callout -->\n' +
+      '  <div class="active-detail" style="margin-top: 24px; background: rgba(255, 255, 255, 0.03); border: 1px solid rgba(236, 72, 153, 0.25); border-radius: 12px; padding: 16px 20px; text-align: left;">\n' +
+      '    <table border="0" cellpadding="0" cellspacing="0" width="100%">\n' +
+      '      <tr>\n' +
+      '        <td width="44" valign="middle">\n' +
+      '          <div class="active-detail-icon" style="width: 44px; height: 44px; background: linear-gradient(135deg, #db2777, #ec4899); border-radius: 10px; text-align: center; line-height: 44px; font-size: 20px; color: #ffffff;">\n' +
+      '            ' + activeIcon + '\n' +
+      '          </div>\n' +
+      '        </td>\n' +
+      '        <td style="padding-left: 14px;" valign="middle">\n' +
+      '          <div style="font-size: 14px; font-weight: 700; color: #ffffff; margin-bottom: 3px;">\n' +
+      '            Status: ' + deliveryStatus + '\n' +
+      '          </div>\n' +
+      '          <div style="font-size: 12px; color: #9ca3af;">\n' +
+      '            ' + (message || 'Your order status has been updated to ' + deliveryStatus + '.') + '\n' +
+      '          </div>\n' +
+      '        </td>\n' +
+      '      </tr>\n' +
+      '    </table>\n' +
+      '  </div>\n' +
+      '</div>';
+  }
+
   // Parse items
   let itemsList = [];
   try {
@@ -302,44 +369,7 @@ function generateOrderStatusTemplate({ order, message }) {
         </table>
       </div>
 
-      <!-- Stepper Progress section -->
-      <div class="progress-section" style="margin-bottom: 32px; text-align: left;">
-        <div class="section-label" style="font-size: 12px; text-transform: uppercase; letter-spacing: 1.2px; font-weight: 700; color: #ec4899; margin-bottom: 20px;">— Shipment progress</div>
-
-        <div class="stepper" style="position: relative; text-align: center; font-size: 0; padding: 0 10px;">
-          <!-- Track line -->
-          <div class="step-line-track" style="position: absolute; top: 20px; left: 30px; right: 30px; height: 3px; background: rgba(255, 255, 255, 0.08); z-index: 0;">
-            <table border="0" cellpadding="0" cellspacing="0" width="100%" height="100%">
-              <tr>
-                <td width="${linePct}" style="background: linear-gradient(90deg, #db2777, #ec4899); border-radius: 3px;"></td>
-                <td style="background: transparent;"></td>
-              </tr>
-            </table>
-          </div>
-          ${stepperHtml}
-        </div>
-
-        <!-- Active step callout -->
-        <div class="active-detail" style="margin-top: 24px; background: rgba(255, 255, 255, 0.03); border: 1px solid rgba(236, 72, 153, 0.25); border-radius: 12px; padding: 16px 20px; text-align: left;">
-          <table border="0" cellpadding="0" cellspacing="0" width="100%">
-            <tr>
-              <td width="44" valign="middle">
-                <div class="active-detail-icon" style="width: 44px; height: 44px; background: linear-gradient(135deg, #db2777, #ec4899); border-radius: 10px; text-align: center; line-height: 44px; font-size: 20px; color: #ffffff;">
-                  ${activeIcon}
-                </div>
-              </td>
-              <td style="padding-left: 14px;" valign="middle">
-                <div style="font-size: 14px; font-weight: 700; color: #ffffff; margin-bottom: 3px;">
-                  Status: ${deliveryStatus}
-                </div>
-                <div style="font-size: 12px; color: #9ca3af;">
-                  ${message || `Your order status has been updated to ${deliveryStatus}.`}
-                </div>
-              </td>
-            </tr>
-          </table>
-        </div>
-      </div>
+      ${progressSectionHtml}
 
       <div class="divider" style="height: 1px; background: linear-gradient(90deg, transparent, rgba(236, 72, 153, 0.15), transparent); margin: 28px 0;"></div>
 

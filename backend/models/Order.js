@@ -11,7 +11,7 @@ const orderSchema = new mongoose.Schema(
     deliveryStatus: { 
       type: String, 
       default: 'Not Confirmed yet', 
-      enum: ['Not Confirmed yet', 'Order Confirmed', 'Processing', 'Shipped', 'Delivered'] 
+      enum: ['Not Confirmed yet', 'Order Confirmed', 'Processing', 'Shipped', 'Delivered', 'Cancelled'] 
     },
     razorpayOrderId: { type: String },
     razorpayPaymentId: { type: String },

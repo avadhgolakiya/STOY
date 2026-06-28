@@ -8,15 +8,14 @@ export default function MobileMenu() {
   return (
     <div
       id="mobile-menu"
-      className={`fixed inset-y-0 left-0 z-50 w-72 bg-velvet-300/98 backdrop-blur-xl transform ${
-        isMobileMenuOpen ? "translate-x-0" : "-translate-x-full"
-      } transition-transform duration-500 ease-out border-r border-luxePink-500/10 flex flex-col justify-between p-8`}
+      className={`fixed inset-y-0 left-0 z-50 w-72 bg-velvet-300/98 backdrop-blur-xl transform ${isMobileMenuOpen ? "translate-x-0" : "-translate-x-full"
+        } transition-transform duration-500 ease-out border-r border-luxePink-500/10 flex flex-col justify-between p-8`}
     >
       <div>
         <div className="flex justify-between items-center mb-12">
-          <img 
-            src="/logo.jpg" 
-            alt="adultDesire Logo" 
+          <img
+            src="/logo.png"
+            alt="adultDesire Logo"
             className="h-16 w-auto object-contain rounded-md"
           />
           <button

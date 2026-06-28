@@ -28,9 +28,9 @@ export default function Footer() {
         <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-12 mb-16">
           <div>
             <div className="mb-6">
-              <img 
-                src="/logo.jpg" 
-                alt="adultDesire Logo" 
+              <img
+                src="/logo.png"
+                alt="adultDesire Logo"
                 className="h-24 w-auto object-contain rounded-md"
               />
             </div>

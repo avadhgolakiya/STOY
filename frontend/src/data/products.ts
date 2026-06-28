@@ -103,18 +103,67 @@ export const products: Product[] = [
 
 export const heroSlides = [
     {
-        img: "https://images.unsplash.com/photo-1524805444758-089113d48a6d?auto=format&fit=crop&w=1800&q=80",
-        title: "The Sovereignty <br>Of <span class='text-gradient bg-gradient-to-r from-luxePink-500 via-fuchsia-400 to-pink-200 text-transparent bg-clip-text'>Velvet & Rose</span>",
-        desc: "Step inside the world's most luxurious catalog of limited horology, fine gems, and masterfully tailored leather pieces designed exclusively in deep shades of velvet purple and solid pink."
+        img: "/BANNER2.jpeg",
+        badge: "PREMIUM QUALITY • 100% SAFE • DISCREET",
+        badgeType: "pill",
+        title: "Discover Premium <br class=\"hidden sm:inline\" /><span class=\"text-luxePink-500 font-serif font-bold\">Adult Wellness</span> <br class=\"hidden sm:inline\" />Products",
+        titleClass: "font-serif text-white normal-case font-bold",
+        titleWords: [
+            { text: "Discover" },
+            { text: "Premium" },
+            { text: "\n", className: "basis-full h-0 hidden sm:block" },
+            { text: "Adult", className: "text-luxePink-500 font-serif font-bold" },
+            { text: "Wellness", className: "text-luxePink-500 font-serif font-bold" },
+            { text: "\n", className: "basis-full h-0 hidden sm:block" },
+            { text: "Products" }
+        ],
+        desc: "Safe, Discreet & High-Quality Intimate Products Delivered Across India.",
+        bgOpacity: "opacity-90",
+        bgPosition: "object-center sm:object-center",
+        buttons: [
+            {
+                text: "SHOP NOW",
+                link: "#new-arrivals",
+                primary: true,
+                showBagIcon: true
+            },
+            {
+                text: "EXPLORE COLLECTION",
+                link: "#brand-showcase",
+                primary: false
+            }
+        ]
     },
     {
-        img: "https://images.unsplash.com/photo-1515562141207-7a88fb7ce338?auto=format&fit=crop&w=1800&q=80",
-        title: "The Diamond Star <br><span class='text-gradient bg-gradient-to-r from-luxePink-500 via-fuchsia-400 to-pink-200 text-transparent bg-clip-text'>Heritage Jewelry</span>",
-        desc: "Every dynamic stone is curated and verified before placement. Browse through pure gold rings, heavy links, and precious certified gems."
-    },
-    {
-        img: "https://images.unsplash.com/photo-1584917865442-de89df76afd3?auto=format&fit=crop&w=1800&q=80",
-        title: "Gilded Velvet <br><span class='text-gradient bg-gradient-to-r from-luxePink-500 via-fuchsia-400 to-pink-200 text-transparent bg-clip-text'>Couture Carryalls</span>",
-        desc: "Experience handstitched premium calfskin bags embellished with pink-gold hardware and luxury velvet linings."
+        img: "/BANNER3.jpeg",
+        badge: "PREMIUM QUALITY • 100% SAFE • DISCREET",
+        badgeType: "pill",
+        title: "Discover Premium <br class=\"hidden sm:inline\" /><span class=\"text-luxePink-500 font-serif font-bold\">Adult Wellness</span> <br class=\"hidden sm:inline\" />Products",
+        titleClass: "font-serif text-white normal-case font-bold",
+        titleWords: [
+            { text: "Discover" },
+            { text: "Premium" },
+            { text: "\n", className: "basis-full h-0 hidden sm:block" },
+            { text: "Adult", className: "text-luxePink-500 font-serif font-bold" },
+            { text: "Wellness", className: "text-luxePink-500 font-serif font-bold" },
+            { text: "\n", className: "basis-full h-0 hidden sm:block" },
+            { text: "Products" }
+        ],
+        desc: "Safe, Discreet & High-Quality Intimate Products Delivered Across India.",
+        bgOpacity: "opacity-90",
+        bgPosition: "object-center sm:object-center",
+        buttons: [
+            {
+                text: "SHOP NOW",
+                link: "#new-arrivals",
+                primary: true,
+                showBagIcon: true
+            },
+            {
+                text: "EXPLORE COLLECTION",
+                link: "#brand-showcase",
+                primary: false
+            }
+        ]
     }
 ];

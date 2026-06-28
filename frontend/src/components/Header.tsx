@@ -36,9 +36,9 @@ export default function Header() {
 
           {/* Logo Section */}
           <div className="flex items-center cursor-pointer group" onClick={handleLogoClick}>
-            <img 
-              src="/logo.jpg" 
-              alt="adultDesire Logo" 
+            <img
+              src="/logo.png"
+              alt="adultDesire Logo"
               className="h-12 sm:h-20 w-auto object-contain transition duration-300 group-hover:scale-105 rounded-md"
             />
           </div>
