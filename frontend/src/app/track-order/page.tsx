@@ -68,6 +68,13 @@ function TrackerContent() {
       setLoading(false);
       return;
     }
+
+    // Client-side validation for MongoDB ObjectId format
+    if (!/^[0-9a-fA-F]{24}$/.test(searchId.trim())) {
+      setError("Invalid Order ID format. Please enter a valid 24-character ID (e.g., 667f5b2ac3d4e6f9a0123456).");
+      setLoading(false);
+      return;
+    }
     
     try {
       const res = await fetch(`${process.env.NEXT_PUBLIC_API_URL}/api/orders/track/${searchId.trim()}`, {
