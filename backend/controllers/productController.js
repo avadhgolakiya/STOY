@@ -1,5 +1,24 @@
 const Product = require('../models/Product');
 
+const sanitizeImageUrl = (url) => {
+  if (typeof url !== 'string') return url;
+  if (url.includes('https://res.cloudinary.com/')) {
+    const idx = url.indexOf('https://res.cloudinary.com/');
+    if (idx > 0) {
+      return url.substring(idx);
+    }
+  }
+  return url;
+};
+
+const sanitizeImages = (images) => {
+  if (!images) return images;
+  if (Array.isArray(images)) {
+    return images.map(sanitizeImageUrl);
+  }
+  return images;
+};
+
 // @desc    Fetch all products
 // @route   GET /api/products
 // @access  Public
@@ -42,8 +61,8 @@ exports.createProduct = async (req, res) => {
       originalPrice,
       discount,
       desc,
-      image,
-      additionalImages: additionalImages || [],
+      image: sanitizeImageUrl(image),
+      additionalImages: sanitizeImages(additionalImages) || [],
       tag,
       stock,
       size
@@ -59,6 +78,7 @@ exports.createProduct = async (req, res) => {
 // @desc    Update a product
 // @route   PUT /api/products/:id
 // @access  Private/Admin
+// exports.updateProduct = async (req, res) => {
 exports.updateProduct = async (req, res) => {
   try {
     const { title, category, price, originalPrice, discount, desc, image, additionalImages, tag, stock, size } = req.body;
@@ -72,9 +92,9 @@ exports.updateProduct = async (req, res) => {
       product.originalPrice = originalPrice !== undefined ? originalPrice : product.originalPrice;
       product.discount = discount !== undefined ? discount : product.discount;
       product.desc = desc || product.desc;
-      product.image = image || product.image;
+      product.image = image ? sanitizeImageUrl(image) : product.image;
       if (additionalImages !== undefined) {
-        product.additionalImages = additionalImages;
+        product.additionalImages = sanitizeImages(additionalImages);
       }
       product.tag = tag || product.tag;
       product.stock = stock !== undefined ? stock : product.stock;

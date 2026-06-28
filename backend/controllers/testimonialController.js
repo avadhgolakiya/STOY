@@ -1,5 +1,16 @@
 const Testimonial = require('../models/Testimonial');
 
+const sanitizeImageUrl = (url) => {
+  if (typeof url !== 'string') return url;
+  if (url.includes('https://res.cloudinary.com/')) {
+    const idx = url.indexOf('https://res.cloudinary.com/');
+    if (idx > 0) {
+      return url.substring(idx);
+    }
+  }
+  return url;
+};
+
 // Get all testimonials
 exports.getTestimonials = async (req, res) => {
   try {
@@ -20,7 +31,7 @@ exports.createTestimonial = async (req, res) => {
       role,
       quote,
       rating,
-      image,
+      image: sanitizeImageUrl(image),
     });
 
     const createdTestimonial = await testimonial.save();
