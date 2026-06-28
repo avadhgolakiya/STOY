@@ -14,6 +14,24 @@ const isVideoUrl = (url: string) => {
   return videoExtensions.test(url) || isCloudinaryVideo;
 };
 
+const formatCategoryLabel = (cat: string) => {
+  if (cat === "All") return "ALL PIECES";
+  if (cat === "Leather Goods") return "COUTURE BAGS";
+  
+  // Replace hyphens with spaces and capitalize each word
+  return cat
+    .replace(/-/g, ' ')
+    .split(' ')
+    .map(word => {
+      const lower = word.toLowerCase();
+      if (lower === 'sex') return 'Sex';
+      if (lower === 'doll') return 'Dolls';
+      if (lower === 'plug') return 'Plugs';
+      return word.charAt(0).toUpperCase() + word.slice(1).toLowerCase();
+    })
+    .join(' ');
+};
+
 function Shimmer({ className = "" }: { className?: string }) {
   return (
     <div
@@ -129,7 +147,7 @@ export default function ProductGrid() {
             </div>
 
             <div className="flex flex-col items-center xl:items-end w-full xl:w-auto">
-              <div className="flex flex-wrap justify-center xl:justify-end gap-2 sm:gap-3 text-[10px] uppercase tracking-[0.2em] sm:tracking-[0.25em] w-full">
+              <div className="flex flex-wrap justify-center xl:justify-end gap-2 sm:gap-3 text-[10px] uppercase tracking-widest w-full">
                 {categories.map((cat) => (
                   <button
                     key={cat}
@@ -137,26 +155,25 @@ export default function ProductGrid() {
                       setCurrentFilter(cat);
                       setCurrentSizeFilter("All Sizes");
                     }}
-                    style={{ fontSize: '10px !important' }}
-                    className={`px-4 py-2 sm:px-3 sm:py-3 rounded-full transition duration-300 font-semibold text-[10px] sm:text-xs ${currentFilter === cat
-                      ? "border border-luxePink-500 text-velvet-400 bg-luxePink-400 shadow-lg shadow-luxePink-500/10"
-                      : "border border-luxePink-500/20 text-luxePink-500 hover:border-luxePink-500 hover:bg-luxePink-500/10"
+                    className={`px-4 py-2 sm:px-5 sm:py-3 rounded-full transition-all duration-300 font-semibold text-[10px] sm:text-xs tracking-widest cursor-pointer ${currentFilter === cat
+                      ? "bg-gradient-to-r from-luxePink-500 to-fuchsia-600 text-white border border-transparent shadow-[0_0_15px_rgba(219,39,119,0.35)]"
+                      : "bg-velvet-300/40 border border-luxePink-500/10 text-gray-300 hover:text-luxePink-400 hover:border-luxePink-500/40 hover:bg-luxePink-500/5"
                       }`}
                   >
-                    {cat === "All" ? "ALL PIECES" : cat === "Leather Goods" ? "COUTURE BAGS" : cat}
+                    {formatCategoryLabel(cat)}
                   </button>
                 ))}
               </div>
 
               {currentFilter.toLowerCase() === 'dildo' && (
-                <div className="flex flex-wrap justify-center xl:justify-end gap-2 sm:gap-3 mt-4 text-[10px] uppercase tracking-[0.2em] sm:tracking-[0.25em] w-full">
+                <div className="flex flex-wrap justify-center xl:justify-end gap-2 sm:gap-3 mt-4 text-[9px] uppercase tracking-wider w-full">
                   {["All Sizes", "Small", "Medium", "Large"].map((size) => (
                     <button
                       key={size}
                       onClick={() => setCurrentSizeFilter(size)}
-                      className={`px-3 py-1.5 sm:px-4 sm:py-2 rounded-full transition duration-300 font-semibold text-[10px] sm:text-xs ${currentSizeFilter === size
-                        ? "border border-luxePink-500 text-velvet-400 bg-luxePink-400 shadow-lg shadow-luxePink-500/10"
-                        : "border border-luxePink-500/20 text-luxePink-500 hover:border-luxePink-500 hover:bg-luxePink-500/10"
+                      className={`px-3 py-1.5 sm:px-4 sm:py-2.5 rounded-full transition-all duration-300 font-semibold text-[9px] sm:text-[11px] tracking-wider cursor-pointer ${currentSizeFilter === size
+                        ? "bg-gradient-to-r from-luxePink-500 to-fuchsia-600 text-white border border-transparent shadow-[0_0_10px_rgba(219,39,119,0.2)]"
+                        : "bg-velvet-300/20 border border-luxePink-500/10 text-gray-400 hover:text-luxePink-400 hover:border-luxePink-500/40 hover:bg-luxePink-500/5"
                         }`}
                     >
                       {size}
